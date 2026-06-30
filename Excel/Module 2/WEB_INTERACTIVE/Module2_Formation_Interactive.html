@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Module 2 : Intermédiaire - Formation Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 96%;
+            max-width: 1800px;
+            height: 92vh;
+            background: #1a1a1a;
+            border: 4px solid #217346;
+            border-radius: 20px;
+            padding: 80px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 0 40px rgba(33, 115, 70, 0.3);
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide.theory {
+            border-color: #217346;
+        }
+
+        .slide.exercise {
+            border-color: #ffd700;
+        }
+
+        .slide.solution {
+            border-color: #00ff88;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #217346;
+            padding-bottom: 30px;
+        }
+
+        .slide-type-badge {
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .badge-theory {
+            background: #217346;
+            color: #000;
+        }
+
+        .badge-exercise {
+            background: #ffd700;
+            color: #000;
+        }
+
+        .badge-solution {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .slide-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 1.6em;
+            line-height: 1.6;
+        }
+
+        .subtitle {
+            font-size: 2.2em;
+            color: #217346;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .content-box {
+            background: rgba(33, 115, 70, 0.1);
+            border-left: 8px solid #217346;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .content-box h3 {
+            font-size: 1.9em;
+            color: #217346;
+            margin-bottom: 25px;
+        }
+
+        .content-box p, .content-box li {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .content-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-box li::before {
+            content: "▶ ";
+            color: #217346;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .exercise-instructions {
+            background: rgba(255, 215, 0, 0.15);
+            border-left: 8px solid #ffd700;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .exercise-instructions h3 {
+            font-size: 2.2em;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .exercise-instructions p {
+            font-size: 1.5em;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .exercise-steps {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .exercise-steps ol {
+            padding-left: 50px;
+        }
+
+        .exercise-steps li {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .solution-box {
+            background: rgba(0, 255, 136, 0.15);
+            border-left: 8px solid #00ff88;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .solution-box h3 {
+            font-size: 2.2em;
+            color: #00ff88;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .solution-steps {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .solution-steps ol {
+            padding-left: 50px;
+        }
+
+        .solution-steps li {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .solution-steps code {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #00ff88;
+        }
+
+        .highlight {
+            background: rgba(33, 115, 70, 0.3);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: #8FD9A8;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #217346;
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(33, 115, 70, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #185C37;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(33, 115, 70, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .show-solution-btn {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .show-solution-btn:hover {
+            background: #00e677;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #217346;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            border: 2px solid #217346;
+            z-index: 1000;
+        }
+
+        .module-title {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #217346;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-size: 24px;
+            font-weight: 600;
+            border: 2px solid #217346;
+            z-index: 1000;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+
+        .icon-large {
+            font-size: 4em;
+            margin: 30px 0;
+        }
+
+        .duration-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.5em;
+            color: #ffd700;
+            margin: 20px 0;
+        }
+
+        .visual-description {
+            background: rgba(255, 255, 255, 0.08);
+            border-left: 4px solid #ffffff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 1.3em;
+            color: #cccccc;
+        }
+
+        .visual-description::before {
+            content: "👁️ À l'écran Excel, vous verrez : ";
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-style: normal;
+            color: #ffffff;
+        }
+
+        .why-box {
+            background: rgba(156, 39, 176, 0.15);
+            border-left: 6px solid #9c27b0;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .why-box h4 {
+            font-size: 1.4em;
+            color: #ce93d8;
+            margin-bottom: 15px;
+        }
+
+        .why-box p {
+            font-size: 1.3em;
+            color: #ffffff;
+            line-height: 1.7;
+        }
+
+        /* Optimisation pour résolution 1920x1080 - Tailles par défaut optimisées */
+        /* Les tailles de base sont déjà optimisées pour 1920x1080 */
+        
+        /* Pour écrans plus petits que 1920px */
+        @media (max-width: 1919px) {
+            .slide-title {
+                font-size: 3.2em;
+            }
+            .subtitle {
+                font-size: 2em;
+            }
+            .slide-content {
+                font-size: 1.4em;
+            }
+            .content-box h3 {
+                font-size: 1.7em;
+            }
+            .content-box p, .content-box li {
+                font-size: 1.3em;
+            }
+            .exercise-instructions h3 {
+                font-size: 2em;
+            }
+            .exercise-instructions p {
+                font-size: 1.4em;
+            }
+            .exercise-steps li {
+                font-size: 1.3em;
+            }
+            .solution-box h3 {
+                font-size: 2em;
+            }
+            .solution-steps li {
+                font-size: 1.3em;
+            }
+            .visual-description {
+                font-size: 1.2em;
+            }
+            .why-box h4 {
+                font-size: 1.3em;
+            }
+            .why-box p {
+                font-size: 1.2em;
+            }
+            .nav-btn {
+                font-size: 22px;
+                padding: 14px 28px;
+            }
+            .show-solution-btn {
+                font-size: 22px;
+                padding: 14px 28px;
+            }
+            .slide-indicator {
+                font-size: 26px;
+                padding: 14px 28px;
+            }
+            .module-title {
+                font-size: 22px;
+                padding: 14px 28px;
+            }
+        }
+        
+        /* Pour écrans plus grands que 1920px */
+        @media (min-width: 1921px) {
+            .slide-title {
+                font-size: 3.8em;
+            }
+            .subtitle {
+                font-size: 2.4em;
+            }
+            .slide-content {
+                font-size: 1.7em;
+            }
+        }
+
+        /* --- Visuels enrichis (adaptés thème sombre) --- */
+        .functions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .function-card {
+            background: rgba(33, 115, 70, 0.12);
+            border: 2px solid #217346;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .function-card .function-icon {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .function-card .function-name {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #217346;
+            margin-bottom: 10px;
+        }
+
+        .function-card .function-desc {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .function-card .function-usage {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #00ff88;
+        }
+
+        .formula-examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .formula-example {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #217346;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .formula-example .formula-code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #00ff88;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .formula-example .formula-desc {
+            font-size: 1em;
+            color: #ccc;
+        }
+
+        .pivot-structure {
+            display: grid;
+            grid-template-areas:
+                ". . cols"
+                "rows data data"
+                "rows totals grand";
+            grid-template-columns: 90px 1fr 1fr;
+            grid-template-rows: 55px 1fr 45px;
+            gap: 3px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 480px;
+            margin: 25px auto;
+            min-height: 200px;
+        }
+
+        .pivot-cols {
+            grid-area: cols;
+            background: #ffc107;
+            color: #212529;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75em;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .pivot-rows {
+            grid-area: rows;
+            background: #28a745;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75em;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            padding: 8px;
+        }
+
+        .pivot-data {
+            grid-area: data;
+            background: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .pivot-totals {
+            grid-area: totals;
+            background: #6c757d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .pivot-grand {
+            grid-area: grand;
+            background: #dc3545;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .comparison-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #217346;
+        }
+
+        .comparison-item.positive {
+            border-left-color: #00ff88;
+        }
+
+        .comparison-item h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #217346;
+        }
+
+        .comparison-item.positive h4 {
+            color: #00ff88;
+        }
+
+        .comparison-item p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        .field-zones {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .field-zone {
+            background: rgba(33, 115, 70, 0.1);
+            border: 2px solid #217346;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+        }
+
+        .field-zone-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #217346;
+            margin-bottom: 12px;
+        }
+
+        .field-zone-desc {
+            font-size: 0.85em;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .tcd-showcase {
+            background: rgba(33, 115, 70, 0.08);
+            border: 2px solid #217346;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .tcd-showcase-title {
+            color: #217346;
+            font-weight: 700;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tcd-two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .tcd-source-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .tcd-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+
+        .tcd-table th {
+            background: #217346;
+            color: #000;
+            padding: 12px 8px;
+            font-weight: 700;
+            text-align: center;
+            border: 1px solid #4A9D6F;
+        }
+
+        .tcd-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #444;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tcd-table .tcd-row-total {
+            background: rgba(0, 255, 136, 0.25);
+            color: #00ff88;
+            font-weight: 700;
+        }
+
+        .tcd-table .tcd-grand-row td {
+            background: rgba(33, 115, 70, 0.35);
+            color: #217346;
+            font-weight: 700;
+        }
+
+        .tcd-config-note {
+            text-align: center;
+            color: #ffd700;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        .criteria-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .criteria-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #217346;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .criteria-box h4 {
+            color: #217346;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin-bottom: 15px;
+        }
+
+        .criteria-cell {
+            background: rgba(33, 115, 70, 0.15);
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 0.9em;
+            border: 1px solid #444;
+        }
+
+        .criteria-cell.header {
+            background: #217346;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .criteria-result {
+            text-align: center;
+            font-size: 0.95em;
+            color: #ffd700;
+            font-style: italic;
+        }
+
+        @media (max-width: 1919px) {
+            .functions-grid { grid-template-columns: repeat(3, 1fr); }
+            .formula-examples { grid-template-columns: 1fr; }
+            .field-zones { grid-template-columns: repeat(2, 1fr); }
+            .tcd-two-cols { grid-template-columns: 1fr; }
+            .criteria-showcase { grid-template-columns: 1fr; }
+        }
+
+        /* Grille cellules (rappel des bases) */
+        .cell-grid-wrapper {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .cell-grid {
+            border-collapse: collapse;
+            font-size: 1em;
+        }
+
+        .cell-grid .corner {
+            width: 40px;
+            height: 40px;
+            background: #333;
+        }
+
+        .cell-grid .col-header {
+            background: #217346;
+            color: #000;
+            font-weight: 700;
+            text-align: center;
+            width: 70px;
+            height: 40px;
+            border: 1px solid #4A9D6F;
+        }
+
+        .cell-grid .row-header {
+            background: #217346;
+            color: #000;
+            font-weight: 700;
+            text-align: center;
+            width: 40px;
+            height: 50px;
+            border: 1px solid #4A9D6F;
+        }
+
+        .cell-grid .cell {
+            width: 70px;
+            height: 50px;
+            border: 1px solid #555;
+            background: rgba(255, 255, 255, 0.06);
+            text-align: center;
+        }
+
+        .cell-grid .cell-yellow { background: #ffd700; }
+        .cell-grid .cell-green  { background: #00ff88; }
+        .cell-grid .cell-blue   { background: #4fc3f7; }
+        .cell-grid .cell-red    { background: #ff5252; }
+
+        .cell-answers {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 30px 40px;
+            min-width: 320px;
+        }
+
+        .cell-answers h4 {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .cell-answer-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .cell-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .cell-dot-yellow { background: #ffd700; }
+        .cell-dot-green  { background: #00ff88; }
+        .cell-dot-blue   { background: #4fc3f7; }
+        .cell-dot-red    { background: #ff5252; }
+
+        .cell-blank {
+            display: inline-block;
+            width: 60px;
+            border-bottom: 2px solid #ffd700;
+            margin-left: 5px;
+        }
+
+        .ref-examples {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .ref-example {
+            background: rgba(33, 115, 70, 0.15);
+            border: 2px solid #217346;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4em;
+            color: #00ff88;
+            font-weight: 700;
+        }
+
+        .ref-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .ref-type-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #555;
+        }
+
+        .ref-type-card.relative { border-color: #4fc3f7; }
+        .ref-type-card.absolute { border-color: #ffd700; }
+
+        .ref-type-card h4 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .ref-type-card.relative h4 { color: #4fc3f7; }
+        .ref-type-card.absolute h4 { color: #ffd700; }
+
+        .ref-type-card p {
+            font-size: 1.15em;
+            color: #ddd;
+            line-height: 1.7;
+        }
+
+        .dollar-syntax-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .dollar-syntax-item {
+            background: rgba(0, 0, 0, 0.35);
+            border-left: 5px solid #217346;
+            padding: 18px 22px;
+            border-radius: 8px;
+        }
+
+        .dollar-syntax-item code {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #00ff88;
+            font-weight: 700;
+        }
+
+        .dollar-syntax-item span {
+            display: block;
+            font-size: 0.95em;
+            color: #ccc;
+            margin-top: 8px;
+        }
+
+        .mult-table-showcase {
+            background: rgba(33, 115, 70, 0.08);
+            border: 2px solid #217346;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .mult-table-showcase h4 {
+            color: #217346;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .mult-table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 0.95em;
+        }
+
+        .mult-table th, .mult-table td {
+            width: 55px;
+            height: 45px;
+            text-align: center;
+            border: 1px solid #555;
+        }
+
+        .mult-table .corner { background: #333; }
+        .mult-table .col-h { background: #217346; color: #000; font-weight: 700; }
+        .mult-table .row-h { background: #217346; color: #000; font-weight: 700; }
+        .mult-table .result { background: rgba(255, 255, 255, 0.08); color: #fff; }
+        .mult-table .formula-cell {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+<body>
+    <div class="module-title">📊 Excel Module 2 : Intermédiaire</div>
+    <div class="slide-indicator">
+        <span id="slideCounter">1 / 19</span>
+    </div>
+
+    <div class="presentation-container">
+        
+        <!-- ============================================ -->
+        <!-- SECTION 0 : RÉFÉRENCES RELATIVES ET ABSOLUES -->
+        <!-- ============================================ -->
+
+        <!-- Slide 0.1 : Théorie - Adresses relatives vs absolues -->
+        <div class="slide active theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Références relatives et absolues</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Comprendre le comportement des adresses</div>
+                <div class="ref-type-grid">
+                    <div class="ref-type-card relative">
+                        <h4>🔄 Adresse relative</h4>
+                        <p>La référence <strong>change automatiquement</strong> quand vous copiez ou déplacez la formule.<br><br>
+                        Ex. : <code>=A1</code> copié vers la droite devient <code>=B1</code>, vers le bas <code>=A2</code>.</p>
+                    </div>
+                    <div class="ref-type-card absolute">
+                        <h4>📌 Adresse absolue</h4>
+                        <p>La référence <strong>reste fixe</strong>, même quand vous copiez ou déplacez la formule.<br><br>
+                        On utilise le symbole <strong>$</strong> pour figer une colonne, une ligne, ou les deux.</p>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>💲 Syntaxes possibles avec le symbole $</h3>
+                    <div class="dollar-syntax-grid">
+                        <div class="dollar-syntax-item">
+                            <code>$A$1</code>
+                            <span>Référence <strong>complètement fixe</strong> — ni la colonne ni la ligne ne changent</span>
+                        </div>
+                        <div class="dollar-syntax-item">
+                            <code>$A1</code>
+                            <span><strong>Colonne fixe</strong>, ligne variable — la colonne A reste, la ligne s'adapte</span>
+                        </div>
+                        <div class="dollar-syntax-item">
+                            <code>A$1</code>
+                            <span><strong>Ligne fixe</strong>, colonne variable — la ligne 1 reste, la colonne s'adapte</span>
+                        </div>
+                        <div class="dollar-syntax-item">
+                            <code>A1</code>
+                            <span>Référence <strong>entièrement relative</strong> — colonne et ligne changent toutes les deux</span>
+                        </div>
+                    </div>
+                    <div class="visual-description">
+                        Appuyez sur <strong>F4</strong> dans la barre de formule pour basculer entre relative, absolue et mixte ($A1, A$1, $A$1) sans taper le $ manuellement.
+                    </div>
+                </div>
+                <div class="mult-table-showcase">
+                    <h4>📊 Exemple : une table de multiplication dynamique</h4>
+                    <p style="text-align: center; margin-bottom: 15px; font-size: 1.1em;">Formule en B2 : <code style="color: #00ff88;">=$A2*B$1</code> — puis copier sur toute la grille</p>
+                    <table class="mult-table">
+                        <tr>
+                            <td class="corner">×</td>
+                            <td class="col-h">1</td>
+                            <td class="col-h">2</td>
+                            <td class="col-h">3</td>
+                            <td class="col-h">4</td>
+                        </tr>
+                        <tr>
+                            <td class="row-h">1</td>
+                            <td class="result">1</td>
+                            <td class="result">2</td>
+                            <td class="result">3</td>
+                            <td class="result">4</td>
+                        </tr>
+                        <tr>
+                            <td class="row-h">2</td>
+                            <td class="result">2</td>
+                            <td class="result">4</td>
+                            <td class="result">6</td>
+                            <td class="result">8</td>
+                        </tr>
+                        <tr>
+                            <td class="row-h">3</td>
+                            <td class="result">3</td>
+                            <td class="result">6</td>
+                            <td class="result">9</td>
+                            <td class="result">12</td>
+                        </tr>
+                    </table>
+                    <p style="text-align: center; margin-top: 15px; font-size: 1em; color: #ccc;">
+                        <strong>$A2</strong> : colonne A figée (le multiplicateur de ligne) &nbsp;|&nbsp;
+                        <strong>B$1</strong> : ligne 1 figée (le multiplicateur de colonne)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 0.2 : Exercice - Table de multiplication -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">Table de multiplication</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Créer une table de multiplication dynamique</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 10 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Préparez les en-têtes</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En <strong>B1:F1</strong>, saisissez les chiffres <strong>1, 2, 3, 4, 5</strong> (multiplicateurs de colonnes)</li>
+                                    <li>En <strong>A2:A6</strong>, saisissez les chiffres <strong>1, 2, 3, 4, 5</strong> (multiplicateurs de lignes)</li>
+                                    <li>En A1, laissez vide ou tapez « × »</li>
+                                </ul>
+                            </li>
+                            <li><strong>Écrivez la formule maîtresse en B2</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Tapez : <code>=$A2*B$1</code></li>
+                                    <li><code>$A2</code> → colonne A figée (prend 1, 2, 3… selon la ligne)</li>
+                                    <li><code>B$1</code> → ligne 1 figée (prend 1, 2, 3… selon la colonne)</li>
+                                    <li>Utilisez <strong>F4</strong> pour ajouter les $ si besoin</li>
+                                </ul>
+                            </li>
+                            <li><strong>Copiez la formule sur toute la grille</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez B2, copiez (Ctrl+C)</li>
+                                    <li>Sélectionnez la plage <strong>B2:F6</strong>, collez (Ctrl+V)</li>
+                                    <li>Ou utilisez la poignée de recopie (petit carré en bas à droite de la cellule)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Vérifiez les résultats</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C4 doit afficher <strong>6</strong> (3 × 2)</li>
+                                    <li>F5 doit afficher <strong>20</strong> (4 × 5)</li>
+                                    <li>F6 doit afficher <strong>25</strong> (5 × 5)</li>
+                                    <li>Cliquez sur différentes cellules et observez comment les références s'adaptent dans la barre de formule</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(0)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 0.3 : Solution - Table de multiplication -->
+        <div class="slide solution" id="solution-0" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Table de multiplication 5 × 5</h3>
+                    <div class="mult-table-showcase" style="border-color: #00ff88;">
+                        <table class="mult-table">
+                            <tr>
+                                <td class="corner">×</td>
+                                <td class="col-h">1</td>
+                                <td class="col-h">2</td>
+                                <td class="col-h">3</td>
+                                <td class="col-h">4</td>
+                                <td class="col-h">5</td>
+                            </tr>
+                            <tr>
+                                <td class="row-h">1</td>
+                                <td class="result">1</td>
+                                <td class="result">2</td>
+                                <td class="result">3</td>
+                                <td class="result">4</td>
+                                <td class="result">5</td>
+                            </tr>
+                            <tr>
+                                <td class="row-h">2</td>
+                                <td class="result">2</td>
+                                <td class="result">4</td>
+                                <td class="result">6</td>
+                                <td class="result">8</td>
+                                <td class="result">10</td>
+                            </tr>
+                            <tr>
+                                <td class="row-h">3</td>
+                                <td class="result">3</td>
+                                <td class="result">6</td>
+                                <td class="result">9</td>
+                                <td class="result">12</td>
+                                <td class="result">15</td>
+                            </tr>
+                            <tr>
+                                <td class="row-h">4</td>
+                                <td class="result">4</td>
+                                <td class="result">8</td>
+                                <td class="result">12</td>
+                                <td class="result">16</td>
+                                <td class="result">20</td>
+                            </tr>
+                            <tr>
+                                <td class="row-h">5</td>
+                                <td class="result">5</td>
+                                <td class="result">10</td>
+                                <td class="result">15</td>
+                                <td class="result">20</td>
+                                <td class="result">25</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Formule en B2</strong> : <code>=$A2*B$1</code>
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En C2, Excel affiche <code>=$A2*C$1</code> — colonne du haut qui avance, ligne 1 toujours figée</li>
+                                    <li>En B3, Excel affiche <code>=$A3*B$1</code> — ligne de gauche qui avance, colonne A toujours figée</li>
+                                    <li>En D4, Excel affiche <code>=$A4*D$1</code> → 3 × 4 = <strong>12</strong> ✓</li>
+                                    <li>En C4, Excel affiche <code>=$A4*C$1</code> → 3 × 2 = <strong>6</strong> ✓</li>
+                                    <li>En F5, Excel affiche <code>=$A5*F$1</code> → 4 × 5 = <strong>20</strong> ✓</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pourquoi ça marche ?</strong>
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li><code>$A2</code> : référence mixte <strong>$A1</strong> (colonne A figée, ligne relative) → le multiplicateur de ligne vient toujours de la colonne A</li>
+                                    <li><code>B$1</code> : référence mixte <strong>A$1</strong> (ligne 1 figée, colonne relative) → le multiplicateur de colonne vient toujours de la ligne 1</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 25px; font-size: 1.3em; text-align: center; color: #00ff88;">
+                        💡 C'est le principe clé derrière Autofill, SOMME et tous les tableaux calculés du module !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 1 : FORMULES AVANCÉES -->
+        <!-- ============================================ -->
+
+        <!-- Slide 1.1 : Théorie - Fonctions essentielles -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Formules Avancées</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Fonctions essentielles</div>
+                <div class="content-box">
+                    <h3>📊 Les fonctions les plus utilisées</h3>
+                    <ul>
+                        <li><strong>SOMME</strong> : <code>=SOMME(A1:A10)</code> - Additionne une plage de cellules</li>
+                        <li><strong>MOYENNE</strong> : <code>=MOYENNE(A1:A10)</code> - Calcule la moyenne</li>
+                        <li><strong>MAX</strong> : <code>=MAX(A1:A10)</code> - Trouve la valeur maximale</li>
+                        <li><strong>MIN</strong> : <code>=MIN(A1:A10)</code> - Trouve la valeur minimale</li>
+                        <li><strong>SI</strong> : <code>=SI(condition; "vrai"; "faux")</code> - Teste une condition</li>
+                        <li><strong>RECHERCHEV</strong> : <code>=RECHERCHEV(valeur; tableau; colonne; 0)</code> - Recherche une valeur dans un tableau</li>
+                    </ul>
+                    <div class="visual-description">
+                        Quand vous tapez =SOMME( dans une cellule, Excel vous propose automatiquement d'insérer la fonction. Vous pouvez aussi utiliser l'Assistant Fonction (fx) à gauche de la barre de formule pour choisir une fonction dans une liste.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>💡 Syntaxe des fonctions</h3>
+                    <ul>
+                        <li>Toutes les fonctions commencent par <code>=</code></li>
+                        <li>Le nom de la fonction en MAJUSCULES (Excel accepte aussi les minuscules)</li>
+                        <li>Les arguments entre parenthèses, séparés par des points-virgules <code>;</code></li>
+                        <li>Exemple : <code>=SOMME(A1:A10)</code> signifie "additionne les cellules de A1 à A10"</li>
+                    </ul>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Pourquoi utiliser des fonctions plutôt que des calculs manuels ?</h4>
+                    <p>Les fonctions Excel sont beaucoup plus puissantes que les calculs simples. Elles permettent de traiter des centaines de cellules en une seule formule, de faire des calculs conditionnels, et de mettre à jour automatiquement les résultats quand les données changent.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.2 : Théorie - Fonction SI -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">La fonction SI</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Faire des calculs conditionnels</div>
+                <div class="content-box">
+                    <h3>🔀 Comment fonctionne SI</h3>
+                    <p>La fonction SI permet de faire des actions différentes selon qu'une condition est vraie ou fausse.</p>
+                    <ul>
+                        <li><strong>Syntaxe</strong> : <code>=SI(condition; "si vrai"; "si faux")</code></li>
+                        <li><strong>Condition</strong> : Une comparaison (ex: A1>10, B2="Oui")</li>
+                        <li><strong>Si vrai</strong> : Ce qui se passe si la condition est vraie</li>
+                        <li><strong>Si faux</strong> : Ce qui se passe si la condition est fausse</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>📋 Exemples concrets</h3>
+                    <ul>
+                        <li><code>=SI(A1>10; "Grand"; "Petit")</code> : Si A1 est supérieur à 10, affiche "Grand", sinon "Petit"</li>
+                        <li><code>=SI(B2="Oui"; 100; 0)</code> : Si B2 contient "Oui", affiche 100, sinon 0</li>
+                        <li><code>=SI(C3>=50; "Réussi"; "Échec")</code> : Si C3 est supérieur ou égal à 50, affiche "Réussi", sinon "Échec"</li>
+                    </ul>
+                    <div class="visual-description">
+                        Quand vous tapez =SI( dans Excel, une bulle d'aide apparaît pour vous guider : elle vous montre où mettre la condition, la valeur si vrai, et la valeur si faux. Les couleurs dans la formule correspondent aux cellules sélectionnées.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🔗 SI imbriqués</h3>
+                    <p>Vous pouvez mettre une fonction SI dans une autre fonction SI pour gérer plusieurs conditions :</p>
+                    <ul>
+                        <li><code>=SI(A1>10; "Grand"; SI(A1>5; "Moyen"; "Petit"))</code></li>
+                        <li>Cela signifie : Si A1>10 → "Grand", sinon si A1>5 → "Moyen", sinon → "Petit"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.2b : Théorie - ET, OU et SIERREUR -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">ET, OU et SIERREUR</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Combiner plusieurs conditions</div>
+                <div class="functions-grid">
+                    <div class="function-card">
+                        <span class="function-icon">✅</span>
+                        <div class="function-name">ET</div>
+                        <div class="function-desc">Toutes les conditions doivent être vraies</div>
+                        <div class="function-usage">=ET(A1&gt;10; B1&lt;20)</div>
+                    </div>
+                    <div class="function-card">
+                        <span class="function-icon">🔀</span>
+                        <div class="function-name">OU</div>
+                        <div class="function-desc">Au moins une condition vraie</div>
+                        <div class="function-usage">=OU(C1="A"; C1="B")</div>
+                    </div>
+                    <div class="function-card">
+                        <span class="function-icon">🛡️</span>
+                        <div class="function-name">SIERREUR</div>
+                        <div class="function-desc">Affiche un texte si erreur</div>
+                        <div class="function-usage">=SIERREUR(A1/B1;"N/A")</div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Exemples pratiques avec SI</h3>
+                    <div class="formula-examples">
+                        <div class="formula-example">
+                            <div class="formula-code">=SI(ET(B2&gt;=18; C2="Oui"); "Éligible"; "Non éligible")</div>
+                            <div class="formula-desc">Éligible seulement si âge ≥ 18 ET accord = Oui</div>
+                        </div>
+                        <div class="formula-example">
+                            <div class="formula-code">=SI(OU(E2="Urgent"; F2&gt;1000); "Priorité haute"; "Normal")</div>
+                            <div class="formula-desc">Priorité haute si urgent OU montant &gt; 1000€</div>
+                        </div>
+                        <div class="formula-example">
+                            <div class="formula-code">=SIERREUR(RECHERCHEV(A2;A1:C10;3;0); "Introuvable")</div>
+                            <div class="formula-desc">RECHERCHEV sans message d'erreur #N/A</div>
+                        </div>
+                        <div class="formula-example">
+                            <div class="formula-code">=SI(D2="A"; 10%; SI(D2="B"; 7,5%; 5%))</div>
+                            <div class="formula-desc">Remise selon catégorie client (SI imbriqués)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Quand utiliser ET vs OU ?</h4>
+                    <p><strong>ET</strong> = « et aussi » (toutes les conditions) — ex. majeur ET autorisé.<br>
+                    <strong>OU</strong> = « ou bien » (au moins une) — ex. urgent OU montant élevé.<br>
+                    Combinez-les dans SI pour des règles métier réalistes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.3 : Théorie - RECHERCHEV -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">RECHERCHEV</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Rechercher des données dans un tableau</div>
+                <div class="content-box">
+                    <h3>🔍 À quoi sert RECHERCHEV ?</h3>
+                    <p>RECHERCHEV permet de chercher une valeur dans la première colonne d'un tableau et de retourner une valeur correspondante dans une autre colonne.</p>
+                    <div class="visual-description">
+                        Imaginez un tableau avec des noms de produits en colonne A et leurs prix en colonne B. RECHERCHEV vous permet de trouver automatiquement le prix d'un produit en tapant son nom.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>📋 Syntaxe de RECHERCHEV</h3>
+                    <ul>
+                        <li><strong>Syntaxe</strong> : <code>=RECHERCHEV(valeur_recherchée; tableau; numéro_colonne; 0)</code></li>
+                        <li><strong>valeur_recherchée</strong> : Ce que vous cherchez (ex: "Produit A" ou référence de cellule)</li>
+                        <li><strong>tableau</strong> : La plage de cellules où chercher (ex: A1:B100)</li>
+                        <li><strong>numéro_colonne</strong> : Le numéro de la colonne à retourner (1 pour la première colonne, 2 pour la deuxième, etc.)</li>
+                        <li><strong>0</strong> : Signifie "recherche exacte" (toujours mettre 0 pour une recherche précise)</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>💡 Exemple pratique</h3>
+                    <p>Tableau en A1:B5 :</p>
+                    <ul>
+                        <li>A1="Produit A", B1=10</li>
+                        <li>A2="Produit B", B2=20</li>
+                        <li>A3="Produit C", B3=30</li>
+                    </ul>
+                    <p>Formule : <code>=RECHERCHEV("Produit B"; A1:B5; 2; 0)</code></p>
+                    <p>Résultat : 20 (le prix du Produit B)</p>
+                    <div class="visual-description">
+                        Dans Excel, quand vous tapez =RECHERCHEV(, Excel vous guide étape par étape. Vous pouvez aussi utiliser l'Assistant Fonction (fx) qui vous aide à remplir chaque argument avec des explications.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🛡️ Sécuriser avec SIERREUR</h3>
+                    <p>Si la valeur n'existe pas, RECHERCHEV affiche <code>#N/A</code>. Enveloppez-la :</p>
+                    <p><code>=SIERREUR(RECHERCHEV("Produit X"; A1:B5; 2; 0); "Non trouvé")</code></p>
+                    <p>Résultat : « Non trouvé » au lieu d'une erreur — idéal pour les tableaux de bord.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.3b : Théorie - Texte et dates -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Texte et dates</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">CONCATENER, GAUCHE/CHERCHE et DATEDIF</div>
+                <div class="functions-grid">
+                    <div class="function-card">
+                        <span class="function-icon">🔗</span>
+                        <div class="function-name">CONCATENER</div>
+                        <div class="function-desc">Assemble plusieurs textes en un seul</div>
+                        <div class="function-usage">=CONCATENER(A1;" ";B1)</div>
+                    </div>
+                    <div class="function-card">
+                        <span class="function-icon">✂️</span>
+                        <div class="function-name">GAUCHE / CHERCHE</div>
+                        <div class="function-desc">Extraire une partie d'un texte</div>
+                        <div class="function-usage">=GAUCHE(E2;CHERCHE("@";E2)-1)</div>
+                    </div>
+                    <div class="function-card">
+                        <span class="function-icon">📅</span>
+                        <div class="function-name">DATEDIF</div>
+                        <div class="function-desc">Différence entre deux dates</div>
+                        <div class="function-usage">=DATEDIF(F2;AUJOURDHUI();"Y")</div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>📝 Exemples pratiques</h3>
+                    <div class="formula-examples">
+                        <div class="formula-example">
+                            <div class="formula-code">=CONCATENER(A2;" ";B2;" - ";C2)</div>
+                            <div class="formula-desc">Nom complet : <strong>« Martin Dupont - Directeur »</strong><br><small>A2=Prénom, B2=Nom, C2=Poste — le <code>"; "</code> ajoute un espace entre les mots</small></div>
+                        </div>
+                        <div class="formula-example">
+                            <div class="formula-code">=GAUCHE(E2;CHERCHE("@";E2)-1)</div>
+                            <div class="formula-desc">Extraire le nom utilisateur d'un email<br><small>E2=<code>martin.dupont@chc.be</code> → résultat : <strong>martin.dupont</strong></small></div>
+                        </div>
+                        <div class="formula-example">
+                            <div class="formula-code">=DATEDIF(F2;AUJOURDHUI();"Y")&amp;" ans"</div>
+                            <div class="formula-desc">Calcul d'âge en années complètes<br><small>F2=date de naissance — le <code>&amp;</code> ajoute le texte « ans » au résultat</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <h4>💡 À retenir</h4>
+                    <p><strong>CONCATENER</strong> : idéal pour créer des libellés (nom + prénom, adresse…).<br>
+                    <strong>GAUCHE + CHERCHE</strong> : CHERCHE trouve la position du « @ », GAUCHE extrait tout ce qui est avant.<br>
+                    <strong>DATEDIF</strong> : « Y » = années, « M » = mois, « D » = jours. La date de début doit être antérieure à la date de fin.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.4 : Exercice - Formules avancées -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Créer un tableau avec formules avancées</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 20 minutes</span></p>
+                    <div class="exercise-steps">
+                        <p style="font-size: 1.2em; color: #ffd700; margin-bottom: 15px;"><strong>Partie 1 — Ventes et calculs</strong></p>
+                        <ol>
+                            <li><strong>Créez un tableau de ventes</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonne A : Noms des produits (5 produits)</li>
+                                    <li>Colonne B : Quantités vendues (nombres entre 10 et 100)</li>
+                                    <li>Colonne C : Prix unitaire (nombres entre 5 et 50)</li>
+                                    <li>Colonne D : Total (formule = B2*C2, puis Autofill)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ajoutez des calculs statistiques</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En dessous du tableau, calculez la SOMME de la colonne D</li>
+                                    <li>Calculez la MOYENNE des quantités vendues (colonne B)</li>
+                                    <li>Trouvez le MAX et le MIN des totaux (colonne D)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Utilisez la fonction SI</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Créez une colonne E "Statut"</li>
+                                    <li>Si le total (colonne D) est supérieur à 500, affichez "Excellent", sinon "Bon"</li>
+                                    <li>Utilisez la formule : <code>=SI(D2>500; "Excellent"; "Bon")</code></li>
+                                    <li>Copiez la formule avec Autofill</li>
+                                </ul>
+                            </li>
+                            <li><strong>Testez RECHERCHEV</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Créez une zone de recherche en bas du tableau</li>
+                                    <li>Dans une cellule, tapez le nom d'un produit</li>
+                                    <li>À côté, utilisez RECHERCHEV pour trouver son prix unitaire</li>
+                                    <li>Formule : <code>=RECHERCHEV("nom_du_produit"; A2:C6; 3; 0)</code></li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p style="font-size: 1.2em; color: #ffd700; margin: 30px 0 15px;"><strong>Partie 2 — Texte et dates (tableau employés)</strong></p>
+                        <ol start="5">
+                            <li><strong>Créez un tableau RH</strong> (à partir de la ligne 15 ou sur une nouvelle feuille) :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonne A : Prénom (ex. Martin)</li>
+                                    <li>Colonne B : Nom (ex. Dupont)</li>
+                                    <li>Colonne C : Poste (ex. Directeur)</li>
+                                    <li>Colonne D : Email (ex. martin.dupont@chc.be)</li>
+                                    <li>Colonne E : Date de naissance (format date, ex. 15/03/1985)</li>
+                                    <li>Remplissez au moins 3 lignes d'employés</li>
+                                </ul>
+                            </li>
+                            <li><strong>Nom complet avec CONCATENER</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonne F « Nom complet »</li>
+                                    <li>Formule : <code>=CONCATENER(A16;" ";B16;" - ";C16)</code></li>
+                                    <li>Résultat attendu : <strong>Martin Dupont - Directeur</strong></li>
+                                    <li>Copiez avec Autofill sur toutes les lignes</li>
+                                </ul>
+                            </li>
+                            <li><strong>Identifiant email avec GAUCHE et CHERCHE</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonne G « Identifiant »</li>
+                                    <li>Formule : <code>=GAUCHE(D16;CHERCHE("@";D16)-1)</code></li>
+                                    <li>Résultat attendu pour martin.dupont@chc.be : <strong>martin.dupont</strong></li>
+                                </ul>
+                            </li>
+                            <li><strong>Âge avec DATEDIF</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonne H « Âge »</li>
+                                    <li>Formule : <code>=DATEDIF(E16;AUJOURDHUI();"Y")&amp;" ans"</code></li>
+                                    <li>Résultat attendu : nombre d'années + « ans » (ex. <strong>41 ans</strong>)</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 1.5 : Solution - Formules avancées -->
+        <div class="slide solution" id="solution-1" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Création du tableau</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Ligne 1 : En-têtes (A1="Produit", B1="Quantité", C1="Prix", D1="Total")</li>
+                                    <li>Lignes 2-6 : Remplissez avec 5 produits et leurs données</li>
+                                    <li>Colonne D : En D2, tapez <code>=B2*C2</code> puis Entrée</li>
+                                    <li>Utilisez Autofill pour copier jusqu'à D6</li>
+                                </ul>
+                            </li>
+                            <li><strong>Calculs statistiques</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>SOMME : <code>=SOMME(D2:D6)</code> (par exemple en D8)</li>
+                                    <li>MOYENNE : <code>=MOYENNE(B2:B6)</code> (par exemple en B8)</li>
+                                    <li>MAX : <code>=MAX(D2:D6)</code> (par exemple en D9)</li>
+                                    <li>MIN : <code>=MIN(D2:D6)</code> (par exemple en D10)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fonction SI</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En E1, tapez "Statut"</li>
+                                    <li>En E2, tapez <code>=SI(D2>500; "Excellent"; "Bon")</code></li>
+                                    <li>Vérifiez le résultat : si D2 est >500, vous verrez "Excellent", sinon "Bon"</li>
+                                    <li>Utilisez Autofill pour copier jusqu'à E6</li>
+                                    <li>Observez comment le statut change selon le total de chaque ligne</li>
+                                </ul>
+                            </li>
+                            <li><strong>RECHERCHEV</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Par exemple en A12, tapez le nom d'un produit (ex: "Produit B")</li>
+                                    <li>En B12, tapez <code>=RECHERCHEV(A12; A2:C6; 3; 0)</code></li>
+                                    <li>Le résultat affiche le prix unitaire du produit recherché</li>
+                                    <li>Changez le nom en A12 pour tester avec d'autres produits</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tableau employés — CONCATENER</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En-têtes ligne 15 : A=Prénom, B=Nom, C=Poste, D=Email, E=Date naissance, F=Nom complet, G=Identifiant, H=Âge</li>
+                                    <li>Ligne 16 : Martin | Dupont | Directeur | martin.dupont@chc.be | 15/03/1985</li>
+                                    <li>En F16 : <code>=CONCATENER(A16;" ";B16;" - ";C16)</code> → <strong>Martin Dupont - Directeur</strong></li>
+                                    <li>Autofill F16 vers le bas pour les autres employés</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tableau employés — GAUCHE / CHERCHE</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En G16 : <code>=GAUCHE(D16;CHERCHE("@";D16)-1)</code></li>
+                                    <li>CHERCHE("@";D16) trouve la position du @ → GAUCHE extrait le texte avant → <strong>martin.dupont</strong></li>
+                                </ul>
+                            </li>
+                            <li><strong>Tableau employés — DATEDIF</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>En H16 : <code>=DATEDIF(E16;AUJOURDHUI();"Y")&amp;" ans"</code></li>
+                                    <li>DATEDIF calcule les années complètes entre la date de naissance et aujourd'hui</li>
+                                    <li>Le <code>&amp;" ans"</code> concatène le mot « ans » au chiffre (ex. <strong>41 ans</strong>)</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : Les fonctions Excel sont très puissantes. Une fois maîtrisées, elles vous font gagner énormément de temps dans vos calculs quotidiens !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 2 : GESTION DES DONNÉES -->
+        <!-- ============================================ -->
+
+        <!-- Slide 2.1 : Théorie - Trier des données -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Gestion des données</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Trier des données</div>
+                <div class="content-box">
+                    <h3>🔄 Comment trier un tableau</h3>
+                    <ul>
+                        <li><strong>Méthode 1 - Tri rapide</strong> :
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Sélectionnez une cellule dans la colonne à trier</li>
+                                <li>Onglet <strong>Données</strong> → Bouton <strong>Trier de A à Z</strong> (croissant) ou <strong>Z à A</strong> (décroissant)</li>
+                                <li>Excel trie automatiquement tout le tableau en gardant les lignes ensemble</li>
+                            </ul>
+                        </li>
+                        <li><strong>Méthode 2 - Tri personnalisé</strong> :
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Sélectionnez tout le tableau (avec les en-têtes)</li>
+                                <li>Données → <strong>Trier</strong></li>
+                                <li>Choisissez la colonne principale de tri</li>
+                                <li>Vous pouvez ajouter des niveaux de tri supplémentaires</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="visual-description">
+                        Quand vous triez, Excel vous demande si votre tableau a des en-têtes. Répondez "Oui" pour que la première ligne ne soit pas triée avec les données. Les lignes restent groupées : si vous triez par nom, toutes les colonnes de chaque ligne suivent le tri.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>⚠️ Points importants</h3>
+                    <ul>
+                        <li>Toujours sélectionner tout le tableau avant de trier (ou au moins une cellule dedans)</li>
+                        <li>Excel garde les lignes ensemble automatiquement</li>
+                        <li>Vous pouvez trier par plusieurs colonnes (ex: d'abord par département, puis par nom)</li>
+                        <li>Les formules s'adaptent automatiquement après le tri</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2.2 : Théorie - Filtrer des données -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Filtrer des données</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Afficher seulement ce qui vous intéresse</div>
+                <div class="content-box">
+                    <h3>🔍 Qu'est-ce qu'un filtre ?</h3>
+                    <p>Un filtre permet d'afficher seulement certaines lignes de votre tableau selon des critères que vous définissez. Les autres lignes sont masquées (mais pas supprimées).</p>
+                    <div class="visual-description">
+                        Quand vous activez le filtre, de petites flèches apparaissent dans les en-têtes de colonnes. En cliquant sur ces flèches, vous pouvez choisir quelles valeurs afficher ou masquer.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>📋 Comment activer le filtre</h3>
+                    <ul>
+                        <li>Sélectionnez votre tableau (avec les en-têtes)</li>
+                        <li>Onglet <strong>Données</strong> → Bouton <strong>Filtre</strong></li>
+                        <li>Des flèches apparaissent dans les en-têtes</li>
+                        <li>Cliquez sur une flèche pour voir les options de filtre</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Types de filtres</h3>
+                    <ul>
+                        <li><strong>Filtre par valeur</strong> : Cochez/décochez les valeurs à afficher</li>
+                        <li><strong>Filtre numérique</strong> : "Supérieur à", "Inférieur à", "Entre", etc.</li>
+                        <li><strong>Filtre texte</strong> : "Contient", "Commence par", "Se termine par", etc.</li>
+                        <li><strong>Filtre par date</strong> : "Aujourd'hui", "Cette semaine", "Ce mois", etc.</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>❌ Désactiver le filtre</h3>
+                    <ul>
+                        <li>Pour enlever le filtre : Données → <strong>Filtre</strong> (cliquez à nouveau)</li>
+                        <li>Pour effacer les filtres sans désactiver : Données → <strong>Effacer</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2.3 : Exercice - Tri et filtre -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Pratiquer le tri et le filtre</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 15 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Créez un tableau de données</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonnes : Nom, Département, Salaire, Date d'embauche</li>
+                                    <li>Remplissez avec au moins 10 lignes de données</li>
+                                </ul>
+                            </li>
+                            <li><strong>Testez le tri</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Triez par nom (A à Z)</li>
+                                    <li>Triez par salaire (décroissant, Z à A)</li>
+                                    <li>Faites un tri personnalisé : d'abord par département, puis par nom</li>
+                                </ul>
+                            </li>
+                            <li><strong>Activez le filtre</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Activez le filtre sur votre tableau</li>
+                                    <li>Filtrez pour afficher seulement un département spécifique</li>
+                                    <li>Filtrez les salaires supérieurs à une certaine valeur</li>
+                                    <li>Combinez les filtres (département ET salaire)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Testez différents types de filtres</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Filtre "Contient" sur la colonne Nom</li>
+                                    <li>Filtre "Entre" sur la colonne Salaire</li>
+                                    <li>Observez comment les numéros de lignes deviennent bleus quand un filtre est actif</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 2.4 : Solution - Tri et filtre -->
+        <div class="slide solution" id="solution-2" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Création du tableau</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Ligne 1 : En-têtes (A1="Nom", B1="Département", C1="Salaire", D1="Date")</li>
+                                    <li>Remplissez les lignes 2 à 11 avec des données variées</li>
+                                    <li>Assurez-vous d'avoir plusieurs départements différents</li>
+                                    <li>Utilisez des salaires variés (ex: entre 2000 et 5000)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tri simple</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Cliquez sur une cellule de la colonne Nom</li>
+                                    <li>Données → Trier de A à Z</li>
+                                    <li>Observez : tout le tableau est trié, les lignes restent groupées</li>
+                                    <li>Pour trier par salaire décroissant : cliquez sur une cellule de la colonne Salaire → Données → Trier de Z à A</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tri personnalisé</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez tout le tableau (A1:D11)</li>
+                                    <li>Données → Trier</li>
+                                    <li>Dans "Trier par", choisissez "Département"</li>
+                                    <li>Cliquez sur "Ajouter un niveau"</li>
+                                    <li>Dans le deuxième niveau, choisissez "Nom"</li>
+                                    <li>Cliquez OK : le tableau est trié d'abord par département, puis par nom</li>
+                                </ul>
+                            </li>
+                            <li><strong>Activation du filtre</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez le tableau (A1:D11)</li>
+                                    <li>Données → Filtre</li>
+                                    <li>Des flèches apparaissent dans les en-têtes</li>
+                                </ul>
+                            </li>
+                            <li><strong>Filtrage</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Cliquez sur la flèche de "Département"</li>
+                                    <li>Décochez "Sélectionner tout"</li>
+                                    <li>Cochez seulement un département (ex: "Ventes")</li>
+                                    <li>Cliquez OK : seules les lignes de ce département s'affichent</li>
+                                    <li>Pour filtrer par salaire : flèche "Salaire" → Filtres numériques → Supérieur à → tapez une valeur</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : Le tri et le filtre sont très utiles pour analyser rapidement de grandes quantités de données. Les filtres sont particulièrement pratiques pour créer des vues différentes du même tableau sans modifier les données originales.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 3 : TABLEAUX CROISÉS DYNAMIQUES -->
+        <!-- ============================================ -->
+
+        <!-- Slide 3.1 : Théorie - Introduction aux TCD -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Tableaux Croisés Dynamiques</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Qu'est-ce qu'un TCD ?</div>
+                <div class="content-box">
+                    <h3>📊 Définition</h3>
+                    <p>Un Tableau Croisé Dynamique (TCD) est un outil puissant qui permet de <span class="highlight">résumer et analyser</span> rapidement de grandes quantités de données.</p>
+                    <div class="visual-description">
+                        Un TCD transforme un tableau de données brutes en un tableau résumé qui montre des totaux, moyennes, comptages, etc., organisés selon les critères que vous choisissez. C'est comme créer automatiquement un tableau de synthèse.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 À quoi ça sert ?</h3>
+                    <ul>
+                        <li>Résumer des données complexes en quelques clics</li>
+                        <li>Analyser des ventes par région, par produit, par période</li>
+                        <li>Calculer des totaux, moyennes, comptages automatiquement</li>
+                        <li>Créer des rapports dynamiques qui se mettent à jour</li>
+                        <li>Comparer des données selon différents critères</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>💡 Exemple concret</h3>
+                    <p>Vous avez un tableau avec 1000 lignes de ventes (produit, région, date, montant).</p>
+                    <p>Avec un TCD, vous pouvez créer en 2 minutes un tableau qui montre :</p>
+                    <ul>
+                        <li>Le total des ventes par région</li>
+                        <li>Le total par produit</li>
+                        <li>La moyenne par mois</li>
+                        <li>Ou tout cela combiné !</li>
+                    </ul>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Pourquoi utiliser un TCD ?</h4>
+                    <p>Au lieu de créer manuellement des formules complexes pour résumer vos données, un TCD le fait automatiquement. C'est beaucoup plus rapide et moins sujet aux erreurs. De plus, si vos données changent, il suffit d'actualiser le TCD pour avoir les nouveaux résultats.</p>
+                </div>
+                <div class="content-box">
+                    <h3>📈 Structure d'un Tableau Croisé Dynamique</h3>
+                    <div class="pivot-structure">
+                        <div class="pivot-cols">COLONNES<br><small>(Mois, Années…)</small></div>
+                        <div class="pivot-rows">LIGNES<br><small>(Produits, Régions…)</small></div>
+                        <div class="pivot-data">VALEURS<br><small>(Sommes, Moyennes…)</small></div>
+                        <div class="pivot-totals">Totaux lignes</div>
+                        <div class="pivot-grand">Total général</div>
+                    </div>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <h4>📋 Analyse manuelle</h4>
+                        <p>❌ Formules complexes<br>❌ Mise à jour fastidieuse<br>❌ Risque d'erreurs<br>❌ Difficile à modifier</p>
+                    </div>
+                    <div class="comparison-item positive">
+                        <h4>🚀 Tableau Croisé Dynamique</h4>
+                        <p>✅ Création en quelques clics<br>✅ Actualisation en 1 clic<br>✅ Calculs fiables<br>✅ Modification intuitive</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.2 : Théorie - Créer un TCD -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Créer un TCD</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Étapes de création</div>
+                <div class="content-box">
+                    <h3>📋 Les étapes essentielles</h3>
+                    <ol style="list-style: decimal; padding-left: 30px;">
+                        <li><strong>Préparer vos données</strong> :
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Votre tableau doit avoir des en-têtes de colonnes</li>
+                                <li>Pas de lignes vides dans les données</li>
+                                <li>Chaque colonne doit avoir un type de données cohérent</li>
+                            </ul>
+                        </li>
+                        <li><strong>Insérer le TCD</strong> :
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Sélectionnez une cellule dans votre tableau de données</li>
+                                <li>Onglet <strong>Insertion</strong> → Bouton <strong>Tableau croisé dynamique</strong></li>
+                                <li>Excel détecte automatiquement votre tableau</li>
+                                <li>Choisissez où placer le TCD (nouvelle feuille ou emplacement existant)</li>
+                                <li>Cliquez OK</li>
+                            </ul>
+                        </li>
+                        <li><strong>Construire le TCD</strong> :
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Un panneau apparaît à droite avec la liste de vos colonnes</li>
+                                <li><strong>Lignes</strong> : Glissez les champs que vous voulez voir en lignes</li>
+                                <li><strong>Colonnes</strong> : Glissez les champs pour les colonnes</li>
+                                <li><strong>Valeurs</strong> : Glissez les champs numériques à calculer</li>
+                                <li><strong>Filtres</strong> : Glissez les champs pour filtrer</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="visual-description">
+                        Quand vous créez un TCD, Excel ouvre un panneau à droite avec tous vos champs (colonnes). Vous glissez-déposez ces champs dans les zones "Lignes", "Colonnes", "Valeurs" et "Filtres". Le TCD se construit en temps réel devant vos yeux.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🔄 Actualiser un TCD</h3>
+                    <ul>
+                        <li>Si vos données sources changent, le TCD ne se met pas à jour automatiquement</li>
+                        <li>Pour actualiser : Clic droit sur le TCD → <strong>Actualiser</strong></li>
+                        <li>Ou : Onglet <strong>Analyser</strong> (qui apparaît quand le TCD est sélectionné) → <strong>Actualiser</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.2b : Théorie - Zones et exemple concret -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Les 4 zones du TCD</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Comprendre le constructeur</div>
+                <div class="field-zones">
+                    <div class="field-zone">
+                        <div class="field-zone-title">🔍 FILTRES</div>
+                        <div class="field-zone-desc">Filtrent tout le TCD<br>Ex. : Année, Région<br>Au-dessus du tableau</div>
+                    </div>
+                    <div class="field-zone">
+                        <div class="field-zone-title">📋 LIGNES</div>
+                        <div class="field-zone-desc">Catégories verticales<br>Ex. : Produits, Vendeurs<br>Côté gauche</div>
+                    </div>
+                    <div class="field-zone">
+                        <div class="field-zone-title">📊 COLONNES</div>
+                        <div class="field-zone-desc">Catégories horizontales<br>Ex. : Mois, Trimestres<br>En haut</div>
+                    </div>
+                    <div class="field-zone">
+                        <div class="field-zone-title">💰 VALEURS</div>
+                        <div class="field-zone-desc">Données à calculer<br>Ex. : Ventes, Quantités<br>Centre du tableau</div>
+                    </div>
+                </div>
+                <div class="tcd-showcase">
+                    <div class="tcd-showcase-title">📊 Exemple : Ventes par Vendeur et Mois</div>
+                    <div class="tcd-two-cols">
+                        <div>
+                            <h4 style="color: #217346; margin-bottom: 12px; font-size: 1.2em;">📋 Données sources</h4>
+                            <div class="tcd-source-box">
+                                Vendeur | Mois | Ventes<br>
+                                Martin | Jan | 15 000€<br>
+                                Martin | Fév | 18 000€<br>
+                                Martin | Mar | 20 000€<br>
+                                Dupont | Jan | 12 000€<br>
+                                Dupont | Fév | 16 000€<br>
+                                Dupont | Mar | 14 000€
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="color: #217346; margin-bottom: 12px; font-size: 1.2em;">📊 TCD résultant</h4>
+                            <table class="tcd-table">
+                                <thead>
+                                    <tr>
+                                        <th>Vendeur</th>
+                                        <th>Jan</th>
+                                        <th>Fév</th>
+                                        <th>Mar</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Martin</strong></td>
+                                        <td>15 000€</td>
+                                        <td>18 000€</td>
+                                        <td>20 000€</td>
+                                        <td class="tcd-row-total">53 000€</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dupont</strong></td>
+                                        <td>12 000€</td>
+                                        <td>16 000€</td>
+                                        <td>14 000€</td>
+                                        <td class="tcd-row-total">42 000€</td>
+                                    </tr>
+                                    <tr class="tcd-grand-row">
+                                        <td><strong>Total général</strong></td>
+                                        <td>27 000€</td>
+                                        <td>34 000€</td>
+                                        <td>34 000€</td>
+                                        <td>95 000€</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tcd-config-note">🎯 Lignes = Vendeur | Colonnes = Mois | Valeurs = Somme des Ventes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.3 : Exercice - Créer un TCD -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Créer votre premier TCD</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 20 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Préparez un tableau de données</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Créez un tableau avec : Produit, Région, Mois, Quantité vendue</li>
+                                    <li>Remplissez avec au moins 20 lignes de données</li>
+                                    <li>Utilisez 3-4 produits différents, 2-3 régions, plusieurs mois</li>
+                                </ul>
+                            </li>
+                            <li><strong>Créez le TCD</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez une cellule dans votre tableau</li>
+                                    <li>Insertion → Tableau croisé dynamique</li>
+                                    <li>Choisissez "Nouvelle feuille"</li>
+                                    <li>Cliquez OK</li>
+                                </ul>
+                            </li>
+                            <li><strong>Construisez le TCD</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Dans le panneau à droite, glissez "Région" dans Lignes</li>
+                                    <li>Glissez "Produit" dans Colonnes</li>
+                                    <li>Glissez "Quantité vendue" dans Valeurs</li>
+                                    <li>Observez le tableau qui se crée automatiquement</li>
+                                </ul>
+                            </li>
+                            <li><strong>Expérimentez</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Changez l'ordre : mettez "Produit" en Lignes et "Région" en Colonnes</li>
+                                    <li>Ajoutez "Mois" dans Filtres et testez le filtre</li>
+                                    <li>Modifiez le calcul : double-cliquez sur "Somme de Quantité" → changez en "Moyenne"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Bonus magique</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Une fois le TDC en place et configuré</li>
+                                    <li>Allez dans l'onglet "Insertion" et cliquez sur "Segment"</li>
+                                    <li>Voilà de quoi faire une belle présentation dynamique en live lors d'une réunion !</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 3.4 : Solution - TCD -->
+        <div class="slide solution" id="solution-3" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Préparation des données</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Créez un tableau avec en-têtes : A1="Produit", B1="Région", C1="Mois", D1="Quantité"</li>
+                                    <li>Remplissez les lignes 2 à 21 avec des données variées</li>
+                                    <li>Exemple : Produit A, Région Nord, Janvier, 100</li>
+                                    <li>Assurez-vous d'avoir plusieurs combinaisons différentes</li>
+                                </ul>
+                            </li>
+                            <li><strong>Insertion du TCD</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Cliquez sur une cellule de votre tableau (ex: A5)</li>
+                                    <li>Onglet <strong>Insertion</strong> → Bouton <strong>Tableau croisé dynamique</strong></li>
+                                    <li>Dans la fenêtre, Excel a détecté votre tableau (ex: Feuil1!$A$1:$D$21)</li>
+                                    <li>Cochez "Nouvelle feuille de calcul"</li>
+                                    <li>Cliquez OK</li>
+                                    <li>Une nouvelle feuille s'ouvre avec le panneau de création du TCD</li>
+                                </ul>
+                            </li>
+                            <li><strong>Construction du TCD</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>À droite, vous voyez la liste de vos champs (Produit, Région, Mois, Quantité)</li>
+                                    <li>Glissez "Région" dans la zone "Lignes" (en bas à gauche)</li>
+                                    <li>Glissez "Produit" dans la zone "Colonnes"</li>
+                                    <li>Glissez "Quantité vendue" dans la zone "Valeurs"</li>
+                                    <li>Le TCD apparaît immédiatement : il montre les totaux par région et par produit</li>
+                                </ul>
+                            </li>
+                            <li><strong>Modifications</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Pour changer l'ordre : glissez "Produit" de Colonnes vers Lignes</li>
+                                    <li>Pour ajouter un filtre : glissez "Mois" dans Filtres</li>
+                                    <li>Un filtre apparaît en haut du TCD</li>
+                                    <li>Pour changer le calcul : double-cliquez sur "Somme de Quantité" dans Valeurs</li>
+                                    <li>Choisissez "Moyenne" ou "Nombre" dans la liste</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : Les TCD sont très flexibles. N'hésitez pas à expérimenter en déplaçant les champs. Vous pouvez toujours revenir en arrière ou créer un nouveau TCD si besoin. C'est l'outil idéal pour analyser rapidement de grandes quantités de données !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 4 : MISE EN FORME CONDITIONNELLE AVANCÉE -->
+        <!-- ============================================ -->
+
+        <!-- Slide 4.1 : Théorie - Mise en forme conditionnelle -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Mise en forme conditionnelle</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Mettre en évidence automatiquement</div>
+                <div class="content-box">
+                    <h3>🎨 Qu'est-ce que c'est ?</h3>
+                    <p>La mise en forme conditionnelle permet de <span class="highlight">appliquer automatiquement</span> des couleurs, styles ou formats à des cellules selon des règles que vous définissez.</p>
+                    <div class="visual-description">
+                        Par exemple, vous pouvez faire en sorte que toutes les cellules avec une valeur supérieure à 100 soient automatiquement colorées en vert, ou que les valeurs les plus élevées apparaissent en gras. Excel applique ces règles automatiquement et les met à jour si les données changent.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>📋 Types de règles courantes</h3>
+                    <ul>
+                        <li><strong>Mettre en forme les cellules qui contiennent</strong> : Valeur supérieure/inférieure à, égale à, contient du texte spécifique</li>
+                        <li><strong>Mettre en forme les valeurs les plus élevées/faibles</strong> : Top 10, Top 10%, valeurs les plus basses</li>
+                        <li><strong>Barres de données</strong> : Barres colorées proportionnelles aux valeurs</li>
+                        <li><strong>Nuances de couleurs</strong> : Dégradé de couleurs selon les valeurs</li>
+                        <li><strong>Jeux d'icônes</strong> : Flèches, feux tricolores, étoiles selon les valeurs</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🔧 Comment appliquer</h3>
+                    <ul>
+                        <li>Sélectionnez les cellules à formater</li>
+                        <li>Onglet <strong>Accueil</strong> → <strong>Mise en forme conditionnelle</strong></li>
+                        <li>Choisissez le type de règle</li>
+                        <li>Configurez les paramètres</li>
+                        <li>Choisissez le format (couleur, style, etc.)</li>
+                        <li>Cliquez OK</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4.2 : Théorie - Règles avancées -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Règles avancées</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Créer des règles personnalisées</div>
+                <div class="content-box">
+                    <h3>📊 Barres de données</h3>
+                    <ul>
+                        <li>Ajoutent des barres horizontales dans les cellules</li>
+                        <li>La longueur de la barre est proportionnelle à la valeur</li>
+                        <li>Très visuel pour comparer rapidement des valeurs</li>
+                        <li>Accueil → Mise en forme conditionnelle → Barres de données</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🌈 Nuances de couleurs</h3>
+                    <ul>
+                        <li>Applique un dégradé de couleurs selon les valeurs</li>
+                        <li>Les valeurs élevées = une couleur, les faibles = une autre couleur</li>
+                        <li>Parfait pour identifier rapidement les tendances</li>
+                        <li>Accueil → Mise en forme conditionnelle → Nuances de couleurs</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Jeux d'icônes</h3>
+                    <ul>
+                        <li>Ajoute des icônes (flèches, feux, étoiles) selon les valeurs</li>
+                        <li>Exemple : flèche verte vers le haut pour les valeurs élevées</li>
+                        <li>Très utile pour les tableaux de bord</li>
+                        <li>Accueil → Mise en forme conditionnelle → Jeux d'icônes</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>⚙️ Gérer les règles</h3>
+                    <ul>
+                        <li>Pour voir toutes vos règles : Accueil → Mise en forme conditionnelle → Gérer les règles</li>
+                        <li>Vous pouvez modifier, supprimer ou changer l'ordre des règles</li>
+                        <li>L'ordre est important : la première règle qui correspond est appliquée</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4.3 : Exercice - Mise en forme conditionnelle -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Appliquer la mise en forme conditionnelle</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 15 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Créez un tableau de résultats</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Colonnes : Nom, Note (sur 20), Statut</li>
+                                    <li>Remplissez avec au moins 10 lignes</li>
+                                    <li>Notes entre 0 et 20</li>
+                                </ul>
+                            </li>
+                            <li><strong>Règle simple</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez la colonne "Note"</li>
+                                    <li>Appliquez une règle : notes >= 10 en vert, notes < 10 en rouge</li>
+                                    <li>Utilisez : Mise en forme conditionnelle → Mettre en forme les cellules qui contiennent</li>
+                                </ul>
+                            </li>
+                            <li><strong>Barres de données</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sur la colonne Note, ajoutez des barres de données</li>
+                                    <li>Observez comment les barres permettent de comparer visuellement</li>
+                                </ul>
+                            </li>
+                            <li><strong>Top 3</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Créez une nouvelle règle : mettre en forme les 3 meilleures notes</li>
+                                    <li>Utilisez : Mise en forme conditionnelle → Valeurs les plus élevées</li>
+                                    <li>Choisissez "Top 3" et une couleur distinctive</li>
+                                </ul>
+                            </li>
+                            <li><strong>Jeux d'icônes</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sur une autre colonne numérique, ajoutez des jeux d'icônes</li>
+                                    <li>Testez différents styles (flèches, feux tricolores)</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(4)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 4.4 : Solution - Mise en forme conditionnelle -->
+        <div class="slide solution" id="solution-4" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Création du tableau</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Ligne 1 : En-têtes (A1="Nom", B1="Note", C1="Statut")</li>
+                                    <li>Remplissez les lignes 2 à 11 avec des noms et des notes variées</li>
+                                </ul>
+                            </li>
+                            <li><strong>Règle conditionnelle simple</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez la colonne B (Notes), de B2 à B11</li>
+                                    <li>Accueil → Mise en forme conditionnelle → Mettre en forme les cellules qui contiennent</li>
+                                    <li>Dans "Format uniquement les cellules avec" : choisissez "Valeur de cellule"</li>
+                                    <li>Choisissez "supérieure ou égale à" et tapez 10</li>
+                                    <li>Cliquez sur "Format" → onglet Remplissage → choisissez vert</li>
+                                    <li>Cliquez OK deux fois</li>
+                                    <li>Répétez pour les notes < 10 avec la couleur rouge</li>
+                                </ul>
+                            </li>
+                            <li><strong>Barres de données</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez à nouveau B2:B11</li>
+                                    <li>Accueil → Mise en forme conditionnelle → Barres de données</li>
+                                    <li>Choisissez un style (ex: Barres de données dégradées bleues)</li>
+                                    <li>Les barres apparaissent : plus la note est élevée, plus la barre est longue</li>
+                                </ul>
+                            </li>
+                            <li><strong>Top 3</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Sélectionnez B2:B11</li>
+                                    <li>Mise en forme conditionnelle → Valeurs les plus élevées</li>
+                                    <li>Dans "Format uniquement les valeurs les plus élevées", changez "10" en "3"</li>
+                                    <li>Cliquez Format → choisissez une couleur (ex: jaune ou orange)</li>
+                                    <li>Cliquez OK : les 3 meilleures notes sont maintenant mises en évidence</li>
+                                </ul>
+                            </li>
+                            <li><strong>Jeux d'icônes</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Créez une nouvelle colonne avec des valeurs numériques</li>
+                                    <li>Sélectionnez cette colonne</li>
+                                    <li>Mise en forme conditionnelle → Jeux d'icônes</li>
+                                    <li>Choisissez un style (ex: 3 flèches de direction)</li>
+                                    <li>Les icônes apparaissent : flèche verte pour les valeurs élevées, rouge pour les faibles</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : La mise en forme conditionnelle rend vos tableaux beaucoup plus lisibles et permet d'identifier rapidement les informations importantes. C'est particulièrement utile pour les tableaux de bord et les rapports.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide Final : Récapitulatif -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">🎓 Récapitulatif</div>
+                <div class="slide-title">Module 2 terminé !</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">Félicitations ! 🎉</div>
+                <div class="content-box" style="text-align: center;">
+                    <h3>✅ Ce que vous avez appris</h3>
+                    <ul style="text-align: left; max-width: 1000px; margin: 0 auto;">
+                        <li>Maîtriser les références relatives et absolues ($A$1, $A1, A$1)</li>
+                        <li>Utiliser des fonctions avancées (SI, ET, OU, SIERREUR, RECHERCHEV, CONCATENER, GAUCHE, DATEDIF…)</li>
+                        <li>Trier et filtrer efficacement vos données</li>
+                        <li>Créer et lire des Tableaux Croisés Dynamiques (4 zones, exemples concrets)</li>
+                        <li>Appliquer la mise en forme conditionnelle pour mettre en évidence automatiquement</li>
+                    </ul>
+                </div>
+                <div style="margin-top: 50px; font-size: 2em; color: #217346;">
+                    Vous maîtrisez maintenant les outils intermédiaires d'Excel ! 🚀
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide:not(.solution)');
+        const solutionSlides = document.querySelectorAll('.slide.solution');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Update current slide
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function showSolution(solutionIndex) {
+            const solutionSlide = document.getElementById(`solution-${solutionIndex}`);
+            if (solutionSlide) {
+                // Hide current slide
+                slides[currentSlide].classList.remove('active');
+                // Show solution slide
+                solutionSlide.style.display = 'flex';
+                solutionSlide.classList.add('active');
+                
+                // Update counter temporarily
+                document.getElementById('slideCounter').textContent = `Solution ${solutionIndex + 1}`;
+                
+                // Add a back button functionality
+                const backBtn = document.createElement('button');
+                backBtn.className = 'show-solution-btn';
+                backBtn.textContent = '⬅ Retour à l\'exercice';
+                backBtn.onclick = function() {
+                    solutionSlide.style.display = 'none';
+                    solutionSlide.classList.remove('active');
+                    slides[currentSlide].classList.add('active');
+                    document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+                    backBtn.remove();
+                };
+                
+                // Remove existing back button if any
+                const existingBack = solutionSlide.querySelector('.show-solution-btn');
+                if (existingBack) existingBack.remove();
+                
+                solutionSlide.appendChild(backBtn);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const activeSolution = document.querySelector('.slide.solution.active');
+            if (activeSolution) {
+                // If solution is showing, only allow going back
+                if (e.key === 'Escape') {
+                    const backBtn = activeSolution.querySelector('.show-solution-btn');
+                    if (backBtn) backBtn.click();
+                }
+            } else {
+                // Normal navigation
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
+

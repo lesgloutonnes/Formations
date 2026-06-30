@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Environnement Informatique CHC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('Images/Image1.jpg') center center / cover no-repeat fixed;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #003366;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #005588;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .mode-btn {
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.9);
+            color: #003366;
+            border: 2px solid #003366;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1em;
+        }
+
+        .mode-btn:hover, .mode-btn.active {
+            background: #003366;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+        }
+
+        .progress-info {
+            background: #e8f4f8;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #555;
+            text-align: center;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .module-number {
+            display: inline-block;
+            background: #003366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .module-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .module-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .module-topics {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-topics li {
+            color: #555;
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .module-topics li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #003366;
+            font-weight: bold;
+        }
+
+        .module-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .module-link:hover {
+            transform: scale(1.05);
+            background: #005588;
+            box-shadow: 0 5px 15px rgba(0, 51, 102, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            color: #003366;
+            margin-top: 50px;
+            font-weight: 500;
+        }
+
+        .auto-eval-btn {
+            display: none;
+        }
+
+        .auto-eval-btn.show {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Formation Environnement Informatique CHC</h1>
+            <p>Maîtrisez les bases de l'utilisation du PC et de l'environnement IT au CHC</p>
+            <div class="mode-selector">
+                <button class="mode-btn active" onclick="showMode('guided')">📚 Formation guidée</button>
+                <button class="mode-btn" onclick="showMode('elearning')">🎓 E-Learning libre</button>
+            </div>
+        </div>
+
+        <div class="modules-grid">
+            <!-- Module 1 -->
+            <div class="module-card" onclick="window.location.href='Module 1/1. Démarrage et identification.html'">
+                <div class="module-number">1</div>
+                <h2 class="module-title">Prise en main du poste de travail</h2>
+                <p class="module-description">Apprenez les bases pour démarrer et utiliser efficacement votre poste de travail.</p>
+                <ul class="module-topics">
+                    <li>Démarrage et identification</li>
+                    <li>Navigation et organisation</li>
+                    <li>Raccourcis et gestes utiles</li>
+                    <li>Capture et impression</li>
+                    <li>Accès internet et sécurité</li>
+                </ul>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="Module 1/1. Démarrage et identification.html" class="module-link">Commencer →</a>
+                    <a href="Module 1/2. Auto-évaluation.html" class="module-link auto-eval-btn" style="background: #006633;">📝 Auto-évaluation</a>
+                </div>
+                <div class="progress-info" style="display: none;">
+                    📚 Contenu complet • ⏱️ ~30 minutes • ✅ Auto-évaluation incluse
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module-card" onclick="window.location.href='Module 2/1. Intranet CHC.html'">
+                <div class="module-number">2</div>
+                <h2 class="module-title">Accès aux outils CHC</h2>
+                <p class="module-description">Découvrez les outils essentiels de l'environnement CHC pour votre travail quotidien.</p>
+                <ul class="module-topics">
+                    <li>Intranet CHC</li>
+                    <li>Messagerie professionnelle</li>
+                    <li>Webex</li>
+                    <li>Wi-Fi sécurisé</li>
+                    <li>Recherche de contacts et documents</li>
+                </ul>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="Module 2/1. Intranet CHC.html" class="module-link">Commencer →</a>
+                    <a href="Module 2/2. Auto-évaluation.html" class="module-link auto-eval-btn" style="background: #006633;">📝 Auto-évaluation</a>
+                </div>
+                <div class="progress-info" style="display: none;">
+                    📚 Contenu complet • ⏱️ ~35 minutes • ✅ Auto-évaluation incluse
+                </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="module-card" onclick="window.location.href='Module 3/1. Imprimantes et périphériques.html'">
+                <div class="module-number">3</div>
+                <h2 class="module-title">Imprimantes et périphériques</h2>
+                <p class="module-description">Gérez efficacement vos imprimantes et périphériques sans stress.</p>
+                <ul class="module-topics">
+                    <li>Configuration des imprimantes</li>
+                    <li>Dépannage</li>
+                    <li>Micro et reconnaissance vocale</li>
+                    <li>Autres périphériques</li>
+                </ul>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="Module 3/1. Imprimantes et périphériques.html" class="module-link">Commencer →</a>
+                    <a href="Module 3/2. Auto-évaluation.html" class="module-link auto-eval-btn" style="background: #006633;">📝 Auto-évaluation</a>
+                </div>
+                <div class="progress-info" style="display: none;">
+                    📚 Contenu complet • ⏱️ ~25 minutes • ✅ Auto-évaluation incluse
+                </div>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="module-card" onclick="window.location.href='Module 4/1. Sécurité et gestion des accès.html'">
+                <div class="module-number">4</div>
+                <h2 class="module-title">Sécurité et gestion des accès</h2>
+                <p class="module-description">Protégez vos données et comprenez la gestion des accès au CHC.</p>
+                <ul class="module-topics">
+                    <li>Mot de passe incorrect</li>
+                    <li>Critères d'un mot de passe valide</li>
+                    <li>Double authentification (2FA)</li>
+                    <li>Gestion des accès</li>
+                    <li>Demandes d'accès spécifiques</li>
+                </ul>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="Module 4/1. Sécurité et gestion des accès.html" class="module-link">Commencer →</a>
+                    <a href="Module 4/2. Auto-évaluation.html" class="module-link auto-eval-btn" style="background: #006633;">📝 Auto-évaluation</a>
+                </div>
+                <div class="progress-info" style="display: none;">
+                    📚 Contenu complet • ⏱️ ~30 minutes • ✅ Auto-évaluation incluse
+                </div>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="module-card" onclick="window.location.href='Module 5/1. Outlook vs Webmail.html'">
+                <div class="module-number">5</div>
+                <h2 class="module-title">Outlook vs Webmail</h2>
+                <p class="module-description">Maîtrisez la messagerie CHC et optimisez votre gestion des emails.</p>
+                <ul class="module-topics">
+                    <li>Comprendre les différences</li>
+                    <li>Gérer les rendez-vous</li>
+                    <li>Réunions Webex</li>
+                    <li>Règles et dossiers</li>
+                    <li>Signatures et réponses automatiques</li>
+                </ul>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="Module 5/1. Outlook vs Webmail.html" class="module-link">Commencer →</a>
+                    <a href="Module 5/2. Auto-évaluation.html" class="module-link auto-eval-btn" style="background: #006633;">📝 Auto-évaluation</a>
+                </div>
+                <div class="progress-info" style="display: none;">
+                    📚 Contenu complet • ⏱️ ~40 minutes • ✅ Auto-évaluation incluse
+                </div>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="module-card" onclick="window.location.href='Module 6/1. Transfert et partage de fichiers.html'">
+                <div class="module-number">6</div>
+                <h2 class="module-title">Transfert et partage de fichiers</h2>
+                <p class="module-description">Apprenez à partager et transférer vos fichiers de manière sécurisée.</p>
+                <ul class="module-topics">
+                    <li>Partage de fichiers collaboratif</li>
+                    <li>Utiliser ShareFile</li>
+                    <li>Disques réseaux</li>
+                    <li>Dossiers partagés</li>
+                    <li>Bomgar - Accès à distance</li>
+                </ul>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="Module 6/1. Transfert et partage de fichiers.html" class="module-link">Commencer →</a>
+                    <a href="Module 6/2. Auto-évaluation.html" class="module-link auto-eval-btn" style="background: #006633;">📝 Auto-évaluation</a>
+                </div>
+                <div class="progress-info" style="display: none;">
+                    📚 Contenu complet • ⏱️ ~35 minutes • ✅ Auto-évaluation incluse
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Formation Environnement Informatique CHC - Tous droits réservés</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Formation guidée • E-Learning libre • Apprenez à votre rythme</p>
+        </div>
+    </div>
+
+    <script>
+        function showMode(mode) {
+            const buttons = document.querySelectorAll('.mode-btn');
+            const progressInfos = document.querySelectorAll('.progress-info');
+            const autoEvalBtns = document.querySelectorAll('.auto-eval-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (mode === 'elearning') {
+                buttons[1].classList.add('active');
+                progressInfos.forEach(info => info.style.display = 'block');
+                autoEvalBtns.forEach(btn => btn.classList.add('show'));
+            } else {
+                buttons[0].classList.add('active');
+                progressInfos.forEach(info => info.style.display = 'none');
+                autoEvalBtns.forEach(btn => btn.classList.remove('show'));
+            }
+        }
+
+        // Détecter si on vient du dossier E-Learning ou si le paramètre est présent
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromElearning = urlParams.get('mode') === 'elearning' || window.location.pathname.includes('E-Learning');
+        
+        if (fromElearning) {
+            showMode('elearning');
+        } else {
+            showMode('guided');
+        }
+    </script>
+</body>
+</html>

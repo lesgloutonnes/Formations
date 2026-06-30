@@ -1,0 +1,98 @@
+Pour la formation Word, voici un beau programme que j'ai trouvé sur un site de formation en ligne pour le module 1 qui serait alors comme pour excel le module 1 Debutant :  
+
+Acquérir les principes de base
+Se repérer dans l’écran : ruban, barre d’accès rapide, barre d’état
+Saisir et modifier du texte
+Enregistrer et classer un document
+Prévisualiser et imprimer
+Acquérir une méthode pour créer un document : saisir au kilomètre, enregistrer, présenter
+Microsoft Word
+
+Bien présenter un document
+Choisir les polices et leurs attributs : gras, souligné, italique, couleur
+Aérer le document : interligne, espacements, retraits
+Encadrer un titre, l’ombrer
+Créer des listes à puces ou numérotées
+Gagner du temps : créer des styles rapides, enregistrer un jeu de styles, copier la mise en forme
+microsoft word document
+
+Modifier un document
+Modifier ponctuellement un document
+Afficher/Masquer les marques de mise en forme
+Supprimer, déplacer, recopier du texte
+Corriger un texte : vérifier l’orthographe, chercher des synonymes
+microsoft word copie modification de fichier
+
+Concevoir un courrier
+Saisir le texte
+Positionner les références, l’adresse
+Présenter le corps de la lettre
+Mettre en page
+Imprimer
+écriture d'un courrier dans Microsoft Word 
+
+Présenter un document de type rapport
+Définir les sauts de page
+Numéroter les pages
+Ajouter une page de garde
+Changer l’aspect de votre document : appliquer un thème
+Modifier les couleurs, polices et effets de thèmes
+écriture d'un rapport dans Microsoft Word 
+
+Insérer des illustrations
+Insérer une image, un clipart
+Créer un objet WordArt, un diagramme SmartArt
+illustration d'un texte avec Microsoft Word
+
+Insérer un tableau
+Créer et positionner un tableau
+Ajouter, supprimer des lignes ou des colonnes
+Appliquer un style de tableau
+Modifier les bordures, les trames
+Création d'un tableau avec Microsoft Word
+
+Et voici le Module 2 comme Excel ( Intermediaire )
+
+Personnaliser Word
+Définir la police, les marges par défaut
+Personnaliser la barre d’accès rapide le ruban, les raccourcis clavier
+Enrichir les possibilités de la correction automatique
+Enregistrer des contenus réutilisables à tout moment : les blocs QuickPart
+Exploiter les outils de traduction
+Convertir un document en PDF
+Exporter un document Word au format PDF
+
+Automatiser la présentation de vos documents
+Repérer les mises en forme répétitives
+Créer, appliquer, modifier et enchaîner les styles
+Gagner du temps avec les styles rapides
+Agir sur l’aspect global du document
+S’organiser : créer des modèles
+Utilisation des Styles dans Word
+
+Construire un document structuré
+Créer des styles pour les listes à puces, numérotées et hiérarchisées
+Utiliser les styles hiérarchiques pour définir les titres
+Numéroter automatiquement les titres, insérer le sommaire
+Définir les en-têtes et pieds de page
+Création d'une entête de document dans Word
+
+Intégrer des illustrations
+Insérer et modifier une image, un texte WordArt
+Insérer un tableau, graphique Excel
+Illustrer un processus, une organisation avec un diagramme SmartArt
+Insérer des symboles, des équations
+Définir l’habillage du texte autour des objets
+Maîtriser le positionnement des différents objets
+Importer un tableau et un graphique Excel dans Word
+
+Maîtriser les tableaux
+Dessiner un tableau : utiliser la gomme, le stylo
+Fusionner et fractionner des cellules
+Insérer des formules de calcul
+Convertir un tableau en texte et inversement
+Créer un tableau pour faciliter la mise en page
+Présenter le texte en colonnes à la façon d’un journal
+Tableau Word
+
+Peux tu donc adapter ce qu'on a deja avec ceci

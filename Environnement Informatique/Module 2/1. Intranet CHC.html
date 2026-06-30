@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2 - Accès aux outils CHC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #003366;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .slide-number {
+            background: #003366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-list li {
+            background: #f8f9fa;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+
+        .content-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-list li strong {
+            color: #003366;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #005588;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">1/6</div>
+                <h1 class="slide-title">Intranet CHC</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Votre portail d'information interne</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Adresse de l'Intranet</strong>
+                        L'Intranet CHC est accessible à l'adresse <span style="color: #0066cc; font-weight: bold;">https://intranet.chc.be/</span>. C'est aussi la page d'accueil par défaut de votre navigateur Edge.
+                    </li>
+                    <li>
+                        <strong>Page d'accueil</strong>
+                        Vous y trouverez la section <em>"Bon à savoir"</em> avec un carrousel d'informations importantes, et <em>"Quoi de neuf au CHC?"</em> avec les actualités récentes du groupe.
+                    </li>
+                    <li>
+                        <strong>Menu principal</strong>
+                        Le menu de navigation comprend : <span style="color: #003366; font-weight: bold;">Accueil</span>, <span style="color: #003366; font-weight: bold;">Outils</span>, <span style="color: #003366; font-weight: bold;">Ressources</span>, <span style="color: #003366; font-weight: bold;">Applications</span>, <span style="color: #003366; font-weight: bold;">CHC et Move</span> et <span style="color: #003366; font-weight: bold;">En cas d'urgence</span>.
+                    </li>
+                    <li>
+                        <strong>Barre de recherche</strong>
+                        Utilisez la barre de recherche en haut à droite ("Rechercher sur ce site") pour trouver rapidement une information, un document ou une page.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2/6</div>
+                <h1 class="slide-title">Messagerie professionnelle</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Outlook et Webmail</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Outlook (application)</strong>
+                        Outlook est installé sur votre poste. Ouvrez-le depuis le menu Démarrer ou la barre des tâches. C'est l'application complète pour gérer vos emails, calendrier et contacts.
+                    </li>
+                    <li>
+                        <strong>Webmail (navigateur)</strong>
+                        Accédez à votre messagerie via le navigateur à l'adresse <span style="color: #0066cc; font-weight: bold;">webmail.chc.be</span> ou via l'Intranet (menu <span style="color: #003366; font-weight: bold;">Applications</span>). Pratique pour consulter vos emails depuis n'importe quel poste.
+                    </li>
+                    <li>
+                        <strong>Connexion</strong>
+                        Connectez-vous avec vos accès Windows CHC. Votre nom d'utilisateur est votre <span style="color: #003366; font-weight: bold;">PENTA</span> et votre adresse email est au format prenom.nom@chc.be.
+                    </li>
+                    <li>
+                        <strong>Que pouvez-vous faire ?</strong>
+                        Ces outils vous permettent de lire, répondre et transférer vos emails, d'ajouter des pièces jointes à vos messages, et de rechercher facilement un mail ou un contact. Vos données sont synchronisées entre Outlook et Webmail.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3/6</div>
+                <h1 class="slide-title">Webex</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Messagerie et réunions sécurisées</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce que Webex ?</strong>
+                        Webex est la plateforme de communication sécurisée du CHC pour les réunions vidéo, la messagerie instantanée et le partage de fichiers.
+                    </li>
+                    <li>
+                        <strong>Connexion à Webex</strong>
+                        Connectez-vous avec votre adresse email CHC (prenom.nom@chc.be) et un mot de passe personnel que vous définissez vous-même. L'application Webex est installée sur votre poste ou accessible via navigateur.
+                    </li>
+                    <li>
+                        <strong>Messagerie instantanée</strong>
+                        Cliquez sur "Messagerie" dans Webex. Vous pourrez rechercher et contacter des personnes via le chat instantané ou même créer des groupes de discussions.
+                    </li>
+                    <li>
+                        <strong>Organiser et rejoindre une réunion</strong>
+                        Cliquez sur "Réunions" dans Webex. Vous obtiendrez un lien de partage et la possibilité de démarrer ou de programmer une réunion Webex.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4/6</div>
+                <h1 class="slide-title">Wi-Fi sécurisé</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Connexion au réseau Wi-Fi CHC</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Réseau CHC-Secure</strong>
+                        Le réseau Wi-Fi sécurisé du CHC s'appelle "CHC-Secure". C'est le seul réseau que vous devez utiliser pour vos appareils professionnels.
+                    </li>
+                    <li>
+                        <strong>Configuration</strong>
+                        La configuration se fait automatiquement sur les postes de travail CHC. Pour les appareils personnels, contactez le service IT pour obtenir les instructions de configuration.
+                    </li>
+                    <li>
+                        <strong>Authentification</strong>
+                        Vous ne devrez pas vous identifier après la configuration par le service IT. Le système se souviendra de vos identifiants pour les connexions suivantes.
+                    </li>
+                    <li>
+                        <strong>Sécurité</strong>
+                        Ne vous connectez jamais au réseau Wi-Fi public ou non sécurisé depuis votre poste de travail professionnel. Vous ne pouvez pas non plus vous connectez via un partage de connexion 4G/5G.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5/6</div>
+                <h1 class="slide-title">Trouver un contact</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Connectel</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce que Connectel ?</strong>
+                        Connectel est l'annuaire du CHC. Il vous permet de retrouver les coordonnées de n'importe quel collaborateur du groupe. Lancez-le via le raccourci <span style="color: #003366; font-weight: bold;">Connectel</span> sur votre bureau.
+                    </li>
+                    <li>
+                        <strong>Filtrer votre recherche</strong>
+                        Affinez vos résultats grâce aux filtres : secteur d'activité (Cliniques, Crèches, Résidences...), service/spécialité, et catégorie/fonction (Médecin, Secrétaire, Assistant...). Cliquez ensuite sur <span style="color: #003366; font-weight: bold;">Recherche</span>.
+                    </li>
+                    <li>
+                        <strong>Résultats</strong>
+                        La liste affiche pour chaque contact : localisation, service, nom, prénom, catégorie/fonction, informations complémentaires et numéro d'extension téléphonique.
+                    </li>
+                    <li>
+                        <strong>Fiche détaillée</strong>
+                        Cliquez sur un contact pour voir sa fiche complète : extension interne, numéro de téléphone, GSM interne CHC, raccourci GSM et email.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">6/6</div>
+                <h1 class="slide-title">Rechercher un programme ou dossier</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Trouver ce dont vous avez besoin</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Recherche Windows</strong>
+                        Via la recherche à côté du bouton Windows et commencez à taper le nom du programme ou du fichier. Windows affichera les résultats en temps réel.
+                    </li>
+                    <li>
+                        <strong>Recherche dans l'Explorateur</strong>
+                        Dans l'Explorateur de fichiers (Windows+E), utilisez la barre de recherche en haut à droite pour chercher des fichiers par nom, contenu ou date.
+                    </li>
+                    <li>
+                        <strong>Recherche dans l'Intranet</strong>
+                        L'Intranet CHC dispose d'une fonction de recherche globale ("Rechercher sur ce site"). Utilisez-la pour trouver des documents, des pages ou des informations.
+                    </li>
+                    <li>
+                        <strong>Astuces de recherche</strong>
+                        Utilisez des mots-clés précis, des guillemets pour des expressions exactes, et des filtres (date, type de fichier) pour affiner vos résultats.
+                    </li>
+                </ul>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="2. Auto-évaluation.html" style="display: inline-block; padding: 15px 30px; background: #003366; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 1.1em; box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4); transition: all 0.3s;">
+                        Passer à l'auto-évaluation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+        <span class="indicator" onclick="goToSlide(3)"></span>
+        <span class="indicator" onclick="goToSlide(4)"></span>
+        <span class="indicator" onclick="goToSlide(5)"></span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">← Précédent</button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">Suivant →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

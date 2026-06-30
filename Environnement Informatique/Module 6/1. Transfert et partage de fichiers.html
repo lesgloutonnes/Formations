@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6 - Transfert et partage de fichiers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #003366;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .slide-number {
+            background: #003366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-list li {
+            background: #f8f9fa;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+
+        .content-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-list li strong {
+            color: #003366;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #005588;
+            color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">1/5</div>
+                <h1 class="slide-title">SharePoint</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Partage de fichiers collaboratif</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce que SharePoint ?</strong>
+                        SharePoint est la plateforme de collaboration du CHC pour partager des documents, créer des sites d'équipe et collaborer sur des projets.
+                    </li>
+                    <li>
+                        <strong>Accès à SharePoint</strong>
+                        Accédez à SharePoint via l'Intranet CHC, directement via votre navigateur, ou via Citrix. Connectez-vous avec vos identifiants CHC.<br>
+                        Voici l'adresse via navigateur : <a href="https://tw.chc.be/business" target="_blank" style="color: #003366; text-decoration: underline;">https://tw.chc.be/business</a>
+                    </li>
+                    <li>
+                        <strong>Les différents portails SharePoint</strong>
+                        SharePoint au CHC est organisé en portails métiers selon votre fonction :
+                        <ul style="margin-top: 15px; margin-left: 20px; list-style-type: disc;">
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Portail Administratif</strong> - gestion et administration</li>
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Portail Médical</strong> - personnel soignant</li>
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Portail Projet</strong> - gestion de projets</li>
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Portail Technique</strong> - services techniques et IT</li>
+                        </ul>
+                        Chaque portail regroupe les sites et ressources pertinents pour votre domaine d'activité.
+                    </li>
+                    <li>
+                        <strong>Créer un site d'équipe</strong>
+                        Créez un site SharePoint pour votre équipe ou projet. Vous pourrez y stocker des documents, créer des listes et collaborer en temps réel. Pour demander la création d'un site SharePoint, il faut passer par le formulaire de demande de création de site SharePoint via JIRA ou le service desk avec l'accord de votre N+1.
+                    </li>
+                    <li>
+                        <strong>Pourquoi utiliser SharePoint ?</strong>
+                        SharePoint offre plusieurs avantages par rapport à un partage réseau classique : accès depuis n'importe quel poste avec une connexion CHC, collaboration en temps réel sur les documents, versioning automatique des fichiers, recherche avancée dans le contenu, et une gestion fine des permissions et accès.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2/5</div>
+                <h1 class="slide-title">ShareFile</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Partager des fichiers sécurisés</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce que ShareFile ?</strong>
+                        ShareFile est l'outil du CHC pour partager des fichiers volumineux ou sensibles de manière sécurisée, notamment avec des personnes externes.
+                    </li>
+                    <li>
+                        <strong>Accès à ShareFile</strong>
+                        Accédez à ShareFile via l'Intranet CHC ou directement via votre navigateur. Connectez-vous avec votre mail chc et un mot de passe personnel.<br>
+                        Voici l'adresse via navigateur : <a href="https://chc-be.sharefile.com/" target="_blank" style="color: #003366; text-decoration: underline;">https://chc-be.sharefile.com/</a>
+                    </li>
+                    <li>
+                        <strong>Envoyer un fichier</strong>
+                        Cliquez sur "Partager des fichiers" dans ShareFile. Sélectionnez vos fichiers en cliquant sur "Parcourir les fichiers" (choisissez "De l'ordinateur" ou "De ShareFile"). Ensuite, choisissez votre méthode de partage : "Envoyer à des personnes spécifiques" (pour envoyer directement par email) ou "Obtenir un lien" (pour créer un lien partageable). Pour les liens, vous pouvez définir les permissions d'accès (contacts clients et utilisateurs employés, quiconque avec ou sans authentification, etc.).
+                    </li>
+                    <li>
+                        <strong>Recevoir un fichier</strong>
+                        Les fichiers partagés via ShareFile vous arrivent par email avec un lien sécurisé. Cliquez sur le lien pour télécharger le fichier.
+                    </li>
+                    <li>
+                        <strong>Suivre vos partages</strong>
+                        Dans ShareFile, vous pouvez voir l'historique de vos partages, savoir si les fichiers ont été téléchargés et gérer les permissions.
+                    </li>
+                    <li>
+                        <strong>Gestion des dossiers</strong>
+                        ShareFile vous permet d'organiser vos fichiers dans différents types de dossiers :
+                        <ul style="margin-top: 15px; margin-left: 20px; list-style-type: disc;">
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Dossiers personnels</strong> - pour vos fichiers privés</li>
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Dossiers partagés</strong> - pour collaborer avec votre équipe ou des contacts</li>
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Favoris</strong> - pour marquer et accéder rapidement à vos dossiers les plus utilisés</li>
+                        </ul>
+                        Vous pouvez créer, organiser et gérer ces dossiers selon vos besoins.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3/5</div>
+                <h1 class="slide-title">Disques réseaux</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Accéder aux disques réseaux</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce qu'un disque réseau ?</strong>
+                        Les disques réseaux sont des espaces de stockage partagés accessibles depuis tous les postes du réseau CHC. Ils apparaissent comme des lecteurs mappés (S:, T:, etc.) dans l'Explorateur de fichiers sous "Ce PC".
+                    </li>
+                    <li>
+                        <strong>Accéder aux disques réseaux</strong>
+                        Ouvrez l'Explorateur de fichiers et allez dans "Ce PC". Vous verrez les lecteurs réseau mappés. Généralement, chaque utilisateur possède deux lettres réseau de base mappées automatiquement :
+                        <ul style="margin-top: 15px; margin-left: 20px; list-style-type: disc;">
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Lecteur R:</strong> NSCommuns - espace de stockage lié aux services auxquels vous appartenez</li>
+                            <li style="margin: 10px 0; padding-left: 5px;"><strong style="color: #003366;">Lecteur Z:</strong> sansbackup - espace de stockage sans sauvegarde automatique (attention : les fichiers stockés ici ne sont pas sauvegardés)</li>
+                        </ul>
+                        Double-cliquez sur un lecteur pour y accéder.
+                    </li>
+                    <li>
+                        <strong>Types d'accès et permissions</strong>
+                        Les disques réseaux peuvent avoir deux types d'accès : <strong>RO (Read Only - Lecture seule)</strong> qui permet uniquement de lire les fichiers, et <strong>RW (Read Write - Lecture/écriture)</strong> qui permet de lire et modifier les fichiers. Vos permissions dépendent de votre fonction et de votre service. Si un disque réseau n'apparaît pas ou si vous n'avez pas accès à un dossier nécessaire, ne le mappez pas manuellement. Faites une demande d'accès auprès du service IT qui configurera l'accès pour que le lecteur apparaisse automatiquement sur votre poste.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4/5</div>
+                <h1 class="slide-title">Dossiers partagés</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Travailler avec des dossiers partagés</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Localisation des dossiers partagés</strong>
+                        Les dossiers partagés sont généralement accessibles via l'Explorateur de fichiers sous "Ce PC" ou via des raccourcis sur votre Bureau ou dans le menu Démarrer.
+                    </li>
+                    <li>
+                        <strong>Organisation des fichiers</strong>
+                        Respectez l'organisation existante des dossiers partagés. Ne déplacez pas de fichiers sans autorisation. Créez des sous-dossiers si nécessaire avec l'accord de votre responsable. Il n'est pas possible de créer des sous dossier avant le niveau 4.
+                    </li>
+                    <li>
+                        <strong>Permissions de modification</strong>
+                        Certains dossiers sont en lecture seule, d'autres permettent la modification. Si vous ne pouvez pas modifier un fichier, c'est normal selon les permissions définies.
+                    </li>
+                    <li>
+                        <strong>Fichiers ouverts par d'autres</strong>
+                        Si un fichier est ouvert par un collègue, vous pourrez peut-être le lire mais pas le modifier. Attendez qu'il soit fermé ou contactez votre collègue.
+                    </li>
+                    <li>
+                        <strong>Bonnes pratiques</strong>
+                        Ne stockez pas de fichiers personnels dans les dossiers partagés. Utilisez des noms de fichiers clairs et descriptifs. Organisez régulièrement les fichiers.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5/5</div>
+                <h1 class="slide-title">Bomgar - Accès à distance</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Prise en main à distance par le service IT</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce que Bomgar ?</strong>
+                        Bomgar est l'outil utilisé par le service IT du CHC pour prendre le contrôle de votre poste à distance et vous aider à résoudre des problèmes techniques.
+                    </li>
+                    <li>
+                        <strong>Demander une assistance</strong>
+                        Contactez le service IT par téléphone ou via le système de tickets. Si nécessaire, un technicien vous demandera l'autorisation de prendre le contrôle de votre poste.
+                    </li>
+                    <li>
+                        <strong>Autoriser l'accès</strong>
+                        Vous recevrez une demande d'autorisation à l'écran. Lisez attentivement et cliquez sur "Autoriser" si vous êtes d'accord. Vous pouvez révoquer l'accès à tout moment.
+                    </li>
+                    <li>
+                        <strong>Pendant la session</strong>
+                        Vous verrez le curseur du technicien bouger sur votre écran. Vous pouvez toujours utiliser votre souris et votre clavier. Le technicien vous expliquera ce qu'il fait.
+                    </li>
+                    <li>
+                        <strong>Sécurité</strong>
+                        Bomgar est sécurisé et utilisé uniquement par le service IT autorisé. Vous gardez le contrôle total et pouvez mettre fin à la session à tout moment.
+                    </li>
+                    <li>
+                        <strong>Après la session</strong>
+                        Une fois le problème résolu, le technicien mettra fin à la session. Vous pouvez fermer la fenêtre Bomgar. Votre poste fonctionne normalement.
+                    </li>
+                </ul>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="2. Auto-évaluation.html" style="display: inline-block; padding: 15px 30px; background: #003366; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 1.1em; box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4); transition: all 0.3s;">
+                        📝 Passer à l'auto-évaluation →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+        <span class="indicator" onclick="goToSlide(3)"></span>
+        <span class="indicator" onclick="goToSlide(4)"></span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">← Précédent</button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">Suivant →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

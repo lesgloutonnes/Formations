@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word : Document professionnel - Formation Interactive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a; color: #fff; overflow: hidden; height: 100vh;
+        }
+        .presentation-container {
+            width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slide {
+            width: 96%; max-width: 1800px; height: 92vh;
+            background: #1a1a1a; border: 4px solid #2B579A; border-radius: 20px;
+            padding: 60px; display: none; flex-direction: column;
+            overflow-y: auto; box-shadow: 0 0 40px rgba(43, 87, 154, 0.35);
+        }
+        .slide.active { display: flex; }
+        .slide.theory { border-color: #2B579A; }
+        .slide.exercise { border-color: #ffd700; }
+        .slide.solution { border-color: #00b7ff; }
+        .slide.word-transition { border-color: #4caf50; box-shadow: 0 0 40px rgba(76, 175, 80, 0.25); }
+        .slide.demo { border-color: #9c27b0; }
+        .slide.pitfalls { border-color: #ff9800; }
+        .slide.section-opener {
+            background: linear-gradient(160deg, #1a1a1a 0%, rgba(43, 87, 154, 0.16) 100%);
+        }
+        .slide-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 32px; border-bottom: 3px solid #2B579A; padding-bottom: 20px;
+        }
+        .slide-type-badge {
+            padding: 10px 22px; border-radius: 30px; font-size: 24px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap;
+        }
+        .badge-theory { background: #2B579A; color: #fff; }
+        .badge-exercise { background: #ffd700; color: #000; }
+        .badge-solution { background: #00b7ff; color: #000; }
+        .badge-word { background: #4caf50; color: #fff; }
+        .badge-demo { background: #9c27b0; color: #fff; }
+        .badge-pitfalls { background: #ff9800; color: #000; }
+        .slide-title {
+            font-size: 2.8em; font-weight: 700; text-align: center; flex-grow: 1;
+            margin: 0 24px; line-height: 1.2;
+        }
+        .slide-content {
+            flex-grow: 1; display: flex; flex-direction: column;
+            justify-content: center; font-size: 1.4em; line-height: 1.6;
+        }
+        .subtitle {
+            font-size: 1.85em; color: #5b9bd5; margin-bottom: 28px;
+            text-align: center; font-weight: 600;
+        }
+        .center-content { text-align: center; }
+        .partie-label {
+            display: inline-block; background: rgba(43, 87, 154, 0.25);
+            border: 2px solid #2B579A; color: #9dc3e6;
+            padding: 8px 20px; border-radius: 30px; font-weight: 700; margin-bottom: 18px;
+        }
+        .content-box {
+            background: rgba(43, 87, 154, 0.12); border-left: 8px solid #2B579A;
+            padding: 26px; border-radius: 15px; margin: 16px 0;
+        }
+        .content-box h3 { font-size: 1.55em; color: #5b9bd5; margin-bottom: 14px; }
+        .content-box p, .content-box li {
+            font-size: 1.12em; margin-bottom: 10px; line-height: 1.6;
+        }
+        .content-box ul { list-style: none; padding-left: 0; }
+        .content-box li::before {
+            content: "▶ "; color: #5b9bd5; font-weight: bold; margin-right: 8px;
+        }
+        .exercise-instructions {
+            background: rgba(255, 215, 0, 0.13); border-left: 8px solid #ffd700;
+            padding: 30px; border-radius: 15px; margin: 18px 0;
+        }
+        .exercise-instructions h3 {
+            color: #ffd700; font-size: 1.65em; margin-bottom: 16px; text-align: center;
+        }
+        .word-transition-box {
+            background: rgba(76, 175, 80, 0.12); border: 3px solid #4caf50;
+            padding: 36px; border-radius: 15px; text-align: center;
+        }
+        .word-transition-box h3 { color: #81c784; font-size: 2em; margin-bottom: 20px; }
+        .word-transition-box p { font-size: 1.25em; margin-bottom: 14px; }
+        .demo-box {
+            background: rgba(156, 39, 176, 0.12); border-left: 8px solid #9c27b0;
+            padding: 28px; border-radius: 15px; margin: 16px 0;
+        }
+        .demo-box h3 { color: #ce93d8; margin-bottom: 14px; font-size: 1.5em; }
+        .demo-box li { font-size: 1.1em; margin-bottom: 10px; line-height: 1.55; }
+        .demo-box ol { padding-left: 36px; }
+        .pitfalls-box {
+            background: rgba(255, 152, 0, 0.12); border-left: 8px solid #ff9800;
+            padding: 28px; border-radius: 15px; margin: 16px 0;
+        }
+        .pitfalls-box h3 { color: #ffb74d; margin-bottom: 14px; font-size: 1.5em; }
+        .pitfalls-box li { font-size: 1.1em; margin-bottom: 10px; line-height: 1.55; }
+        .pitfalls-box ul { list-style: none; padding-left: 0; }
+        .pitfalls-box li::before { content: "⚠ "; color: #ff9800; font-weight: bold; }
+        .exercise-steps ol, .solution-steps ol { padding-left: 36px; }
+        .exercise-steps li, .solution-steps li {
+            font-size: 1.08em; margin-bottom: 12px; line-height: 1.6;
+        }
+        .solution-box {
+            background: rgba(0, 183, 255, 0.12); border-left: 8px solid #00b7ff;
+            padding: 30px; border-radius: 15px; margin: 18px 0;
+        }
+        .solution-box h3 {
+            color: #00b7ff; margin-bottom: 16px; text-align: center; font-size: 1.65em;
+        }
+        .duration-badge {
+            display: inline-block; background: rgba(255, 215, 0, 0.18);
+            border: 2px solid #ffd700; padding: 6px 18px; border-radius: 25px;
+            color: #ffd700; margin-bottom: 12px; font-weight: 700;
+        }
+        .a-retenir-box {
+            background: rgba(91, 155, 213, 0.1); border: 2px solid #5b9bd5;
+            border-radius: 12px; padding: 18px 22px; margin: 16px 0;
+        }
+        .a-retenir-box h4 { color: #5b9bd5; margin-bottom: 8px; }
+        .warning-box {
+            background: rgba(255, 152, 0, 0.12); border-left: 6px solid #ff9800;
+            padding: 16px 20px; border-radius: 10px; margin: 14px 0;
+        }
+        .nav-hint {
+            background: rgba(255,255,255,0.06); border: 1px solid #555;
+            padding: 14px 20px; border-radius: 10px; margin-top: 16px; font-size: 0.95em; color: #bbb;
+        }
+        .workflow-row {
+            display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 20px 0;
+        }
+        .workflow-step {
+            background: rgba(43, 87, 154, 0.16); border: 2px solid #2B579A;
+            border-radius: 12px; padding: 14px 12px; text-align: center;
+            min-width: 150px; flex: 1; max-width: 220px;
+        }
+        .workflow-step .step-name { font-weight: 700; color: #9dc3e6; margin-bottom: 6px; }
+        .workflow-step .step-desc { color: #ddd; font-size: 0.82em; line-height: 1.35; }
+        .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .file-box {
+            background: rgba(255, 255, 255, 0.06); border: 2px dashed #5b9bd5;
+            padding: 18px 22px; border-radius: 12px; margin: 16px 0;
+        }
+        .file-box h4 { color: #9dc3e6; margin-bottom: 8px; }
+        code {
+            background: rgba(0,0,0,0.45); color: #d7eaff;
+            padding: 3px 9px; border-radius: 6px; font-size: 0.92em;
+        }
+        .highlight { color: #9dc3e6; font-weight: 700; }
+        .navigation {
+            position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 16px; z-index: 1000;
+        }
+        .nav-btn, .show-solution-btn {
+            border: none; padding: 12px 26px; border-radius: 50px;
+            cursor: pointer; font-size: 20px; font-weight: 700;
+        }
+        .nav-btn { background: #2B579A; color: #fff; min-width: 170px; }
+        .nav-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .show-solution-btn {
+            background: #00b7ff; color: #000; margin: 20px auto 0; display: block;
+        }
+        .slide-indicator, .module-title {
+            position: fixed; top: 28px; z-index: 1000;
+            background: rgba(0,0,0,0.86); border: 2px solid #2B579A;
+            padding: 10px 22px; border-radius: 30px; font-weight: 700; color: #9dc3e6;
+        }
+        .slide-indicator { right: 28px; font-size: 22px; }
+        .module-title { left: 28px; font-size: 18px; max-width: 520px; }
+        @media (max-width: 1400px) {
+            .slide { padding: 40px; }
+            .slide-title { font-size: 2.2em; }
+            .slide-content { font-size: 1.2em; }
+            .two-columns { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-title">🔵 Word — Document professionnel</div>
+    <div class="slide-indicator"><span id="slideCounter">1 / …</span></div>
+
+    <div class="presentation-container">
+
+        <!-- INTRO -->
+        <div class="slide active theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Word 2016-2019 : document professionnel</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">3h — produire des documents propres, fiables et prêts à diffuser</div>
+                <div class="workflow-row">
+                    <div class="workflow-step"><div class="step-name">1. Structurer</div><div class="step-desc">Styles, plan</div></div>
+                    <div class="workflow-step"><div class="step-name">2. Table des matières</div><div class="step-desc">Automatique</div></div>
+                    <div class="workflow-step"><div class="step-name">3. Mise en page</div><div class="step-desc">En-têtes, pages</div></div>
+                    <div class="workflow-step"><div class="step-name">4. Enrichir</div><div class="step-desc">Tableaux, listes</div></div>
+                    <div class="workflow-step"><div class="step-name">5. Finaliser</div><div class="step-desc">Révision, PDF</div></div>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>Fil rouge</h4>
+                    <p>Un même document CHC est enrichi au fil des exercices, puis un cas final au choix.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Organisation de la session</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Pour 6 à 8 participants</h3>
+                    <ul>
+                        <li>Le formateur lit la théorie, les participants travaillent dans Word.</li>
+                        <li>Word ouvert avant le début — dossier <code>DOCX\Exercices</code> prêt.</li>
+                        <li><strong>Alt + Tab</strong> pour basculer entre le cours et Word.</li>
+                        <li>Flèches <strong>← →</strong> pour naviguer dans le cours.</li>
+                    </ul>
+                </div>
+                <div class="nav-hint">Sur une slide d'exercice : touche <strong>S</strong> = afficher la solution · <strong>Échap</strong> = revenir à l'exercice</div>
+            </div>
+        </div>
+
+        <!-- CAS CHC -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Cas CHC : procédure interne</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Quand l'utiliser ?</h3>
+                    <ul>
+                        <li>Décrire une procédure, un processus ou des étapes à suivre.</li>
+                        <li>Structure : titres, sous-titres, tableau de suivi.</li>
+                        <li>Exemple : <code>Procédure interne - Accueil d'un nouveau collaborateur</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Cas CHC : compte rendu</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Quand l'utiliser ?</h3>
+                    <ul>
+                        <li>Retranscrire une réunion ou un point d'équipe.</li>
+                        <li>Structure : objectif, décisions, actions à suivre.</li>
+                        <li>Tableau utile : Décision / Responsable / Échéance.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Cas CHC : note interne et document à relire</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Note interne</h3>
+                        <ul>
+                            <li>Document court, 1 à 2 pages.</li>
+                            <li>Pas de table des matières nécessaire.</li>
+                            <li>Objectif : clair, propre, prêt à envoyer.</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>Document à relire</h3>
+                        <ul>
+                            <li>Texte existant à corriger ou valider.</li>
+                            <li>Commentaires + suivi des modifications.</li>
+                            <li>Version finale sans traces de révision.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE 1 : STYLES -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 1 — Structurer avec les styles</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 45 min · Théorie + Exercice 1</span>
+                <div class="subtitle">Le réflexe le plus important de la formation</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Word n'est pas une machine à écrire</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Un document = des <strong>paragraphes</strong>, pas des lignes isolées.</li>
+                        <li><code>Entrée</code> crée un nouveau paragraphe.</li>
+                        <li>Les styles changent tout le document en une fois.</li>
+                    </ul>
+                </div>
+                <div class="warning-box">
+                    <strong>Piège :</strong> titres en gras + taille manuelle au lieu de <strong>Titre 1</strong> / <strong>Titre 2</strong>.
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Les styles essentiels</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Normal</strong> — texte courant.</li>
+                        <li><strong>Titre 1</strong> — grandes parties.</li>
+                        <li><strong>Titre 2</strong> — sous-parties.</li>
+                    </ul>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>À retenir</h4>
+                    <p>On applique un <strong>rôle</strong> au texte. Word assure la cohérence.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Volet de navigation</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Votre meilleur allié</h3>
+                    <ul>
+                        <li><strong>Affichage</strong> → cocher <strong>Volet de navigation</strong>.</li>
+                        <li>Affiche la structure réelle du document.</li>
+                        <li>Permet de repérer immédiatement un titre mal stylé.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Modifier un style proprement</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Clic droit sur un style → <strong>Modifier...</strong> = méthode recommandée.</li>
+                        <li><strong>Mettre à jour le style</strong> = rapide mais moins contrôlé.</li>
+                        <li><strong>Supprimer de la galerie</strong> = à éviter en formation.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : modifier Titre 1</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3>2 minutes — montrez, puis ils reproduisent</h3>
+                    <ol>
+                        <li>Appliquer <strong>Titre 1</strong> à 2 titres.</li>
+                        <li>Clic droit sur <strong>Titre 1</strong> → <strong>Modifier...</strong>.</li>
+                        <li>Changer couleur ou taille → <strong>OK</strong>.</li>
+                        <li>Montrer le volet de navigation.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 1</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Ouvrir le fichier</h3>
+                    <p><code>DOCX\Exercices\01_Exercice_Texte_brut_Procedure_accueil.docx</code></p>
+                    <p><strong>Objectif :</strong> structurer le texte brut avec les styles.</p>
+                    <p><span class="duration-badge">⏱️ 20 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 1</div>
+                <div class="slide-title">Structurer le texte — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Repérez les trois grandes parties dans le texte.</li>
+                            <li>Appliquez <strong>Titre 1</strong> : Avant l'arrivée, Le premier jour, Après la première semaine.</li>
+                            <li>Appliquez <strong>Titre 2</strong> à chaque sous-partie.</li>
+                            <li>Appliquez <strong>Normal</strong> au texte courant.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="0">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 1</div>
+                <div class="slide-title">Structurer le texte — étapes 5 à 8</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Activez le <strong>Volet de navigation</strong> et vérifiez la structure.</li>
+                            <li>Ajoutez 2 à 3 phrases sous chaque sous-partie.</li>
+                            <li>Personnalisez une rubrique selon votre service.</li>
+                            <li>Enregistrez le document — vous le réutiliserez aux exercices suivants.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(0)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-0" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 1</div>
+                <div class="slide-title">Correction : styles et structure</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Accueil</strong> → <strong>Styles</strong> → <strong>Titre 1</strong> sur les 3 grandes parties.</li>
+                            <li><strong>Titre 2</strong> sur chaque sous-partie.</li>
+                            <li>Volet de navigation : structure visible à gauche.</li>
+                            <li>Référence : <code>DOCX\Realises\01_Realise_Procedure_accueil_structuree.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — styles</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Titre en gras manuel au lieu de <strong>Titre 1</strong>.</li>
+                        <li>Volet de navigation non activé — structure invisible.</li>
+                        <li>Mélange de styles sur un même titre.</li>
+                        <li>“Mettre à jour le style” utilisé sans comprendre l'effet.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE 2 : TABLE DES MATIERES -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 2 — Table des matières</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 25 min · Exercice 2</span>
+                <div class="subtitle">Automatique grâce aux styles Titre 1 et Titre 2</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Table des matières automatique</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Se base sur les styles <strong>Titre 1</strong>, <strong>Titre 2</strong>.</li>
+                        <li><strong>Références</strong> → <strong>Table des matières</strong> → modèle automatique.</li>
+                        <li>Mise à jour : clic droit → <strong>Mettre à jour le champ</strong> ou <strong>F9</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : insérer et mettre à jour</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Placer le curseur après le titre principal.</li>
+                        <li><strong>Références</strong> → <strong>Table des matières</strong>.</li>
+                        <li>Ajouter une sous-partie → mettre à jour toute la table.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 2</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Continuer le même document</h3>
+                    <p>Reprenez votre fichier de l'exercice 1 (enregistré).</p>
+                    <p><strong>Objectif :</strong> insérer et mettre à jour la table des matières.</p>
+                    <p><span class="duration-badge">⏱️ 15 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">Table des matières — étapes 1 à 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Placez le curseur après le titre principal.</li>
+                            <li>Insérez une table des matières automatique.</li>
+                            <li>Ajoutez une nouvelle sous-partie dans une grande partie.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="1">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">Table des matières — étapes 4 à 6</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="4">
+                            <li>Clic droit sur la table → <strong>Mettre à jour le champ</strong> → <strong>Mettre à jour toute la table</strong>.</li>
+                            <li>Modifiez un titre et vérifiez la mise à jour.</li>
+                            <li>Corrigez les titres au mauvais niveau si nécessaire.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-1" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 2</div>
+                <div class="slide-title">Correction : table des matières</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Titres niveau 1 et 2 visibles dans la table.</li>
+                            <li>Numéros de page à droite.</li>
+                            <li>Nouvelle sous-partie visible après mise à jour.</li>
+                            <li>Référence : <code>DOCX\Realises\02_Realise_Table_des_matieres.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — table des matières</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Table vide → titres sans style <strong>Titre 1/2</strong>.</li>
+                        <li>Oublier de mettre à jour après modification.</li>
+                        <li>Titre en gras qui n'apparaît pas dans la table.</li>
+                        <li>Table recopiée à la main au lieu d'une table automatique.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE 3 : MISE EN PAGE -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 3 — Mise en page</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 35 min · Exercice 3</span>
+                <div class="subtitle">Page de garde, en-têtes, numérotation</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Sauts de page et sections</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → <strong>Saut de page</strong> : nouvelle page simple.</li>
+                        <li><strong>Disposition</strong> → <strong>Sauts</strong> → section : changer la mise en page d'une partie.</li>
+                        <li>Document simple → privilégier le saut de page.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">En-têtes et numérotation</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → En-tête / Pied de page / Numéro de page.</li>
+                        <li><strong>Première page différente</strong> : pas de numéro sur la page de garde.</li>
+                        <li>Double-clic en haut ou bas de page pour éditer.</li>
+                    </ul>
+                </div>
+                <div class="warning-box">
+                    <strong>Piège classique :</strong> numérotation visible sur la page de garde.
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : en-tête et numérotation</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Ajouter une page de garde simple.</li>
+                        <li><strong>Insertion</strong> → <strong>Saut de page</strong>.</li>
+                        <li>En-tête <code>Procédure interne</code> + numéro en bas de page.</li>
+                        <li>Cocher <strong>Première page différente</strong>.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Continuer le même document</h3>
+                    <p><strong>Objectif :</strong> rendre le document présentable.</p>
+                    <p><span class="duration-badge">⏱️ 25 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">Mise en page — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Page de garde : titre, nom, date.</li>
+                            <li>Saut de page après la page de garde.</li>
+                            <li>Table des matières sur la page suivante.</li>
+                            <li>En-tête : <code>Procédure interne</code>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="2">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">Mise en page — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Numérotation en bas de page.</li>
+                            <li><strong>Première page différente</strong> activée.</li>
+                            <li>Ajustez marges pour un document lisible sur 3 à 4 pages.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-2" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 3</div>
+                <div class="slide-title">Correction : mise en page</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Page de garde sans en-tête ni numéro.</li>
+                            <li>Numérotation à partir du contenu.</li>
+                            <li>Référence : <code>DOCX\Realises\03_Realise_Mise_en_page.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — mise en page</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Numéro de page sur la page de garde.</li>
+                        <li>Table des matières qui se décale après ajout de contenu.</li>
+                        <li>En-tête identique partout sans <strong>Première page différente</strong>.</li>
+                        <li>Espaces multiples pour simuler une mise en page.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE 4 : ENRICHIR -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 4 — Tableaux, listes et images</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 25 min · Exercice 4</span>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Enrichir sans casser la mise en page</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → Tableau : Action / Responsable / Échéance.</li>
+                        <li>Listes numérotées ou à puces via Word, pas à la main.</li>
+                        <li>Images : habillage <strong>Aligné sur le texte</strong> = le plus stable.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Continuer le même document</h3>
+                    <p><strong>Objectif :</strong> ajouter tableau, listes et image.</p>
+                    <p><span class="duration-badge">⏱️ 25 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Enrichir — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Tableau 3 colonnes : Action, Responsable, Échéance.</li>
+                            <li>4 lignes d'exemple dans <strong>Avant l'arrivée</strong>.</li>
+                            <li>Style de tableau sobre.</li>
+                            <li>Insérez une image ou logo si disponible.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="3">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Enrichir — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Testez l'habillage <strong>Aligné sur le texte</strong> puis <strong>Carré</strong>.</li>
+                            <li>Liste numérotée dans <strong>Le premier jour</strong>.</li>
+                            <li>Liste à puces dans <strong>Après la première semaine</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-3" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 4</div>
+                <div class="slide-title">Correction : tableaux et listes</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Tableau lisible en noir et blanc.</li>
+                            <li>Listes créées avec Word, pas tapées manuellement.</li>
+                            <li>Référence : <code>DOCX\Realises\04_Realise_Tableaux_listes_images.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE 5 : FINALISER -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 5 — Réviser et exporter</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 20 min · Exercice 5</span>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Réviser avant diffusion</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Révision</strong> → Commentaire : poser une question.</li>
+                        <li><strong>Suivi des modifications</strong> : corriger le fond du texte.</li>
+                        <li><strong>Fichier</strong> → <strong>Enregistrer sous</strong> → <strong>PDF</strong>.</li>
+                        <li>Désactiver le suivi avant la version finale.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : commentaire et PDF</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Sélectionner un passage → <strong>Nouveau commentaire</strong>.</li>
+                        <li>Activer le suivi → modifier une phrase → accepter/refuser.</li>
+                        <li><strong>Fichier</strong> → <strong>Enregistrer sous</strong> → PDF.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 5</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Ouvrir le fichier</h3>
+                    <p><code>DOCX\Exercices\05_Exercice_Document_a_relire.docx</code></p>
+                    <p><strong>Objectif :</strong> relire, corriger et exporter en PDF.</p>
+                    <p><span class="duration-badge">⏱️ 15 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
+                <div class="slide-title">Document à relire — étapes 1 à 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Corrigez les fautes du texte.</li>
+                            <li>Ajoutez un commentaire sur un passage à vérifier.</li>
+                            <li>Activez le suivi des modifications et modifiez une phrase.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="4">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
+                <div class="slide-title">Document à relire — étapes 4 à 6</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="4">
+                            <li>Acceptez ou refusez la modification.</li>
+                            <li>Lancez le correcteur orthographique.</li>
+                            <li>Exportez en PDF — vérifiez le rendu avant envoi.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(4)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-4" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 5</div>
+                <div class="slide-title">Correction : document prêt à diffuser</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Texte corrigé, commentaire ajouté.</li>
+                            <li>Suivi des modifications désactivé avant PDF final.</li>
+                            <li>Référence : <code>DOCX\Realises\05_Realise_Document_relu_corrige.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — finalisation</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>PDF exporté avec le suivi des modifications actif.</li>
+                        <li>Commentaires oubliés dans la version finale.</li>
+                        <li>Table des matières non mise à jour avant export.</li>
+                        <li>PDF non relu — mise en page cassée à l'envoi.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE 6 : ATELIER -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 6 — Atelier final CHC</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 30 min + 15 min correction collective</span>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 6</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Fichier de départ</h3>
+                    <p><code>DOCX\Exercices\06_Exercice_Atelier_final_CHC.docx</code></p>
+                    <p><strong>Choisissez un cas :</strong> procédure · compte rendu · note interne · document à relire</p>
+                    <p><span class="duration-badge">⏱️ 30 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
+                <div class="slide-title">Atelier final — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Document 3 à 5 pages avec page de garde.</li>
+                            <li><strong>Titre 1</strong> et <strong>Titre 2</strong> sur toute la structure.</li>
+                            <li>Table des matières automatique.</li>
+                            <li>Tableau utile : actions, décisions ou responsables.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="5">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
+                <div class="slide-title">Atelier final — étapes 5 à 8</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Liste numérotée ou à puces.</li>
+                            <li>En-tête ou pied de page avec numérotation.</li>
+                            <li>Au moins un commentaire ou une modification suivie.</li>
+                            <li>Mise à jour table des matières + export PDF.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(5)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-5" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 6</div>
+                <div class="slide-title">Grille de réussite — atelier final</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Document lisible sans explication orale.</li>
+                            <li>Styles utilisés, pas seulement du gras.</li>
+                            <li>Table des matières à jour.</li>
+                            <li>PDF conforme au document Word.</li>
+                            <li>Référence compte rendu : <code>DOCX\Realises\06_Realise_Atelier_final_Compte_rendu.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Correction collective</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>15 minutes — ordre de vérification</h3>
+                    <ul>
+                        <li>1. Structure : styles, titres, table des matières.</li>
+                        <li>2. Mise en page : sauts, en-têtes, numérotation.</li>
+                        <li>3. Diffusion : commentaires, suivi, PDF.</li>
+                    </ul>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>Questions au groupe</h4>
+                    <p>Facile à parcourir ? Modifiable sans tout casser ? Prêt à envoyer ?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Synthèse du module</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">Les 5 réflexes Word à garder</div>
+                <div class="workflow-row">
+                    <div class="workflow-step"><div class="step-name">Styles</div><div class="step-desc">Structurer d'abord</div></div>
+                    <div class="workflow-step"><div class="step-name">Navigation</div><div class="step-desc">Volet de navigation</div></div>
+                    <div class="workflow-step"><div class="step-name">Table auto</div><div class="step-desc">Toujours mettre à jour</div></div>
+                    <div class="workflow-step"><div class="step-name">Mise en page</div><div class="step-desc">Première page différente</div></div>
+                    <div class="workflow-step"><div class="step-name">PDF</div><div class="step-desc">Contrôle final</div></div>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>Message clé</h4>
+                    <p>Un bon document Word est d'abord structuré. La mise en forme vient ensuite.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide:not(.solution)');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.querySelectorAll('.slide.solution').forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.display = 'none';
+            });
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            const target = currentSlide + direction;
+            if (target >= 0 && target < totalSlides) showSlide(target);
+        }
+
+        function showSolution(solutionIndex) {
+            const solutionSlide = document.getElementById(`solution-${solutionIndex}`);
+            if (!solutionSlide) return;
+            slides[currentSlide].classList.remove('active');
+            solutionSlide.style.display = 'flex';
+            solutionSlide.classList.add('active');
+            document.getElementById('slideCounter').textContent = `Solution ${solutionIndex + 1}`;
+            const existingBack = solutionSlide.querySelector('.show-solution-btn');
+            if (existingBack) existingBack.remove();
+            const backBtn = document.createElement('button');
+            backBtn.className = 'show-solution-btn';
+            backBtn.textContent = "⬅ Retour à l'exercice (Échap)";
+            backBtn.onclick = function() {
+                solutionSlide.style.display = 'none';
+                solutionSlide.classList.remove('active');
+                slides[currentSlide].classList.add('active');
+                document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+                backBtn.remove();
+            };
+            solutionSlide.querySelector('.slide-content').appendChild(backBtn);
+        }
+
+        function tryShowSolutionFromCurrentSlide() {
+            const active = slides[currentSlide];
+            if (!active || !active.dataset.solution) return;
+            showSolution(parseInt(active.dataset.solution, 10));
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const activeSolution = document.querySelector('.slide.solution.active');
+            if (activeSolution) {
+                if (e.key === 'Escape') {
+                    const backBtn = activeSolution.querySelector('.show-solution-btn');
+                    if (backBtn) backBtn.click();
+                }
+                return;
+            }
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 's' || e.key === 'S') tryShowSolutionFromCurrentSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

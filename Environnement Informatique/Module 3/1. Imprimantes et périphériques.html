@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3 - Imprimantes et périphériques</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #003366;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .slide-number {
+            background: #003366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-list li {
+            background: #f8f9fa;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+
+        .content-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-list li strong {
+            color: #003366;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid #003366;
+        }
+
+        .comparison-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #003366;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .warning-box strong {
+            color: #856404;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #005588;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">1/5</div>
+                <h1 class="slide-title">Imprimantes et périphériques</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Gérer son matériel sans stress</h2>
+                <div class="comparison-table">
+                    <div class="comparison-box">
+                        <h3>🖨️ Ce que vous allez apprendre</h3>
+                        <ul style="list-style: none; padding: 0; line-height: 2;">
+                            <li>✓ Ajouter une imprimante via Install My Printer</li>
+                            <li>✓ Définir une imprimante par défaut</li>
+                            <li>✓ Supprimer une imprimante</li>
+                            <li>✓ Résoudre les problèmes courants d'impression</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-box">
+                        <h3>🔧 Outil utilisé</h3>
+                        <ul style="list-style: none; padding: 0; line-height: 2;">
+                            <li>✓ <strong>Install My Printer v3.3</strong></li>
+                            <li>✓ Raccourci disponible sur le bureau</li>
+                            <li>✓ Interface simple et intuitive</li>
+                            <li>✓ Gestion centralisée des imprimantes</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 30px; font-size: 1.1em; color: #666;">
+                    <strong>💡 Important :</strong> L'ajout et la suppression d'imprimantes doivent toujours se faire via le logiciel <strong style="color: #003366;">Install My Printer</strong>, accessible depuis le raccourci sur votre bureau.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2/5</div>
+                <h1 class="slide-title">Ajouter une imprimante</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 20px; font-size: 2em;">Utiliser Install My Printer</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong><span class="step-number">1</span> Ouvrir Install My Printer</strong>
+                        Double-cliquez sur le raccourci <span style="color: #003366; font-weight: bold;">Install My Printer</span> présent sur votre bureau Windows.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">2</span> Sélectionner l'imprimante</strong>
+                        Dans le menu déroulant <span style="color: #003366; font-weight: bold;">Imprimante</span>, sélectionnez ou tapez le nom de l'imprimante souhaitée. L'emplacement et le pilote s'afficheront automatiquement.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">3</span> Définir comme imprimante par défaut</strong>
+                        Cochez la case <span style="color: #003366; font-weight: bold;">« Définir comme imprimante par défaut »</span>. Cette option est recommandée pour votre imprimante principale afin qu'elle soit automatiquement sélectionnée lors de chaque impression.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">4</span> Ajouter</strong>
+                        Cliquez sur le bouton <span style="color: #28a745; font-weight: bold;">Ajouter</span> pour lancer l'installation. L'imprimante sera alors disponible sur votre poste.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>⚠️ Bonne pratique :</strong> Pensez toujours à cocher « Définir comme imprimante par défaut » lors de l'installation de votre imprimante principale. Cela vous évitera de devoir la sélectionner manuellement à chaque impression.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3/5</div>
+                <h1 class="slide-title">Supprimer une imprimante</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Retirer une imprimante du poste</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong><span class="step-number">1</span> Ouvrir Install My Printer</strong>
+                        Comme pour l'ajout, ouvrez le logiciel <span style="color: #003366; font-weight: bold;">Install My Printer</span> via le raccourci sur le bureau.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">2</span> Sélectionner l'imprimante à supprimer</strong>
+                        Dans le menu déroulant <span style="color: #003366; font-weight: bold;">Imprimante</span>, sélectionnez le nom de l'imprimante que vous souhaitez retirer.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">3</span> Cliquer sur Supprimer</strong>
+                        Cliquez sur le bouton <span style="color: #dc3545; font-weight: bold;">Supprimer</span> pour retirer l'imprimante de votre poste.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>⚠️ Attention :</strong> Si vous supprimez votre imprimante par défaut, pensez à en redéfinir une autre comme imprimante par défaut pour éviter les erreurs d'impression.
+                </div>
+                <p style="text-align: center; margin-top: 30px; font-size: 1.1em; color: #666;">
+                    <strong>💡 Rappel :</strong> L'ajout et la suppression d'imprimantes se font exclusivement via <strong style="color: #003366;">Install My Printer</strong>. N'utilisez pas les paramètres Windows pour gérer vos imprimantes.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4/5</div>
+                <h1 class="slide-title">Dépannage impression</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Résoudre les problèmes courants</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>L'imprimante n'apparaît pas dans la liste</strong>
+                        <ol style="margin-top: 8px; padding-left: 20px; color: #444; line-height: 1.8;">
+                            <li>Demandez d'abord à <span style="color: #003366; font-weight: bold;">installer l'imprimante</span> via Install My Printer</li>
+                            <li>Si le nom de l'imprimante n'apparaît pas dans la liste déroulante, vérifiez la version du logiciel : elle doit être au minimum <span style="color: #003366; font-weight: bold;">v3.3</span></li>
+                            <li>Si l'imprimante n'est toujours pas dans la liste des imprimantes installables, contactez le <span style="color: #003366; font-weight: bold;">Service Desk</span></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>L'impression ne sort pas</strong>
+                        Vérifiez que la bonne imprimante est sélectionnée (celle par défaut ou celle choisie manuellement). Vérifiez également que l'imprimante est allumée et qu'il n'y a pas de bourrage papier ou de manque de papier/toner.
+                    </li>
+                    <li>
+                        <strong>La file d'impression est bloquée</strong>
+                        Si vos documents restent en attente, essayez de supprimer l'imprimante via <span style="color: #003366; font-weight: bold;">Install My Printer</span> puis de la réajouter. Si le problème persiste, contactez le Service Desk.
+                    </li>
+                    <li>
+                        <strong>Commande de cartouche d'encre ?</strong>
+                        Notre prestataire MigDP s'occupe de fournir automatiquement et à l'avance les consommables.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5/5</div>
+                <h1 class="slide-title">Périphériques USB</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 20px; font-size: 2em;">Micro, clavier, souris : les règles de base</h2>
+                <p style="text-align: center; margin-bottom: 25px; font-size: 1.15em; color: #555;">
+                    Votre périphérique USB ne fonctionne pas ? Suivez ces étapes dans l'ordre avant de contacter le Service Desk :
+                </p>
+                <ul class="content-list">
+                    <li>
+                        <strong><span class="step-number">1</span> Vérifier les LEDs du périphérique</strong>
+                        Si le périphérique possède des voyants lumineux (LEDs), vérifiez qu'ils sont allumés. Un voyant éteint peut indiquer un problème d'alimentation ou de connexion.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">2</span> Tester un autre port USB</strong>
+                        Débranchez le périphérique et essayez un autre port USB : testez les ports en <span style="color: #003366; font-weight: bold;">facade</span> et à l'<span style="color: #003366; font-weight: bold;">arrière</span> du PC. Un port défectueux peut être la cause du problème.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">3</span> Redémarrer le PC</strong>
+                        Si le périphérique n'est toujours pas reconnu, effectuez un <span style="color: #003366; font-weight: bold;">redémarrage complet</span> du PC. Cela permet de réinitialiser les pilotes USB.
+                    </li>
+                    <li>
+                        <strong><span class="step-number">4</span> Contacter le Service Desk</strong>
+                        Si après toutes ces vérifications le périphérique ne fonctionne toujours pas, contactez le <span style="color: #003366; font-weight: bold;">Service Desk</span> en précisant le type de périphérique, les étapes déjà tentées et le comportement observé.
+                    </li>
+                </ul>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="2. Auto-évaluation.html" style="display: inline-block; padding: 15px 30px; background: #003366; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 1.1em; box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4); transition: all 0.3s;">
+                        📝 Passer à l'auto-évaluation →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+        <span class="indicator" onclick="goToSlide(3)"></span>
+        <span class="indicator" onclick="goToSlide(4)"></span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">← Précédent</button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">Suivant →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

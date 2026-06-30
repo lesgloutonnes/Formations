@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6 - Auto-évaluation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            position: relative;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #003366;
+            padding-bottom: 20px;
+        }
+        .header h1 { color: #2c3e50; font-size: 2.5em; margin-bottom: 10px; }
+        .header p { color: #666; font-size: 1.1em; }
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .question-text {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .options { list-style: none; padding: 0; }
+        .option {
+            margin: 10px 0;
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .option:hover {
+            border-color: #003366;
+            background: #e6f0f5;
+            transform: translateX(5px);
+        }
+        .option input[type="radio"] { margin-right: 12px; cursor: pointer; flex-shrink: 0; }
+        .option label { cursor: pointer; width: 100%; display: block; flex-grow: 1; margin: 0; padding: 0; }
+        .option.correct { background: #d4edda; border-color: #28a745; }
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        .option.selected { border-color: #003366; background: #e6f0f5; }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #003366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 51, 102, 0.4);
+        }
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .results.show { display: block; }
+        .score {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #003366;
+            margin: 20px 0;
+        }
+        .feedback {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e6f0f5;
+            border-left: 4px solid #003366;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #2c3e50;
+            display: none;
+        }
+        .explanation.show { display: block; }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .nav-link {
+            padding: 12px 24px;
+            background: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            background: #005588;
+            color: #2c3e50;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Auto-évaluation - Module 6</h1>
+            <p>Transfert et partage de fichiers</p>
+        </div>
+        <form id="quizForm">
+            <div class="question">
+                <div class="question-number">Question 1/5</div>
+                <div class="question-text">Quel outil utiliser pour partager des fichiers volumineux ou sensibles avec des personnes externes au CHC ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q1" value="a" id="q1a">
+                        <label for="q1a">ShareFile</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q1" value="b" id="q1b">
+                        <label for="q1b">SharePoint avec accès externe</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q1" value="c" id="q1c">
+                        <label for="q1c">Disque réseau partagé</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q1" value="d" id="q1d">
+                        <label for="q1d">Email avec pièce jointe cryptée</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp1">
+                    <strong>Réponse correcte :</strong> ShareFile. C'est l'outil sécurisé du CHC spécialement conçu pour partager des fichiers avec des personnes externes.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 2/5</div>
+                <div class="question-text">Quel outil utiliser pour collaborer sur des documents avec votre équipe interne au CHC ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q2" value="a" id="q2a">
+                        <label for="q2a">SharePoint</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q2" value="b" id="q2b">
+                        <label for="q2b">ShareFile</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q2" value="c" id="q2c">
+                        <label for="q2c">Uniquement les disques réseaux partagés</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q2" value="d" id="q2d">
+                        <label for="q2d">OneDrive personnel</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp2">
+                    <strong>Réponse correcte :</strong> SharePoint. C'est la plateforme de collaboration du CHC pour créer des sites d'équipe et collaborer sur des projets.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 3/5</div>
+                <div class="question-text">Où trouver les disques réseaux mappés sur votre poste ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q3" value="a" id="q3a">
+                        <label for="q3a">Dans l'Explorateur de fichiers, sous "Ce PC"</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q3" value="b" id="q3b">
+                        <label for="q3b">Uniquement dans le Panneau de configuration</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q3" value="c" id="q3c">
+                        <label for="q3c">Dans le menu Démarrer > Réseau</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q3" value="d" id="q3d">
+                        <label for="q3d">Uniquement via l'Intranet CHC</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp3">
+                    <strong>Réponse correcte :</strong> Dans l'Explorateur de fichiers, sous "Ce PC". Les disques réseaux apparaissent comme des lecteurs (S:, T:, U:, etc.).
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 4/5</div>
+                <div class="question-text">Qu'est-ce que Bomgar ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q4" value="a" id="q4a">
+                        <label for="q4a">L'outil utilisé par le service IT pour prendre le contrôle de votre poste à distance</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q4" value="b" id="q4b">
+                        <label for="q4b">Un outil de partage de fichiers sécurisé</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q4" value="c" id="q4c">
+                        <label for="q4c">Un système de gestion de tickets IT</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q4" value="d" id="q4d">
+                        <label for="q4d">Un outil de monitoring réseau</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp4">
+                    <strong>Réponse correcte :</strong> L'outil utilisé par le service IT pour prendre le contrôle de votre poste à distance. Bomgar permet au service IT de vous aider à résoudre des problèmes techniques.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 5/5</div>
+                <div class="question-text">Quel est l'avantage principal de SharePoint par rapport à un partage réseau classique ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q5" value="a" id="q5a">
+                        <label for="q5a">Accès depuis n'importe quel poste avec une connexion CHC, collaboration en temps réel et versioning automatique</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q5" value="b" id="q5b">
+                        <label for="q5b">Stockage illimité de fichiers</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q5" value="c" id="q5c">
+                        <label for="q5c">Accès plus rapide aux fichiers</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q5" value="d" id="q5d">
+                        <label for="q5d">Pas besoin de connexion internet</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp5">
+                    <strong>Réponse correcte :</strong> Accès depuis n'importe quel poste avec une connexion CHC, collaboration en temps réel et versioning automatique. SharePoint offre ces avantages clés par rapport aux disques réseaux classiques.
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Valider mes réponses</button>
+        </form>
+        <div class="results" id="results">
+            <h2>Résultats de l'auto-évaluation</h2>
+            <div class="score" id="score"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        <div class="nav-links">
+            <a href="1. Transfert et partage de fichiers.html" class="nav-link">← Retour au module</a>
+            <a href="../index.html" class="nav-link">Retour à l'accueil</a>
+        </div>
+    </div>
+    <script>
+        const correctAnswers = { q1: 'a', q2: 'a', q3: 'a', q4: 'a', q5: 'a' };
+
+        // Fonction pour mélanger un tableau (algorithme Fisher-Yates)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Fonction pour rendre toute la zone de l'option cliquable
+        function makeOptionsClickable() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    // Ne pas déclencher si on clique directement sur le radio button ou le label
+                    if (e.target.type === 'radio' || e.target.tagName === 'LABEL') {
+                        return;
+                    }
+                    // Trouver le radio button dans cette option et le sélectionner
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio && !radio.disabled) {
+                        radio.checked = true;
+                        // Déclencher l'événement change pour mettre à jour l'état visuel si nécessaire
+                        radio.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            });
+        }
+
+        // Mélanger l'ordre des réponses pour chaque question au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question');
+            questions.forEach((question, questionIndex) => {
+                const optionsList = question.querySelector('.options');
+                const options = Array.from(optionsList.querySelectorAll('.option'));
+                
+                // Mélanger les options
+                const shuffledOptions = shuffleArray(options);
+                
+                // Vider la liste et réinsérer les options dans le nouvel ordre
+                optionsList.innerHTML = '';
+                shuffledOptions.forEach(option => {
+                    optionsList.appendChild(option);
+                });
+            });
+
+            // Rendre toute la zone de l'option cliquable après le mélange
+            makeOptionsClickable();
+        });
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+            Object.keys(correctAnswers).forEach((question, index) => {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const explanation = questionDiv.querySelector('.explanation');
+                if (selected) {
+                    const option = selected.closest('.option');
+                    const allOptions = questionDiv.querySelectorAll('.option');
+                    allOptions.forEach(opt => opt.classList.remove('correct', 'incorrect', 'selected'));
+                    if (selected.value === correctAnswers[question]) {
+                        score++;
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        const correctOption = questionDiv.querySelector(`input[value="${correctAnswers[question]}"]`).closest('.option');
+                        correctOption.classList.add('correct');
+                    }
+                    option.classList.add('selected');
+                    explanation.classList.add('show');
+                }
+            });
+            const percentage = Math.round((score / totalQuestions) * 100);
+            document.getElementById('score').textContent = `${score}/${totalQuestions} (${percentage}%)`;
+            let feedback = '';
+            if (percentage === 100) feedback = '🎉 Excellent ! Vous maîtrisez parfaitement ce module.';
+            else if (percentage >= 80) feedback = '👍 Très bien ! Vous avez une bonne compréhension du module.';
+            else if (percentage >= 60) feedback = '📚 Pas mal ! Revoyez les questions incorrectes pour améliorer votre compréhension.';
+            else feedback = '📖 Nous vous recommandons de revoir le module avant de continuer.';
+            document.getElementById('feedback').textContent = feedback;
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

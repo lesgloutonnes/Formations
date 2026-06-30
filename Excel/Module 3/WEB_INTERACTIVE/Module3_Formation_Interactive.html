@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Module 3 : Macros & VBA avec IA — Formation Interactive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a; color: #fff; overflow: hidden; height: 100vh;
+        }
+        .presentation-container {
+            width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slide {
+            width: 96%; max-width: 1800px; height: 92vh;
+            background: #1a1a1a; border: 4px solid #217346; border-radius: 20px;
+            padding: 70px; display: none; flex-direction: column;
+            overflow-y: auto; box-shadow: 0 0 40px rgba(33, 115, 70, 0.3);
+        }
+        .slide.active { display: flex; }
+        .slide.exercise { border-color: #ffd700; }
+        .slide.solution { border-color: #00ff88; }
+        .slide.section-opener {
+            background: linear-gradient(160deg, #1a1a1a 0%, rgba(33, 115, 70, 0.12) 100%);
+        }
+        .slide-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 40px; border-bottom: 3px solid #217346; padding-bottom: 24px;
+        }
+        .slide-type-badge {
+            padding: 12px 26px; border-radius: 30px; font-size: 28px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .badge-theory { background: #217346; color: #fff; }
+        .badge-exercise { background: #ffd700; color: #000; }
+        .badge-solution { background: #00ff88; color: #000; }
+        .badge-bonus { background: #555; color: #fff; }
+        .slide-title {
+            font-size: 3.2em; font-weight: 700; text-align: center; flex-grow: 1;
+            margin: 0 30px; line-height: 1.2;
+        }
+        .slide-content {
+            flex-grow: 1; display: flex; flex-direction: column;
+            justify-content: center; font-size: 1.5em; line-height: 1.6;
+        }
+        .subtitle {
+            font-size: 2em; color: #217346; margin-bottom: 35px;
+            text-align: center; font-weight: 600;
+        }
+        .center-content { text-align: center; }
+        .content-box {
+            background: rgba(33, 115, 70, 0.1); border-left: 8px solid #217346;
+            padding: 32px; border-radius: 15px; margin: 22px 0;
+        }
+        .content-box h3 { font-size: 1.7em; color: #217346; margin-bottom: 18px; }
+        .content-box p, .content-box li {
+            font-size: 1.25em; margin-bottom: 14px; line-height: 1.7;
+        }
+        .content-box ul { list-style: none; padding: 0; }
+        .content-box li::before { content: "▶ "; color: #217346; font-weight: bold; margin-right: 10px; }
+        .a-retenir-box {
+            background: rgba(0, 255, 136, 0.08); border: 2px solid #00ff88;
+            border-radius: 12px; padding: 20px 26px; margin: 22px 0;
+        }
+        .a-retenir-box h4 { color: #00ff88; margin-bottom: 10px; }
+        .file-box {
+            background: rgba(0, 150, 255, 0.12); border-left: 6px solid #0096ff;
+            padding: 20px 26px; border-radius: 10px; margin: 20px 0;
+        }
+        .file-box h4 { color: #64b5f6; margin-bottom: 10px; }
+        .file-box code {
+            background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 6px;
+            color: #8FD9A8; font-size: 0.95em;
+        }
+        .roadmap-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 14px; margin: 28px 0;
+        }
+        .roadmap-item {
+            background: rgba(255,255,255,0.05); border: 2px solid #444;
+            border-radius: 12px; padding: 18px; text-align: center;
+        }
+        .roadmap-item .roadmap-num {
+            display: inline-block; background: #217346; color: #fff;
+            width: 34px; height: 34px; line-height: 34px; border-radius: 50%;
+            font-weight: 700; margin-bottom: 8px;
+        }
+        .roadmap-item .roadmap-name { font-weight: 700; color: #8FD9A8; font-size: 0.9em; }
+        .objectifs-box {
+            background: rgba(33, 115, 70, 0.1); border-left: 6px solid #217346;
+            padding: 22px 28px; border-radius: 12px; margin: 20px 0; text-align: left;
+        }
+        .objectifs-box h4 { color: #8FD9A8; margin-bottom: 12px; }
+        .objectifs-box li { font-size: 1em; margin-bottom: 8px; }
+        .partie-label {
+            display: inline-block; background: rgba(33, 115, 70, 0.25);
+            border: 2px solid #217346; color: #8FD9A8;
+            padding: 8px 20px; border-radius: 30px; font-weight: 700; margin-bottom: 20px;
+        }
+        .workflow-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 24px 0; }
+        .workflow-step {
+            background: rgba(33, 115, 70, 0.15); border: 2px solid #217346;
+            border-radius: 12px; padding: 16px 12px; text-align: center;
+            min-width: 120px; flex: 1; max-width: 160px;
+        }
+        .workflow-step .step-name { font-weight: 700; color: #8FD9A8; }
+        .workflow-step .step-desc { font-size: 0.82em; color: #aaa; margin-top: 6px; }
+        .prompt-box {
+            background: rgba(0, 150, 255, 0.12); border-left: 6px solid #0096ff;
+            padding: 20px; border-radius: 10px; margin: 18px 0;
+        }
+        .prompt-box h4 { color: #64b5f6; margin-bottom: 10px; }
+        .prompt-box em { color: #ddd; font-size: 0.95em; }
+        .exercise-instructions {
+            background: rgba(255, 215, 0, 0.12); border-left: 8px solid #ffd700;
+            padding: 36px; border-radius: 15px; margin: 24px 0;
+        }
+        .exercise-instructions h3 { color: #ffd700; font-size: 1.8em; margin-bottom: 20px; text-align: center; }
+        .exercise-steps ol { padding-left: 40px; }
+        .exercise-steps li { font-size: 1.2em; margin-bottom: 16px; line-height: 1.7; }
+        .exercise-meta {
+            display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px;
+        }
+        .exercise-meta span {
+            background: rgba(255, 215, 0, 0.12); border: 1px solid #ffd700;
+            color: #ffd700; padding: 8px 16px; border-radius: 20px; font-size: 0.9em;
+        }
+        .duration-badge {
+            display: inline-block; background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700; padding: 10px 22px; border-radius: 25px;
+            color: #ffd700; margin-bottom: 16px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 136, 0.12); border-left: 8px solid #00ff88;
+            padding: 36px; border-radius: 15px;
+        }
+        .solution-box h3 { color: #00ff88; margin-bottom: 20px; text-align: center; }
+        .solution-steps ol { padding-left: 40px; }
+        .solution-steps li { font-size: 1.15em; margin-bottom: 14px; }
+        .highlight { color: #8FD9A8; font-weight: 600; }
+        .aller-plus-loin {
+            background: rgba(143, 217, 168, 0.08); border: 2px solid #8FD9A8;
+            border-radius: 12px; padding: 24px 28px; margin: 24px 0;
+        }
+        .aller-plus-loin h4 { color: #8FD9A8; margin-bottom: 14px; font-size: 1.15em; }
+        .aller-plus-loin ol { padding-left: 36px; margin-top: 12px; }
+        .aller-plus-loin li { font-size: 1.05em; margin-bottom: 10px; line-height: 1.6; }
+        .navigation {
+            position: fixed; bottom: 36px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 18px; z-index: 1000;
+        }
+        .nav-btn, .show-solution-btn {
+            border: none; padding: 14px 28px; border-radius: 50px;
+            cursor: pointer; font-size: 22px; font-weight: 700;
+        }
+        .nav-btn { background: #217346; color: #fff; min-width: 180px; }
+        .nav-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .show-solution-btn {
+            background: #00ff88; color: #000; margin: 24px auto; display: block;
+        }
+        .slide-indicator, .module-title {
+            position: fixed; top: 32px; z-index: 1000;
+            background: rgba(0,0,0,0.85); border: 2px solid #217346;
+            padding: 12px 24px; border-radius: 30px; font-weight: 700; color: #217346;
+        }
+        .slide-indicator { right: 32px; font-size: 24px; }
+        .module-title { left: 32px; font-size: 20px; max-width: 420px; }
+        @media (max-width: 1919px) {
+            .slide-title { font-size: 2.6em; }
+            .roadmap-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-title">🤖 Module 3 — Macros & VBA avec l'IA</div>
+    <div class="slide-indicator"><span id="slideCounter">1 / 18</span></div>
+
+    <div class="presentation-container">
+
+        <!-- 0 ACCUEIL -->
+        <div class="slide active theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">🎓 Module 3</div>
+                <div class="slide-title">Macros & VBA avec l'IA</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">Automatiser Excel avec les macros et l'IA</div>
+                <p style="color:#ccc; max-width:1000px; margin:0 auto 24px; font-size:1.05em;">
+                    Chaque partie : un <strong>rappel théorique</strong>, puis un <strong>exercice pratique</strong> sur les fichiers du dossier <strong>EXERCICES</strong>, placé à côté de cette formation.
+                </p>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item"><div class="roadmap-num">1</div><div class="roadmap-name">Poste prêt</div></div>
+                    <div class="roadmap-item"><div class="roadmap-num">2</div><div class="roadmap-name">Enregistrer</div></div>
+                    <div class="roadmap-item"><div class="roadmap-num">3</div><div class="roadmap-name">Créer avec l'IA</div></div>
+                    <div class="roadmap-item"><div class="roadmap-num">4</div><div class="roadmap-name">Tableau de bord</div></div>
+                </div>
+                <div class="file-box" style="text-align:left; max-width:900px; margin:24px auto;">
+                    <h4>📁 Dossier EXERCICES (à côté de ce fichier)</h4>
+                    <p><code>Ex01_Environnement.xlsx</code> · <code>Ex02_FormaterTableau.xlsx</code> · <code>Ex03_Statuts_CHC.xlsx</code> · <code>Ex04_TableauDeBord.xlsx</code></p>
+                </div>
+                <div class="a-retenir-box" style="text-align:left; max-width:900px; margin:20px auto;">
+                    <h4>💬 Règle importante avec l'IA</h4>
+                    <p>Dès que vous passez à une <strong>autre macro</strong>, un <strong>autre exercice</strong> ou une <strong>autre demande</strong>, ouvrez une <strong>nouvelle conversation</strong> dans votre outil IA. C'est plus sûr : l'IA ne mélangera pas le code, les noms de feuilles ou les consignes des exercices précédents.</p>
+                    <p style="margin-top:12px; font-size:0.95em; color:#ccc;">Vous pouvez garder la même conversation uniquement pour <strong>corriger ou améliorer</strong> la macro en cours.</p>
+                </div>
+                <p style="color:#8FD9A8; margin-top:16px;"><strong>Prérequis :</strong> Modules 1 & 2 · Excel + Edge + IA autorisée</p>
+            </div>
+        </div>
+
+        <!-- ========== PARTIE 1 ========== -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Partie 1</div>
+                <div class="slide-title">Mise en place</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="partie-label">PARTIE 1</div>
+                <div class="subtitle">Comprendre, configurer, puis première macro</div>
+                <div class="objectifs-box" style="max-width:800px; margin:0 auto;">
+                    <h4>🎯 Après cette partie</h4>
+                    <ul>
+                        <li>Onglet Développeur activé, VBA visité une fois</li>
+                        <li>Excel + IA côte à côte</li>
+                        <li>Macro <strong>BonjourCHC</strong> avec MsgBox, puis affichage <strong>automatique à l'ouverture</strong> du fichier</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Macro et poste CHC</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>🤖 Une macro = rejouer vos actions en un clic</h3>
+                    <p>Formatage, nettoyage, exports… Vous <strong>enregistrez</strong> ou vous <strong>décrivez à l'IA</strong> — pas besoin d'être développeur.</p>
+                </div>
+                <div class="content-box">
+                    <h3>🔧 À activer une fois</h3>
+                    <ul>
+                        <li><strong>Développeur</strong> : Fichier → Options → Personnaliser le ruban → cocher « Développeur »</li>
+                        <li><strong>VBA</strong> : Alt+F11 (feuilles à gauche, code au centre)</li>
+                        <li><strong>IA</strong> : Edge → ChatGPT / Claude / Copilot — fenêtres côte à côte</li>
+                        <li><strong>Nouvelle conversation</strong> : à chaque nouvelle macro ou nouvel exercice (sauf pour corriger la macro en cours)</li>
+                        <li><strong>Macros</strong> : fichier <code>.xlsm</code> dès qu'il y a du code</li>
+                    </ul>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>📌 Fil du module</h4>
+                    <p><strong>Idée → Prompt (ou enregistrement) → Coller → Tester (Alt+F8) → Corriger avec l'IA</strong> — même boucle à chaque exercice.</p>
+                    <p style="margin-top:12px;">Entre deux exercices : <strong>nouvelle conversation IA</strong>, puis nouveau prompt.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 1</div>
+                <div class="slide-title">Préparer le poste + BonjourCHC</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-meta">
+                    <span>📁 EXERCICES\Ex01_Environnement.xlsx</span>
+                    <span>⏱️ Environ 15 minutes</span>
+                </div>
+                <div class="file-box">
+                    <p>Ouvrez <strong>Ex01_Environnement.xlsx</strong> dans le dossier EXERCICES. Feuille <strong>Demarrage</strong> pour le rappel des étapes.</p>
+                </div>
+                <div class="exercise-instructions">
+                    <h3>Exercice — à réaliser maintenant</h3>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Activez l'onglet <strong>Développeur</strong> si ce n'est pas déjà fait.</li>
+                            <li>Appuyez sur <strong>Alt+F11</strong> pour ouvrir l'éditeur VBA, parcourez la fenêtre, puis fermez-la.</li>
+                            <li>Placez <strong>Excel et Edge</strong> avec votre outil IA côte à côte à l'écran.</li>
+                            <li>Dans l'IA, demandez par exemple : <em>« Crée une macro VBA Excel nommée BonjourCHC qui affiche une MsgBox : Bonjour, équipe [nom de mon service] ! »</em></li>
+                            <li>Collez le code : Alt+F11 → Insertion → Module → collez → <strong>Alt+F8</strong> → Exécuter → vérifiez que la MsgBox s'affiche.</li>
+                            <li>Enregistrez d'abord en <strong>.xlsm</strong> (Classeur Excel avec macros).</li>
+                            <li>Demandez ensuite à l'IA : <em>« Ma macro BonjourCHC affiche une MsgBox. Fais en sorte qu'elle s'affiche automatiquement à chaque ouverture du fichier. Voici mon code : [coller]. »</em></li>
+                            <li>Collez le code proposé dans <strong>ThisWorkbook</strong> (double-clic sur « ThisWorkbook » dans l'arborescence VBA, pas dans un module standard).</li>
+                            <li>Fermez Excel, rouvrez le <strong>.xlsm</strong> : la MsgBox doit apparaître dès l'ouverture (acceptez les macros si Excel le demande).</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(0)">🔍 Correction</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-0" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Correction 1</div>
+                <div class="slide-title">BonjourCHC</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Vérifier l'onglet Développeur visible.</li>
+                            <li>Module standard — macro <strong>BonjourCHC</strong> :
+                                <pre style="background:#111;padding:16px;border-radius:8px;margin:12px 0;font-size:0.85em;color:#8FD9A8;">Sub BonjourCHC()
+    MsgBox "Bonjour, équipe Urgences !", vbInformation, "CHC"
+End Sub</pre>
+                                (adapter le nom du service)</li>
+                            <li>Alt+F8 → BonjourCHC → Exécuter : la MsgBox s'affiche.</li>
+                            <li>Enregistrer en <strong>.xlsm</strong>.</li>
+                            <li>Objet <strong>ThisWorkbook</strong> — événement à l'ouverture :
+                                <pre style="background:#111;padding:16px;border-radius:8px;margin:12px 0;font-size:0.85em;color:#8FD9A8;">Private Sub Workbook_Open()
+    Call BonjourCHC
+End Sub</pre>
+                                Le code va dans <strong>ThisWorkbook</strong>, pas dans Module1.</li>
+                            <li>Fermer et rouvrir le fichier : la MsgBox s'affiche sans passer par Alt+F8.</li>
+                            <li>Si rien ne se passe : macros activées pour ce fichier, et code bien dans ThisWorkbook (feuille « Classeur » dans l'arborescence VBA).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PARTIE 2 ========== -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Partie 2</div>
+                <div class="slide-title">Enregistrer & améliorer</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="partie-label">PARTIE 2</div>
+                <div class="subtitle">Vous montrez → Excel enregistre → l'IA peaufine</div>
+                <p style="color:#ccc; margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto;">
+                    Vous allez enregistrer une macro de formatage, puis l'améliorer avec l'IA.
+                </p>
+                <p style="color:#8FD9A8; margin-top:16px; max-width:800px; margin-left:auto; margin-right:auto; font-size:0.95em;">
+                    Avant de commencer : ouvrez une <strong>nouvelle conversation</strong> dans l'IA — nouvelle macro, nouvel exercice.
+                </p>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Enregistrer puis optimiser</div>
+            </div>
+            <div class="slide-content">
+                <div class="workflow-row">
+                    <div class="workflow-step"><div class="step-name">1. Enregistrer</div><div class="step-desc">Développeur → Enregistrer une macro</div></div>
+                    <div class="workflow-step"><div class="step-name">2. Rejouer</div><div class="step-desc">Alt+F8</div></div>
+                    <div class="workflow-step"><div class="step-name">3. Voir le code</div><div class="step-desc">Alt+F11</div></div>
+                    <div class="workflow-step"><div class="step-name">4. Améliorer</div><div class="step-desc">Coller le code dans l'IA</div></div>
+                </div>
+                <div class="prompt-box">
+                    <h4>💬 Prompt amélioration (une seule demande)</h4>
+                    <p><em>« Voici ma macro VBA enregistrée. Ajoute en-têtes en gras vert #217346, bordures, autofiltre, sans changer la plage de données. »</em></p>
+                </div>
+                <div class="a-retenir-box"><p>L'enregistrement donne une <strong>première version qui marche</strong> ; l'IA la rend plus propre.</p></div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">FormaterTableau</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-meta">
+                    <span>📁 EXERCICES\Ex02_FormaterTableau.xlsx</span>
+                    <span>⏱️ Environ 15 minutes</span>
+                </div>
+                <div class="file-box">
+                    <p>Ouvrez <strong>Ex02_FormaterTableau.xlsx</strong>, feuille <strong>Import_Brut</strong>. Plage à formater : <strong>A1:D9</strong> (données sans mise en forme).</p>
+                </div>
+                <div class="exercise-instructions">
+                    <h3>Exercice — à réaliser maintenant</h3>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Enregistrez une macro nommée <strong>FormaterTableau</strong> : sélectionnez A1:D9, appliquez en-têtes en gras, couleur verte, bordures, autofiltre, puis arrêtez l'enregistrement.</li>
+                            <li>Testez avec <strong>Alt+F8</strong> : la plage doit être mise en forme d'un seul coup.</li>
+                            <li>Ouvrez <strong>Alt+F11</strong> et copiez tout le code de la macro.</li>
+                            <li>Dans l'IA, demandez d'<strong>améliorer</strong> le code (et aussi de donner un look encore plus 'professionnel'), remplacez le code, retestez.</li>
+                            <li>Enregistrez en <strong>.xlsm</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Correction</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-1" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Correction 2</div>
+                <div class="slide-title">FormaterTableau</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Macro enregistrée sur <strong>Feuil1</strong> ou <strong>Import_Brut</strong> selon le nom de feuille active.</li>
+                            <li>Résultat attendu : en-têtes blancs sur fond vert, bordures, flèches de filtre.</li>
+                            <li>Si erreur « méthode impossible » : préciser à l'IA le nom exact de la feuille.</li>
+                            <li>Bonus : demander <em>« figer la ligne 1 »</em> dans le même prompt.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PARTIE 3 ========== -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Partie 3</div>
+                <div class="slide-title">Créer avec l'IA</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="partie-label">PARTIE 3</div>
+                <div class="subtitle">100 % IA — décrire en français, tester, corriger</div>
+                <p style="color:#ccc; margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto;">
+                    Vous allez décrire le besoin en français à l'IA, puis exécuter la macro générée.
+                </p>
+                <p style="color:#8FD9A8; margin-top:16px; max-width:800px; margin-left:auto; margin-right:auto; font-size:0.95em;">
+                    Nouvelle conversation IA avant cet exercice.
+                </p>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Prompt, coller, tester, corriger</div>
+            </div>
+            <div class="slide-content">
+                <div class="workflow-row">
+                    <div class="workflow-step"><div class="step-name">Prompt</div><div class="step-desc">Colonnes, feuille, objectif</div></div>
+                    <div class="workflow-step"><div class="step-name">Coller</div><div class="step-desc">Alt+F11 → Module</div></div>
+                    <div class="workflow-step"><div class="step-name">Tester</div><div class="step-desc">Alt+F8 · petit échantillon</div></div>
+                    <div class="workflow-step"><div class="step-name">Corriger</div><div class="step-desc">Erreur + code → IA</div></div>
+                </div>
+                <div class="prompt-box">
+                    <h4>💡 Modèle de prompt (exercice 3)</h4>
+                    <p><em>« Crée une macro VBA Excel. Feuille : Liste_Statuts. Colonne C = Statut. Parcours les lignes 2 à 13 : si la cellule vaut Inactif, colorie toute la ligne en gris clair. Nomme la procédure <strong>ColorerInactifs</strong> (c'est le nom qui apparaîtra dans Alt+F8). »</em></p>
+                    <p style="margin-top:14px; font-size:0.92em; color:#aaa;">En VBA, le nom de la macro est la ligne <code>Sub ColorerInactifs()</code> — pas un commentaire à la fin du prompt.</p>
+                </div>
+                <div class="a-retenir-box"><p>Débogage : <em>« Erreur [texte] ligne [N]. Objectif : … Code : [coller]. Corrige. »</em> — puis <em>« Explique ligne par ligne »</em>.</p></div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">ColorerInactifs</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-meta">
+                    <span>📁 EXERCICES\Ex03_Statuts_CHC.xlsx</span>
+                    <span>⏱️ Environ 18 min (+ 10 min pour aller plus loin)</span>
+                </div>
+                <div class="file-box">
+                    <p>Ouvrez <strong>Ex03_Statuts_CHC.xlsx</strong>, feuille <strong>Liste_Statuts</strong>. Colonnes Nom, Service, Statut — repérez les lignes <strong>Inactif</strong>.</p>
+                </div>
+                <div class="exercise-instructions">
+                    <h3>Exercice — à réaliser maintenant</h3>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Utilisez le prompt de la slide théorie (adaptez le nom de feuille si besoin).</li>
+                            <li>Collez le code VBA dans un module, puis <strong>Alt+F8</strong> → Exécuter.</li>
+                            <li>Vérifiez que chaque ligne dont le statut est <strong>Inactif</strong> est colorée en gris.</li>
+                            <li>Demandez à l'IA d'<strong>expliquer</strong> le code (For, If, Cells).</li>
+                            <li>Enregistrez en <strong>.xlsm</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="aller-plus-loin">
+                    <h4>🚀 Pour aller plus loin (même conversation IA que la version de base)</h4>
+                    <p>Quand la macro de base fonctionne, copiez votre code dans l'IA et utilisez ce prompt :</p>
+                    <div class="prompt-box" style="margin-top:16px;">
+                        <p><em>« J'ai une macro <strong>ColorerInactifs</strong> sur la feuille Liste_Statuts (colonne C = Statut). Améliore le fichier sans renommer la macro :</em></p>
+                        <p style="margin-top:10px;"><em>1) <strong>Dernière ligne automatique</strong> — la macro parcourt toutes les lignes avec données, sans numéro de ligne fixe.</em></p>
+                        <p><em>2) <strong>Liste déroulante</strong> — en colonne C à partir de la ligne 2, choix uniquement Actif ou Inactif.</em></p>
+                        <p><em>3) <strong>Mise à jour dynamique</strong> — dès qu'on change le statut dans la liste, la ligne entière passe en gris si Inactif, ou retrouve l'affichage normal si Actif, sans relancer Alt+F8.</em></p>
+                        <p style="margin-top:10px;"><em>Utilise si besoin Worksheet_Change sur la feuille Liste_Statuts. Voici mon code actuel : [coller]. »</em></p>
+                    </div>
+                    <ol>
+                        <li>Remplacez ou complétez le code (souvent code dans le module + événement dans la feuille).</li>
+                        <li>Lancez une fois <strong>ColorerInactifs</strong> (Alt+F8) pour appliquer listes et couleurs initiales.</li>
+                        <li>Testez : changez un statut en <strong>Inactif</strong>, puis en <strong>Actif</strong> — la ligne doit réagir tout de suite.</li>
+                        <li>Enregistrez le <strong>.xlsm</strong>.</li>
+                    </ol>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Correction</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-2" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Correction 3</div>
+                <div class="slide-title">ColorerInactifs</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Version de base</strong> : boucle <code>For i = 2 To …</code> · <code>If Cells(i,3) = "Inactif" Then</code> · fond gris sur la ligne.</li>
+                            <li>6 lignes « Inactif » grisées dans le fichier fourni. Erreur fréquente : mauvaise colonne (Statut = C).</li>
+                            <li><strong>Aller plus loin</strong> : <code>End(xlUp)</code> ou <code>CurrentRegion</code> pour la dernière ligne · validation de données Actif/Inactif en colonne C · <code>Worksheet_Change</code> pour recolorer à chaque modification.</li>
+                            <li>Si la feuille ne réagit pas au changement : vérifier que le code d'événement est bien dans l'objet feuille <strong>Liste_Statuts</strong>, pas dans un module standard.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PARTIE 4 ========== -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Partie 4</div>
+                <div class="slide-title">Tableau de bord</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="partie-label">PARTIE 4</div>
+                <div class="subtitle">3 boutons — un collègue clique sans connaître VBA</div>
+                <p style="color:#ccc; margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto;">
+                    Vous allez relier trois macros à des boutons pour qu'un collègue puisse les lancer sans ouvrir le VBA.
+                </p>
+                <p style="color:#8FD9A8; margin-top:16px; max-width:800px; margin-left:auto; margin-right:auto; font-size:0.95em;">
+                    Nouvelle conversation IA avant cet exercice (vous pourrez la réutiliser pour les deux autres macros du tableau de bord).
+                </p>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Boutons sur la feuille</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>🔧 5 gestes</h3>
+                    <ul>
+                        <li>Développeur → <strong>Mode Création</strong></li>
+                        <li>Insérer → <strong>Bouton (Formulaires)</strong> → dessiner</li>
+                        <li>Assigner la macro → renommer le libellé</li>
+                        <li>Répéter pour 3 macros</li>
+                        <li>Désactiver Mode Création → tester les clics</li>
+                    </ul>
+                </div>
+                <div class="a-retenir-box"><p>Libellés clairs : <strong>Formater</strong>, <strong>Effacer</strong>, <strong>Ajouter ligne</strong> — pas « Bouton1 ».</p></div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Tableau de bord stocks</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-meta">
+                    <span>📁 EXERCICES\Ex04_TableauDeBord.xlsx</span>
+                    <span>⏱️ Environ 20 minutes</span>
+                </div>
+                <div class="file-box">
+                    <p>Ouvrez <strong>Ex04_TableauDeBord.xlsx</strong> : feuille <strong>Donnees</strong> (A1:C5) et feuille <strong>Tableau_de_bord</strong> pour placer les boutons.</p>
+                </div>
+                <div class="exercise-instructions">
+                    <h3>Exercice — à réaliser maintenant</h3>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Macro <strong>FormaterTableau</strong> : réutilisez celle de l'exercice 2 ou réenregistrez sur la plage Donnees !A1:C5.</li>
+                            <li>Avec l'IA, créez <strong>EffacerStocks</strong> pour vider les cellules A2:C5 de la feuille Donnees.</li>
+                            <li>Avec l'IA, créez <strong>AjouterLigne</strong> pour ajouter une ligne vide sous les données.</li>
+                            <li>Sur la feuille <strong>Tableau_de_bord</strong>, ajoutez trois boutons reliés aux trois macros.</li>
+                            <li>Faites tester par un voisin, puis enregistrez en <strong>.xlsm</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Correction</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-3" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Correction 4</div>
+                <div class="slide-title">Tableau de bord</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>3 macros listées dans Alt+F8.</li>
+                            <li>Boutons sur la feuille dashboard, pas sur Donnees (plus lisible).</li>
+                            <li>Test : Formater → Effacer → Ajouter ligne → re-Formater.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BONUS -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-bonus">💼 Bonus</div>
+                <div class="slide-title">Idées CHC (après la pratique)</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Pistes pour la suite, sans exercice en salle</div>
+                <div class="content-box">
+                    <ul>
+                        <li><strong>PDF + mail</strong> : prompt V1 « exporter feuille en PDF Bureau » → V2 dossier daté → V3 Outlook pièce jointe</li>
+                        <li><strong>Nettoyage</strong> : doublons e-mail, dates, codes postaux</li>
+                        <li><strong>Avant la macro</strong> : demander à l'IA s'il existe une fonction native Excel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECAP -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">🎓 Fin</div>
+                <div class="slide-title">Module 3 terminé</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="objectifs-box" style="max-width:900px; margin:0 auto; text-align:left;">
+                    <h4>✅ Récapitulatif</h4>
+                    <ul>
+                        <li>Macro <strong>BonjourCHC</strong> + MsgBox à l'<strong>ouverture</strong> du fichier</li>
+                        <li>Macro <strong>FormaterTableau</strong> enregistrée puis améliorée</li>
+                        <li>Macro <strong>ColorerInactifs</strong> — option liste déroulante et coloration dynamique</li>
+                        <li><strong>Tableau de bord</strong> avec trois boutons pour un collègue</li>
+                    </ul>
+                </div>
+                <p style="margin-top:28px; font-size:1.3em; color:#217346;">
+                    Prochaine étape au CHC : identifiez une tâche répétitive de votre service, puis partagez un fichier .xlsm avec votre équipe.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide:not(.solution)');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(s => s.classList.remove('active'));
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+            else if (direction === -1 && currentSlide > 0) showSlide(currentSlide - 1);
+        }
+
+        function showSolution(i) {
+            const sol = document.getElementById(`solution-${i}`);
+            if (!sol) return;
+            slides[currentSlide].classList.remove('active');
+            sol.style.display = 'flex';
+            sol.classList.add('active');
+            document.getElementById('slideCounter').textContent = `Correction ${i + 1}`;
+            const back = document.createElement('button');
+            back.className = 'show-solution-btn';
+            back.textContent = '⬅ Retour';
+            back.onclick = () => {
+                sol.style.display = 'none';
+                sol.classList.remove('active');
+                slides[currentSlide].classList.add('active');
+                document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+                back.remove();
+            };
+            sol.querySelectorAll('.show-solution-btn').forEach(b => { if (b.textContent.includes('Retour')) b.remove(); });
+            sol.appendChild(back);
+        }
+
+        document.addEventListener('keydown', e => {
+            const activeSol = document.querySelector('.slide.solution.active');
+            if (activeSol && e.key === 'Escape') {
+                const b = activeSol.querySelector('.show-solution-btn');
+                if (b) b.click();
+            } else {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            }
+        });
+        showSlide(0);
+    </script>
+</body>
+</html>

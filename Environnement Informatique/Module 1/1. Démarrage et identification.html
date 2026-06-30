@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1 - Démarrage et identification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #003366;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .slide-number {
+            background: #003366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-list li {
+            background: #f8f9fa;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+
+        .content-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-list li strong {
+            color: #003366;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #005588;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">1/5</div>
+                <h1 class="slide-title">Démarrage et identification</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Bienvenue au CHC</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Allumer votre poste de travail</strong>
+                        Appuyez sur le bouton d'alimentation de votre ordinateur. Le système démarre automatiquement.
+                    </li>
+                    <li>
+                        <strong>Écran de connexion Windows</strong>
+                        Vous verrez l'écran de verrouillage. Appuyez sur une touche ou bougez la souris pour accéder à l'écran de connexion.
+                    </li>
+                    <li>
+                        <strong>Identifiants de connexion Windows</strong>
+                        Utilisez votre identifiant PENTA CHC et votre mot de passe. Ces identifiants vous ont été communiqués par le service IT. L'identifiant PENTA suit le format : 2 premières lettres du prénom + 3 premières lettres du nom. Exemple : Jean Dupont = JEDUP
+                    </li>
+                    <li>
+                        <strong>Adresse email CHC</strong>
+                        Votre adresse email professionnelle suit le format : prenom.nom@chc.be. Exemple : jean.dupont@chc.be. Note : ce format est utilisé uniquement pour les emails, pas pour la connexion Windows.
+                    </li>
+                    <li>
+                        <strong>Première connexion</strong>
+                        Lors de votre toute première connexion, vous devrez obligatoirement changer votre mot de passe. Suivez les instructions à l'écran et créez un nouveau mot de passe conforme aux critères de sécurité CHC.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2/5</div>
+                <h1 class="slide-title">Navigation et organisation</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Organiser votre espace de travail</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Le Bureau Windows</strong>
+                        Votre écran principal contient des icônes et des raccourcis vers vos applications et dossiers les plus utilisés. (touche Windows+D)
+                    </li>
+                    <li>
+                        <strong>La barre des tâches</strong>
+                        En bas de l'écran, vous trouverez les applications ouvertes et le menu Démarrer (icône Windows).
+                    </li>
+                    <li>
+                        <strong>L'Explorateur de fichiers</strong>
+                        Cliquez sur l'icône de dossier dans la barre des tâches pour accéder à vos fichiers et dossiers. (touche Windows+E)
+                    </li>
+                    <li>
+                        <strong>Organiser vos fichiers</strong>
+                        Organiser vos documents : Bureau, Documents et Images sont synchronisés et sauvegardés automatiquement. Utilisez et organisez ces dossiers intelligement sans les saturer.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3/5</div>
+                <h1 class="slide-title">Raccourcis et gestes utiles</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Gagner du temps avec les raccourcis</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Raccourcis clavier essentiels</strong>
+                        Ctrl+C (copier), Ctrl+V (coller), Ctrl+X (couper), Ctrl+Z (annuler), Ctrl+S (enregistrer), Alt+Tab (changer d'application)
+                    </li>
+                    <li>
+                        <strong>Raccourcis Windows</strong>
+                        Windows+D (afficher le bureau), Windows+E (ouvrir l'Explorateur), Windows+R (ouvrir Exécuter), Windows+L (verrouiller la session)
+                    </li>
+                    <li>
+                        <strong>Gestes de la souris</strong>
+                        Clic droit pour le menu contextuel, double-clic pour ouvrir, clic molette pour faire défiler, Ctrl+molette pour zoomer
+                    </li>
+                    <li>
+                        <strong>Raccourcis sur le Bureau</strong>
+                        Créez des raccourcis vers vos applications fréquentes : clic droit sur l'application > Envoyer vers > Bureau
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4/5</div>
+                <h1 class="slide-title">Capture et impression</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Capturer et imprimer</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Capture d'écran</strong>
+                        Appuyez sur la touche "Imp. écran" (Print Screen) pour capturer tout l'écran, ou Windows+Shift+S pour sélectionner une zone. L'image est copiée dans le presse-papiers.
+                    </li>
+                    <li>
+                        <strong>Outil Capture d'écran</strong>
+                        Recherchez "Capture d'écran" dans le menu Démarrer pour utiliser l'outil intégré de Windows qui permet de capturer des zones spécifiques. Pour un outil encore plus puissant, pensez à demander l'installation de l'outil Greenshot!
+                    </li>
+                    <li>
+                        <strong>Imprimer un document</strong>
+                        Dans n'importe quelle application, utilisez Ctrl+P pour ouvrir la boîte de dialogue d'impression. Sélectionnez l'imprimante et le nombre de copies. On peut également imprimer en .pdf pour générer des documents PDF
+                    </li>
+                    <li>
+                        <strong>Imprimantes réseau CHC</strong>
+                        Les imprimantes sont configurées automatiquement. Vous pouvez les sélectionner dans la liste des imprimantes disponibles lors de l'impression. Vous pouvez installer une imprimante facilement grâce au programme "Install My Printer".
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5/5</div>
+                <h1 class="slide-title">Accès internet et sécurité</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Internet et bonnes pratiques</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Connexion internet</strong>
+                        L'accès à internet est à demander via votre N+1, une fois le droit accordé, la connexion isolée est automatique via le réseau CHC. Ouvrez votre navigateur Edge pour accéder au web. Le navigateur recommandé au CHC est Microsoft Edge.
+                    </li>
+                    <li>
+                        <strong>Règles d'utilisation</strong>
+                        Utilisez internet de manière professionnelle. Évitez les sites non professionnels et les téléchargements. Si un site nécessaire à votre travail est bloqué, vous pouvez faire une demande de déblocage au 7474.
+                    </li>
+                    <li>
+                        <strong>Bonnes pratiques de sécurité</strong>
+                        Ne partagez jamais vos identifiants, verrouillez votre session (Windows+L) quand vous quittez votre poste, méfiez-vous des emails suspects.
+                    </li>
+                    <li>
+                        <strong>Mises à jour</strong>
+                        Les mises à jour de sécurité sont installées automatiquement. Le service informatique gère l'installation et la mise à jour des programmes pour vous.
+                    </li>
+                </ul>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="2. Auto-évaluation.html" style="display: inline-block; padding: 15px 30px; background: #003366; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 1.1em; box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4); transition: all 0.3s;">
+                        📝 Passer à l'auto-évaluation →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+        <span class="indicator" onclick="goToSlide(3)"></span>
+        <span class="indicator" onclick="goToSlide(4)"></span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">← Précédent</button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">Suivant →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Navigation au clavier
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Initialisation
+        showSlide(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4 - Sécurité et gestion des accès</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #003366;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .slide-number {
+            background: #003366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-list li {
+            background: #f8f9fa;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+
+        .content-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-list li strong {
+            color: #003366;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #005588;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">1/5</div>
+                <h1 class="slide-title">Mot de passe incorrect</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Causes fréquentes</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Verrouillage des majuscules</strong>
+                        Vérifiez que la touche Verr. Maj (Caps Lock) n'est pas activée. Les mots de passe sont sensibles à la casse (majuscules/minuscules).
+                    </li>
+                    <li>
+                        <strong>Clavier numérique</strong>
+                        Si vous utilisez le pavé numérique, assurez-vous qu'il est activé (touche Verr. Num). Vérifiez également la langue du clavier (FR/EN).
+                    </li>
+                    <li>
+                        <strong>Espace avant/après</strong>
+                        Ne laissez pas d'espace avant ou après votre mot de passe lors de la saisie. Copiez-collez le mot de passe si nécessaire.
+                    </li>
+                    <li>
+                        <strong>Mot de passe expiré</strong>
+                        Si votre mot de passe a expiré, vous devrez le changer. Suivez les instructions à l'écran ou contactez le service IT.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>💡 Astuce :</strong> Si vous avez oublié votre mot de passe, remplissez le formulaire de demande de reset de mot de passe ou contactez le 7474.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2/5</div>
+                <h1 class="slide-title">Votre mot de passe, votre responsabilité</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Protégez votre accès</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Votre clé d'accès personnelle</strong>
+                        Un mot de passe est <em>votre</em> clé d'accès aux applications et données dont vous avez besoin pour réaliser vos tâches quotidiennes. Vous êtes responsable de tout ce qui est fait au départ de votre compte.
+                    </li>
+                    <li>
+                        <strong>Protégez votre mot de passe</strong>
+                        Vous devez protéger votre mot de passe contre toute visibilité par un tiers et toute perte. Ne le notez pas sur un post-it et ne le communiquez à personne.
+                    </li>
+                    <li>
+                        <strong>Changez-le régulièrement</strong>
+                        Vous devez changer votre mot de passe minimum 1 fois par an et chaque fois que vous pensez qu'il a pu être connu par un tiers. Pour ce faire, contactez le service informatique de l'hôpital.
+                    </li>
+                    <li>
+                        <strong>Un mot de passe unique par usage</strong>
+                        N'utilisez pas le même mot de passe pour des comptes et des utilisations différentes. Le « passe-partout » est dépassé et dangereux.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>💡 Bonne pratique :</strong> Les bonnes pratiques actuelles proposent l'utilisation de « phrases de passe » — une suite de mots faciles à retenir mais difficiles à deviner.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3/5</div>
+                <h1 class="slide-title">Critères d'un mot de passe valide</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Règles de sécurité CHC</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Longueur minimale</strong>
+                        Votre mot de passe doit contenir au moins 12 caractères. Plus il est long, plus il est sécurisé.
+                    </li>
+                    <li>
+                        <strong>Complexité requise</strong>
+                        Utilisez une combinaison de : majuscules (A-Z), minuscules (a-z), chiffres (0-9) et caractères spéciaux (!@#$%^&*).
+                    </li>
+                    <li>
+                        <strong>Évitez les mots courants</strong>
+                        N'utilisez pas de mots du dictionnaire, votre nom, votre date de naissance ou des séquences simples (123456, abcdef).
+                    </li>
+                    <li>
+                        <strong>Mot de passe unique</strong>
+                        Utilisez un mot de passe différent pour votre compte CHC. Ne réutilisez pas vos mots de passe personnels.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>🔒 Sécurité :</strong> Après 3 échecs d'encodage de mot de passe, votre compte sera bloqué pendant 5 minutes.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4/5</div>
+                <h1 class="slide-title">Double authentification (2FA)</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Comprendre le 2FA</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Qu'est-ce que le 2FA ?</strong>
+                        La double authentification ajoute une couche de sécurité supplémentaire. Après votre mot de passe, vous devez fournir un second élément de vérification.
+                    </li>
+                    <li>
+                        <strong>Comment ça fonctionne ?</strong>
+                        Lors de la connexion, après avoir entré votre mot de passe, vous recevrez un code sur votre téléphone (SMS ou application d'authentification) à saisir.
+                    </li>
+                    <li>
+                        <strong>Applications d'authentification</strong>
+                        Utilisez une application comme Microsoft Authenticator, Google Authenticator ou Authy. Elle génère des codes temporaires même sans connexion internet.
+                    </li>
+                    <li>
+                        <strong>Activation du 2FA</strong>
+                        Le 2FA peut être activé automatiquement pour certains services CHC. Suivez les instructions à l'écran lors de votre première connexion.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>📱 Important :</strong> Gardez votre téléphone avec vous et assurez-vous que l'application d'authentification est à jour.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5/5</div>
+                <h1 class="slide-title">Demandes d'accès spécifiques</h1>
+                <div></div>
+            </div>
+            <div class="slide-content">
+                <h2 style="text-align: center; color: #003366; margin-bottom: 30px; font-size: 2em;">Obtenir de nouveaux accès</h2>
+                <ul class="content-list">
+                    <li>
+                        <strong>Formulaire de demande</strong>
+                        Pour demander un accès spécifique (dossier, application, imprimante), utilisez le formulaire disponible dans l'Intranet CHC, section "Support IT" ou "Demandes".
+                    </li>
+                    <li>
+                        <strong>Informations à fournir</strong>
+                        Précisez : le nom de la ressource, la raison de la demande, votre service, et l'accord de votre responsable si nécessaire.
+                    </li>
+                    <li>
+                        <strong>Délai de traitement</strong>
+                        Les demandes sont traitées généralement sous 48 heures ouvrables. Vous recevrez une notification par email une fois l'accès accordé.
+                    </li>
+                    <li>
+                        <strong>Contact direct</strong>
+                        Pour les demandes urgentes, contactez le service IT par téléphone ou via le système de tickets. Mentionnez votre numéro de demande si vous en avez un.
+                    </li>
+                </ul>
+                <div class="warning-box">
+                    <strong>⏱️ Rappel :</strong> Ne partagez jamais vos identifiants avec vos collègues, même temporairement. Chaque personne doit avoir ses propres accès.
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="2. Auto-évaluation.html" style="display: inline-block; padding: 15px 30px; background: #003366; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 1.1em; box-shadow: 0 4px 15px rgba(0, 51, 102, 0.4); transition: all 0.3s;">
+                        📝 Passer à l'auto-évaluation →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+        <span class="indicator" onclick="goToSlide(3)"></span>
+        <span class="indicator" onclick="goToSlide(4)"></span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">← Précédent</button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">Suivant →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

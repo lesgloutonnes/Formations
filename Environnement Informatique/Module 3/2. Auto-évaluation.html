@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3 - Auto-évaluation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../../Images/Image1.jpg') center center / cover no-repeat fixed;
+            position: relative;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #003366;
+            padding-bottom: 20px;
+        }
+        .header h1 { color: #2c3e50; font-size: 2.5em; margin-bottom: 10px; }
+        .header p { color: #666; font-size: 1.1em; }
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #003366;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .question-text {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .options { list-style: none; padding: 0; }
+        .option {
+            margin: 10px 0;
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .option:hover {
+            border-color: #003366;
+            background: #e6f0f5;
+            transform: translateX(5px);
+        }
+        .option input[type="radio"] { margin-right: 12px; cursor: pointer; flex-shrink: 0; }
+        .option label { cursor: pointer; width: 100%; display: block; flex-grow: 1; margin: 0; padding: 0; }
+        .option.correct { background: #d4edda; border-color: #28a745; }
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        .option.selected { border-color: #003366; background: #e6f0f5; }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #003366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 51, 102, 0.4);
+        }
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .results.show { display: block; }
+        .score {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #003366;
+            margin: 20px 0;
+        }
+        .feedback {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e6f0f5;
+            border-left: 4px solid #003366;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #2c3e50;
+            display: none;
+        }
+        .explanation.show { display: block; }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .nav-link {
+            padding: 12px 24px;
+            background: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            background: #005588;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Auto-évaluation - Module 3</h1>
+            <p>Imprimantes et périphériques</p>
+        </div>
+        <form id="quizForm">
+            <div class="question">
+                <div class="question-number">Question 1/5</div>
+                <div class="question-text">Quel logiciel faut-il utiliser pour ajouter une imprimante sur votre poste ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q1" value="a" id="q1a">
+                        <label for="q1a">Install My Printer, via le raccourci sur le bureau</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q1" value="b" id="q1b">
+                        <label for="q1b">Paramètres Windows > Périphériques > Imprimantes et scanners</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q1" value="c" id="q1c">
+                        <label for="q1c">Le Panneau de configuration > Ajouter une imprimante</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q1" value="d" id="q1d">
+                        <label for="q1d">Il faut contacter directement le Service Desk</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp1">
+                    <strong>Réponse correcte :</strong> Install My Printer, via le raccourci sur le bureau. C'est le seul outil à utiliser pour ajouter ou supprimer une imprimante au CHC.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 2/5</div>
+                <div class="question-text">Lors de l'ajout d'une imprimante, que faut-il penser à faire ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q2" value="a" id="q2a">
+                        <label for="q2a">Cocher « Définir comme imprimante par défaut »</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q2" value="b" id="q2b">
+                        <label for="q2b">Installer manuellement le pilote depuis internet</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q2" value="c" id="q2c">
+                        <label for="q2c">Redémarrer le PC avant l'installation</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q2" value="d" id="q2d">
+                        <label for="q2d">Brancher l'imprimante en USB sur le PC</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp2">
+                    <strong>Réponse correcte :</strong> Cocher « Définir comme imprimante par défaut ». Cela permet que vos impressions soient automatiquement envoyées vers cette imprimante sans devoir la sélectionner à chaque fois.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 3/5</div>
+                <div class="question-text">Comment supprimer une imprimante de votre poste ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q3" value="a" id="q3a">
+                        <label for="q3a">Via Install My Printer : sélectionner l'imprimante puis cliquer sur Supprimer</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q3" value="b" id="q3b">
+                        <label for="q3b">Via les Paramètres Windows > Supprimer le périphérique</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q3" value="c" id="q3c">
+                        <label for="q3c">Via le Gestionnaire de périphériques > Désinstaller</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q3" value="d" id="q3d">
+                        <label for="q3d">Il n'est pas possible de supprimer une imprimante soi-même</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp3">
+                    <strong>Réponse correcte :</strong> Via Install My Printer : sélectionner l'imprimante puis cliquer sur Supprimer. L'ajout et la suppression se font exclusivement via ce logiciel.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 4/5</div>
+                <div class="question-text">L'imprimante souhaitée n'apparaît pas dans la liste d'Install My Printer. Que vérifier en premier ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q4" value="a" id="q4a">
+                        <label for="q4a">Vérifier que la version d'Install My Printer est au minimum v3.3</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q4" value="b" id="q4b">
+                        <label for="q4b">Réinstaller Windows</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q4" value="c" id="q4c">
+                        <label for="q4c">Ajouter l'imprimante via les Paramètres Windows à la place</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q4" value="d" id="q4d">
+                        <label for="q4d">Télécharger le pilote sur le site du fabricant</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp4">
+                    <strong>Réponse correcte :</strong> Vérifier que la version d'Install My Printer est au minimum v3.3. Si la version est correcte et que l'imprimante n'apparaît toujours pas, contactez le Service Desk.
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-number">Question 5/5</div>
+                <div class="question-text">Votre clavier ou souris USB ne fonctionne plus. Quelles sont les étapes à suivre dans l'ordre ?</div>
+                <ul class="options">
+                    <li class="option">
+                        <input type="radio" name="q5" value="a" id="q5a">
+                        <label for="q5a">Vérifier les LEDs → Tester un autre port USB (facade/arrière) → Redémarrer le PC → Service Desk</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q5" value="b" id="q5b">
+                        <label for="q5b">Contacter immédiatement le Service Desk</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q5" value="c" id="q5c">
+                        <label for="q5c">Redémarrer le PC → Réinstaller les pilotes → Acheter un nouveau périphérique</label>
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q5" value="d" id="q5d">
+                        <label for="q5d">Désinstaller le périphérique dans le Gestionnaire de périphériques</label>
+                    </li>
+                </ul>
+                <div class="explanation" id="exp5">
+                    <strong>Réponse correcte :</strong> Vérifier les LEDs → Tester un autre port USB → Redémarrer le PC → Service Desk. Il faut suivre ces étapes dans l'ordre avant de contacter le support.
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Valider mes réponses</button>
+        </form>
+        <div class="results" id="results">
+            <h2>Résultats de l'auto-évaluation</h2>
+            <div class="score" id="score"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        <div class="nav-links">
+            <a href="1. Imprimantes et périphériques.html" class="nav-link">← Retour au module</a>
+            <a href="../index.html" class="nav-link">Retour à l'accueil</a>
+        </div>
+    </div>
+    <script>
+        const correctAnswers = { q1: 'a', q2: 'a', q3: 'a', q4: 'a', q5: 'a' };
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function makeOptionsClickable() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    if (e.target.type === 'radio' || e.target.tagName === 'LABEL') {
+                        return;
+                    }
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio && !radio.disabled) {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question');
+            questions.forEach((question, questionIndex) => {
+                const optionsList = question.querySelector('.options');
+                const options = Array.from(optionsList.querySelectorAll('.option'));
+                const shuffledOptions = shuffleArray(options);
+                optionsList.innerHTML = '';
+                shuffledOptions.forEach(option => {
+                    optionsList.appendChild(option);
+                });
+            });
+            makeOptionsClickable();
+        });
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+            Object.keys(correctAnswers).forEach((question, index) => {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const explanation = questionDiv.querySelector('.explanation');
+                if (selected) {
+                    const option = selected.closest('.option');
+                    const allOptions = questionDiv.querySelectorAll('.option');
+                    allOptions.forEach(opt => opt.classList.remove('correct', 'incorrect', 'selected'));
+                    if (selected.value === correctAnswers[question]) {
+                        score++;
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        const correctOption = questionDiv.querySelector(`input[value="${correctAnswers[question]}"]`).closest('.option');
+                        correctOption.classList.add('correct');
+                    }
+                    option.classList.add('selected');
+                    explanation.classList.add('show');
+                }
+            });
+            const percentage = Math.round((score / totalQuestions) * 100);
+            document.getElementById('score').textContent = `${score}/${totalQuestions} (${percentage}%)`;
+            let feedback = '';
+            if (percentage === 100) feedback = '🎉 Excellent ! Vous maîtrisez parfaitement ce module.';
+            else if (percentage >= 80) feedback = '👍 Très bien ! Vous avez une bonne compréhension du module.';
+            else if (percentage >= 60) feedback = '📚 Pas mal ! Revoyez les questions incorrectes pour améliorer votre compréhension.';
+            else feedback = '📖 Nous vous recommandons de revoir le module avant de continuer.';
+            document.getElementById('feedback').textContent = feedback;
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

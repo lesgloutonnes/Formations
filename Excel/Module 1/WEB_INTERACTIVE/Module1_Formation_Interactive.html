@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Module 1 : Les Bases - Formation Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 96%;
+            max-width: 1800px;
+            height: 92vh;
+            background: #1a1a1a;
+            border: 4px solid #217346;
+            border-radius: 20px;
+            padding: 80px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 0 40px rgba(33, 115, 70, 0.3);
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide.theory {
+            border-color: #217346;
+        }
+
+        .slide.exercise {
+            border-color: #ffd700;
+        }
+
+        .slide.solution {
+            border-color: #00ff88;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #217346;
+            padding-bottom: 30px;
+        }
+
+        .slide-type-badge {
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .badge-theory {
+            background: #217346;
+            color: #000;
+        }
+
+        .badge-exercise {
+            background: #ffd700;
+            color: #000;
+        }
+
+        .badge-solution {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .slide-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 1.6em;
+            line-height: 1.6;
+        }
+
+        .subtitle {
+            font-size: 2.2em;
+            color: #217346;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .content-box {
+            background: rgba(33, 115, 70, 0.1);
+            border-left: 8px solid #217346;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .content-box h3 {
+            font-size: 1.9em;
+            color: #217346;
+            margin-bottom: 25px;
+        }
+
+        .content-box p, .content-box li {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .content-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-box li::before {
+            content: "▶ ";
+            color: #217346;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .exercise-instructions {
+            background: rgba(255, 215, 0, 0.15);
+            border-left: 8px solid #ffd700;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .exercise-instructions h3 {
+            font-size: 2.2em;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .exercise-instructions p {
+            font-size: 1.5em;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .exercise-steps {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .exercise-steps ol {
+            padding-left: 50px;
+        }
+
+        .exercise-steps li {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .solution-box {
+            background: rgba(0, 255, 136, 0.15);
+            border-left: 8px solid #00ff88;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .solution-box h3 {
+            font-size: 2.2em;
+            color: #00ff88;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .solution-steps {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .solution-steps ol {
+            padding-left: 50px;
+        }
+
+        .solution-steps li {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .solution-steps code {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #00ff88;
+        }
+
+        .highlight {
+            background: rgba(33, 115, 70, 0.3);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: #8FD9A8;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #217346;
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(33, 115, 70, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #185C37;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(33, 115, 70, 0.6);
+        }
+
+        .nav-btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .show-solution-btn {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .show-solution-btn:hover {
+            background: #00e677;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #217346;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            border: 2px solid #217346;
+            z-index: 1000;
+        }
+
+        .module-title {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #217346;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-size: 24px;
+            font-weight: 600;
+            border: 2px solid #217346;
+            z-index: 1000;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+
+        .icon-large {
+            font-size: 4em;
+            margin: 30px 0;
+        }
+
+        .duration-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.5em;
+            color: #ffd700;
+            margin: 20px 0;
+        }
+
+        .visual-description {
+            background: rgba(255, 255, 255, 0.08);
+            border-left: 4px solid #ffffff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 1.3em;
+            color: #cccccc;
+        }
+
+        .visual-description::before {
+            content: "👁️ À l'écran Excel, vous verrez : ";
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-style: normal;
+            color: #ffffff;
+        }
+
+        .why-box {
+            background: rgba(156, 39, 176, 0.15);
+            border-left: 6px solid #9c27b0;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .why-box h4 {
+            font-size: 1.4em;
+            color: #ce93d8;
+            margin-bottom: 15px;
+        }
+
+        .why-box p {
+            font-size: 1.3em;
+            color: #ffffff;
+            line-height: 1.7;
+        }
+
+        /* Optimisation pour résolution 1920x1080 - Tailles par défaut optimisées */
+        /* Les tailles de base sont déjà optimisées pour 1920x1080 */
+        
+        /* Pour écrans plus petits que 1920px */
+        @media (max-width: 1919px) {
+            .slide-title {
+                font-size: 3.2em;
+            }
+            .subtitle {
+                font-size: 2em;
+            }
+            .slide-content {
+                font-size: 1.4em;
+            }
+            .content-box h3 {
+                font-size: 1.7em;
+            }
+            .content-box p, .content-box li {
+                font-size: 1.3em;
+            }
+            .exercise-instructions h3 {
+                font-size: 2em;
+            }
+            .exercise-instructions p {
+                font-size: 1.4em;
+            }
+            .exercise-steps li {
+                font-size: 1.3em;
+            }
+            .solution-box h3 {
+                font-size: 2em;
+            }
+            .solution-steps li {
+                font-size: 1.3em;
+            }
+            .visual-description {
+                font-size: 1.2em;
+            }
+            .why-box h4 {
+                font-size: 1.3em;
+            }
+            .why-box p {
+                font-size: 1.2em;
+            }
+            .nav-btn {
+                font-size: 22px;
+                padding: 14px 28px;
+            }
+            .show-solution-btn {
+                font-size: 22px;
+                padding: 14px 28px;
+            }
+            .slide-indicator {
+                font-size: 26px;
+                padding: 14px 28px;
+            }
+            .module-title {
+                font-size: 22px;
+                padding: 14px 28px;
+            }
+        }
+        
+        /* Pour écrans plus grands que 1920px */
+        @media (min-width: 1921px) {
+            .slide-title {
+                font-size: 3.8em;
+            }
+            .subtitle {
+                font-size: 2.4em;
+            }
+            .slide-content {
+                font-size: 1.7em;
+            }
+        }
+
+        /* --- Visuels enrichis --- */
+        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 25px 0; }
+        .cards-grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .card-item {
+            background: rgba(33, 115, 70, 0.1);
+            border: 2px solid #217346;
+            border-radius: 12px;
+            padding: 22px 18px;
+            text-align: center;
+        }
+        .card-item .card-icon { font-size: 2em; margin-bottom: 10px; }
+        .card-item .card-name { font-size: 1.15em; font-weight: 700; color: #8FD9A8; margin-bottom: 8px; }
+        .card-item .card-desc { font-size: 0.9em; color: #ccc; line-height: 1.5; }
+
+        .autofill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+        .autofill-demo {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #217346;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .autofill-demo h4 { color: #8FD9A8; margin-bottom: 12px; font-size: 1.1em; }
+        .cell-row { display: flex; gap: 8px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
+        .demo-cell {
+            min-width: 70px; padding: 12px 10px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #555;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+        .demo-cell.active { background: rgba(33, 115, 70, 0.25); border-color: #217346; color: #8FD9A8; font-weight: 700; }
+        .autofill-ok { color: #00ff88; font-size: 0.95em; margin-top: 8px; }
+
+        .error-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .error-item {
+            background: rgba(255, 82, 82, 0.1);
+            border-left: 5px solid #ff5252;
+            padding: 18px;
+            border-radius: 8px;
+        }
+        .error-item .error-code { font-family: 'Courier New', monospace; font-weight: 700; color: #ff5252; font-size: 1.1em; margin-bottom: 8px; }
+        .error-item .error-desc { font-size: 0.95em; color: #ddd; }
+
+        .chc-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; }
+        .chc-table th { background: #217346; color: #000; padding: 12px; font-weight: 700; }
+        .chc-table td { padding: 10px; border: 1px solid #444; text-align: center; background: rgba(255,255,255,0.05); }
+        .chc-table .formula { font-family: 'Courier New', monospace; color: #00ff88; font-size: 0.85em; }
+
+        .formula-examples { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .formula-example {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #217346;
+            padding: 18px;
+            border-radius: 8px;
+        }
+        .formula-example .formula-code { font-family: 'Courier New', monospace; color: #00ff88; font-size: 0.9em; margin-bottom: 8px; }
+        .formula-example .formula-desc { font-size: 0.95em; color: #ccc; }
+
+        .golden-rule {
+            text-align: center;
+            background: rgba(33, 115, 70, 0.12);
+            border: 3px solid #217346;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+        }
+        .golden-rule .equals { font-size: 4em; font-weight: 700; color: #8FD9A8; margin: 20px 0; }
+        .golden-rule p { font-size: 1.3em; margin: 10px 0; }
+
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
+        .compare-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #555;
+        }
+        .compare-box.good { border-color: #00ff88; }
+        .compare-box.bad { border-color: #ff9800; }
+        .compare-box h4 { margin-bottom: 15px; font-size: 1.2em; }
+        .compare-box.bad h4 { color: #ff9800; }
+        .compare-box.good h4 { color: #00ff88; }
+
+        @media (max-width: 1919px) {
+            .cards-grid, .autofill-grid, .error-grid, .formula-examples, .compare-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-title">📊 Excel Module 1 : Les Bases</div>
+    <div class="slide-indicator">
+        <span id="slideCounter">1 / 26</span>
+    </div>
+
+    <div class="presentation-container">
+        
+        <!-- ============================================ -->
+        <!-- SECTION 1 : INTRODUCTION À EXCEL -->
+        <!-- ============================================ -->
+
+        <!-- Slide 1.1 : Théorie - Qu'est-ce qu'Excel ? -->
+        <div class="slide active theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Introduction à Excel</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Qu'est-ce qu'Excel ?</div>
+                <div class="content-box">
+                    <h3>📊 Définition</h3>
+                    <p>Excel est un <span class="highlight">tableur</span> qui permet d'organiser, calculer et analyser des données dans une grille de <span class="highlight">lignes et colonnes</span>.</p>
+                    <div class="visual-description">
+                        Imaginez un grand tableau avec des lignes numérotées (1, 2, 3...) et des colonnes avec des lettres (A, B, C...). Chaque intersection est une "cellule" où vous pouvez mettre des informations.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Utilisations principales</h3>
+                    <ul>
+                        <li><strong>Organiser des données</strong> : Créer des listes (ex: liste de clients, inventaire, planning)</li>
+                        <li><strong>Effectuer des calculs automatiques</strong> : Additionner, multiplier, calculer des moyennes sans calculatrice</li>
+                        <li><strong>Créer des graphiques</strong> : Visualiser vos données sous forme de graphiques en colonnes, camemberts, etc.</li>
+                        <li><strong>Analyser des données professionnelles</strong> : Faire des budgets, suivre des ventes, analyser des performances</li>
+                    </ul>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Pourquoi apprendre Excel ?</h4>
+                    <p>Excel est utilisé dans presque tous les secteurs professionnels. C'est un outil essentiel pour être efficace au travail. Une fois les bases maîtrisées, vous gagnerez beaucoup de temps dans vos tâches quotidiennes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.2 : Théorie - Interface Excel -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Interface d'Excel</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Les éléments essentiels</div>
+                <div class="content-box">
+                    <h3>🖥️ Composants principaux</h3>
+                    <ul>
+                        <li><strong>Ruban</strong> : La barre horizontale tout en haut de l'écran avec les mots "Accueil", "Insertion", "Formules", etc. C'est là que se trouvent toutes les commandes pour formater, insérer, calculer...</li>
+                        <li><strong>Barre de formule</strong> : La barre blanche longue juste en dessous du ruban. Elle affiche ce qui est écrit dans la cellule que vous avez sélectionnée. Vous pouvez aussi y taper directement.</li>
+                        <li><strong>Zone de nom</strong> : La petite zone rectangulaire à gauche de la barre de formule. Elle affiche l'adresse de la cellule où vous êtes (par exemple "A1", "B5", "C10").</li>
+                        <li><strong>Cellules</strong> : La grande grille au centre de l'écran. Chaque petite case est une cellule. Les colonnes sont identifiées par des lettres (A, B, C...) et les lignes par des chiffres (1, 2, 3...).</li>
+                        <li><strong>Onglets feuilles</strong> : En bas de l'écran, vous verrez des onglets comme "Feuil1", "Feuil2". Un classeur Excel peut avoir plusieurs feuilles, comme un classeur papier avec plusieurs pages.</li>
+                    </ul>
+                    <div class="visual-description">
+                        Quand vous ouvrez Excel, vous verrez : en haut le ruban avec ses onglets colorés, juste en dessous la barre de formule (blanche), à gauche de cette barre la zone de nom (petite), au centre la grande grille de cellules, et en bas les onglets de feuilles.
+                    </div>
+                </div>
+				<div class="content-box">
+					<h3>💾 Les opérations de base</h3>
+                    <ul>
+                        <li>Créer un nouveau classeur : Fichier > Nouveau</li>
+                        <li>Enregistrer : Ctrl + S ou icône de disquette</li>
+                        <li>Ouvrir un fichier existant : Ctrl + O</li>
+                        <li>Formats d'enregistrement : .xlsx, .xls</li>
+                    </ul>
+				</div>
+            </div>
+        </div>
+
+        <!-- Slide 1.3 : Exercice - Découverte de l'interface -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Découverte de l'interface</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 5 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Ouvrez Excel</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Si Excel n'est pas ouvert, cherchez l'icône Excel dans le menu Démarrer (Windows) ou dans le Dock (Mac)</li>
+                                    <li>Cliquez dessus pour lancer Excel</li>
+                                    <li>Si une fenêtre s'ouvre avec des modèles, cliquez sur "Nouveau classeur vide" ou "Classeur vide"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Identifiez les éléments</strong> sur votre écran :
+                                <ul style="margin-top: 15px; font-size: 0.9em;">
+                                    <li><strong>Le ruban</strong> : Regardez tout en haut, vous voyez les mots "Accueil", "Insertion", "Mise en page", "Formules"... C'est le ruban.</li>
+                                    <li><strong>La barre de formule</strong> : Juste en dessous du ruban, une barre blanche longue. C'est la barre de formule.</li>
+                                    <li><strong>La zone de nom</strong> : À gauche de la barre de formule, une petite zone qui affiche probablement "A1". C'est la zone de nom.</li>
+                                    <li><strong>Les cellules</strong> : La grande grille au centre avec des lignes et colonnes. Chaque case est une cellule.</li>
+                                    <li><strong>Les onglets de feuilles</strong> : En bas à gauche, vous voyez "Feuil1" (ou "Sheet1" en anglais). Ce sont les onglets de feuilles.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Testez la sélection</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Cliquez sur la cellule A1 (première cellule en haut à gauche)</li>
+                                    <li>Regardez la zone de nom : elle doit afficher "A1"</li>
+                                    <li>Cliquez sur une autre cellule, par exemple B3</li>
+                                    <li>La zone de nom change et affiche maintenant "B3"</li>
+                                    <li>Faites cela plusieurs fois pour comprendre le système d'adressage</li>
+                                </ul>
+                            </li>
+                            <li><strong>Explorez le ruban</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Cliquez sur l'onglet "Accueil" du ruban (il est probablement déjà sélectionné)</li>
+                                    <li>Cliquez sur "Insertion" : vous verrez d'autres boutons apparaître</li>
+                                    <li>Cliquez sur "Formules" : encore d'autres boutons</li>
+                                    <li>Revenez sur "Accueil"</li>
+                                    <li>Ne cliquez pas sur les boutons pour l'instant, contentez-vous d'observer</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(0)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 1.4 : Solution - Découverte de l'interface -->
+        <div class="slide solution" id="solution-0" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Éléments à identifier - Réponses</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Ruban</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C'est la barre horizontale tout en haut de l'écran Excel</li>
+                                    <li>Elle contient plusieurs onglets : "Accueil", "Insertion", "Mise en page", "Formules", "Données", "Révision", "Affichage"</li>
+                                    <li>Chaque onglet ouvre un ensemble de boutons différents</li>
+                                    <li>L'onglet "Accueil" est celui qui s'affiche par défaut quand vous ouvrez Excel</li>
+                                </ul>
+                            </li>
+                            <li><strong>Barre de formule</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Elle se trouve juste en dessous du ruban</li>
+                                    <li>C'est une barre blanche longue qui s'étend sur presque toute la largeur de l'écran</li>
+                                    <li>Quand vous sélectionnez une cellule avec du contenu, ce contenu apparaît dans cette barre</li>
+                                    <li>Vous pouvez aussi taper directement dedans pour modifier une cellule</li>
+                                </ul>
+                            </li>
+                            <li><strong>Zone de nom</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C'est la petite zone rectangulaire à gauche de la barre de formule</li>
+                                    <li>Elle affiche toujours l'adresse de la cellule que vous avez sélectionnée</li>
+                                    <li>Si vous êtes sur la première cellule, elle affiche "A1"</li>
+                                    <li>Si vous cliquez sur une autre cellule, par exemple la 5ème colonne (E) et la 10ème ligne, elle affiche "E10"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Cellules</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C'est la grande grille qui occupe le centre de l'écran</li>
+                                    <li>Les colonnes sont identifiées par des lettres : A, B, C, D, E... jusqu'à XFD</li>
+                                    <li>Les lignes sont identifiées par des chiffres : 1, 2, 3, 4... jusqu'à plus d'un million</li>
+                                    <li>Chaque intersection est une cellule avec une adresse unique (ex: A1, B5, C10)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Onglets feuilles</strong> : 
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Ils se trouvent en bas de l'écran, à gauche</li>
+                                    <li>Par défaut, vous avez "Feuil1" (ou "Sheet1" en anglais)</li>
+                                    <li>Vous pouvez avoir plusieurs feuilles dans un même classeur</li>
+                                    <li>Cliquer sur un onglet vous fait passer d'une feuille à l'autre</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="visual-description">
+                        Si vous avez bien fait l'exercice, vous devriez maintenant comprendre que : chaque cellule a une adresse unique (A1, B2, etc.), la zone de nom vous montre toujours où vous êtes, et le ruban contient tous les outils dont vous avez besoin.
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce importante</strong> : La cellule A1 est toujours la première cellule en haut à gauche. C'est votre point de départ dans Excel. Quand vous êtes perdu, appuyez sur Ctrl+Home pour y retourner !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.5 : Théorie - Navigation de base -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Navigation de base</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Se déplacer dans Excel</div>
+                <div class="content-box">
+                    <h3>⌨️ Raccourcis clavier essentiels</h3>
+                    <ul>
+                        <li><strong>Flèches (↑ ↓ ← →)</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Appuyez sur une flèche pour vous déplacer d'une cellule dans cette direction</li>
+                                <li>Flèche droite → va à droite, flèche bas ↓ descend d'une ligne</li>
+                                <li>C'est la méthode la plus simple pour naviguer</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ctrl + Flèches</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Maintenez la touche Ctrl enfoncée et appuyez sur une flèche</li>
+                                <li>Vous sautez jusqu'à la dernière cellule avec du contenu dans cette direction</li>
+                                <li>Très utile pour naviguer rapidement dans un grand tableau</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ctrl + Home</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Maintenez Ctrl et appuyez sur Home</li>
+                                <li>Vous retournez instantanément à la cellule A1 (coin supérieur gauche)</li>
+                                <li>Parfait quand vous êtes perdu dans votre feuille</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ctrl + End</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Maintenez Ctrl et appuyez sur End</li>
+                                <li>Vous allez à la dernière cellule qui contient des données</li>
+                                <li>Utile pour voir où se termine votre tableau</li>
+                            </ul>
+                        </li>
+                        <li><strong>Entrée</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Quand vous avez tapé quelque chose dans une cellule, Entrée valide et descend d'une ligne</li>
+                                <li>Exemple : vous êtes en A1, vous tapez "Bonjour", Entrée → vous validez et descendez en A2</li>
+                            </ul>
+                        </li>
+                        <li><strong>Tab</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Comme Entrée mais va à droite au lieu de descendre</li>
+                                <li>Parfait pour remplir un tableau ligne par ligne</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>📍 Adressage des cellules - Comment ça marche ?</h3>
+                    <ul>
+                        <li><strong>A1</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>La lettre "A" = colonne A (première colonne)</li>
+                                <li>Le chiffre "1" = ligne 1 (première ligne)</li>
+                                <li>A1 = première cellule en haut à gauche</li>
+                            </ul>
+                        </li>
+                        <li><strong>B5</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Colonne B (deuxième colonne)</li>
+                                <li>Ligne 5 (cinquième ligne)</li>
+                                <li>B5 = cellule à l'intersection de la colonne B et de la ligne 5</li>
+                            </ul>
+                        </li>
+                        <li><strong>A1:C3</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>C'est une "plage" de cellules</li>
+                                <li>De A1 jusqu'à C3</li>
+                                <li>Cela inclut toutes les cellules entre ces deux points (A1, A2, A3, B1, B2, B3, C1, C2, C3)</li>
+                                <li>Le deux-points ":" signifie "jusqu'à"</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+				<div class="content-box">
+					<h3>🖱️ Manipulation des éléments</h3>
+                    <ul>
+                        <li>Sélection de cellules : clic simple ou Ctrl+clic ou Maj+clic</li>
+                        <li>Redimensionnement : double-clic sur la bordure</li>
+                        <li>Insertion/Suppression : clic droit sur l'en-tête</li>
+                    </ul>
+				</div>
+                <div class="why-box">
+                    <h4>💡 Pourquoi apprendre ces raccourcis ?</h4>
+                    <p>La navigation au clavier est beaucoup plus rapide que la souris. Une fois ces raccourcis maîtrisés, vous travaillerez beaucoup plus efficacement dans Excel. C'est comme apprendre à conduire : au début c'est difficile, mais ensuite c'est automatique !</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1.6 : Exercice - Navigation -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Pratique de la navigation</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 5 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Navigation avec les flèches</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Assurez-vous d'être sur une cellule (cliquez sur A1 si besoin)</li>
+                                    <li>Appuyez sur la flèche droite → plusieurs fois</li>
+                                    <li>Observez comment vous vous déplacez de cellule en cellule</li>
+                                    <li>Essayez les autres flèches (← ↑ ↓)</li>
+                                    <li>Regardez la zone de nom : elle change à chaque déplacement</li>
+                                </ul>
+                            </li>
+                            <li><strong>Retour à A1</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Maintenez la touche Ctrl enfoncée</li>
+                                    <li>Appuyez sur la touche Home (en haut à droite du clavier, ou sur certaines touches fléchées)</li>
+                                    <li>Relâchez les deux touches</li>
+                                    <li>Vous devriez être revenu en A1 instantanément</li>
+                                    <li>Vérifiez dans la zone de nom : elle doit afficher "A1"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Aller à E10</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Méthode 1 : Utilisez les flèches → (4 fois pour aller à E) puis ↓ (9 fois pour aller à la ligne 10)</li>
+                                    <li>Méthode 2 : Cliquez dans la zone de nom, tapez "E10", puis appuyez sur Entrée</li>
+                                    <li>Essayez les deux méthodes pour comparer</li>
+                                    <li>Vérifiez que la zone de nom affiche bien "E10"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Raccourci Ctrl + Flèche</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Revenez en A1 (Ctrl + Home)</li>
+                                    <li>Maintenez Ctrl et appuyez sur la flèche droite →</li>
+                                    <li>Vous sautez jusqu'au bout de la ligne (colonne XFD si la ligne est vide)</li>
+                                    <li>Essayez Ctrl + Flèche bas ↓ : vous allez jusqu'au bout de la colonne</li>
+                                </ul>
+                            </li>
+                            <li><strong>Zone de nom pour navigation rapide</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Cliquez dans la zone de nom (la petite zone à gauche de la barre de formule)</li>
+                                    <li>Tapez exactement "Z100" (majuscule Z, puis 100)</li>
+                                    <li>Appuyez sur Entrée</li>
+                                    <li>Vous êtes maintenant sur la cellule Z100</li>
+                                    <li>C'est très pratique pour aller rapidement à une cellule précise</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 1.7 : Solution - Navigation -->
+        <div class="slide solution" id="solution-1" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Méthodes de navigation - Réponses détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Navigation avec les flèches</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C'est la méthode la plus intuitive</li>
+                                    <li>Chaque pression sur une flèche vous déplace d'une cellule</li>
+                                    <li>La zone de nom vous montre toujours où vous êtes</li>
+                                    <li>Cette méthode est lente pour de grandes distances, mais précise</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ctrl + Home</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C'est votre "bouton retour à la maison" dans Excel</li>
+                                    <li>Peu importe où vous êtes dans la feuille, Ctrl+Home vous ramène en A1</li>
+                                    <li>Très utile quand vous êtes perdu ou que vous voulez recommencer</li>
+                                    <li>Mémorisez ce raccourci, vous l'utiliserez souvent !</li>
+                                </ul>
+                            </li>
+                            <li><strong>Aller à E10</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li><strong>Méthode 1 (flèches)</strong> : Depuis A1, flèche droite → 4 fois (A→B→C→D→E), puis flèche bas ↓ 9 fois (1→2→3...→10). Total : 13 touches</li>
+                                    <li><strong>Méthode 2 (zone de nom)</strong> : Cliquez dans la zone de nom, tapez "E10", Entrée. Total : 4 actions</li>
+                                    <li>La zone de nom est plus rapide pour les grandes distances</li>
+                                    <li>Les flèches sont mieux pour les petits déplacements</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ctrl + Flèche</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>Ce raccourci est très puissant pour naviguer dans un tableau</li>
+                                    <li>Si votre ligne a des données jusqu'en colonne M, Ctrl+→ vous y amène directement</li>
+                                    <li>Si la ligne est vide, vous allez jusqu'au bout (colonne XFD)</li>
+                                    <li>Idem pour Ctrl+↓ : saute jusqu'à la dernière ligne avec données</li>
+                                    <li>Parfait pour explorer rapidement un tableau</li>
+                                </ul>
+                            </li>
+                            <li><strong>Zone de nom pour navigation précise</strong> :
+                                <ul style="margin-top: 10px; font-size: 0.9em;">
+                                    <li>C'est la méthode la plus rapide pour aller à une cellule précise</li>
+                                    <li>Vous tapez directement l'adresse (ex: "Z100")</li>
+                                    <li>Excel vous y amène instantanément</li>
+                                    <li>Très utile quand vous connaissez l'adresse exacte</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="visual-description">
+                        Après cet exercice, vous devriez comprendre que : les flèches sont pour les petits déplacements, Ctrl+Home pour revenir au début, Ctrl+Flèche pour sauter rapidement, et la zone de nom pour aller directement à une adresse précise.
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce importante</strong> : Essayez d'utiliser le clavier plutôt que la souris pour naviguer. C'est beaucoup plus rapide une fois que vous avez pris l'habitude !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 2 : SAISIE DE DONNÉES ET FORMATS -->
+        <!-- ============================================ -->
+
+        <!-- Slide 2.1 : Théorie - Types de données -->
+        <div class="slide theory">
+            <div class="formateur-note">Démontrer chaque type de données en direct sur Excel. Montrer comment Excel reconnaît automatiquement le type.</div>
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Saisie de données</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Types de données dans Excel</div>
+                <div class="content-box">
+                    <h3>📝 Les 4 types principaux</h3>
+                    <ul>
+                        <li><strong>Texte</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Noms, adresses, descriptions, mots</li>
+                                <li>Exemples : "Jean Dupont", "Paris", "Produit A"</li>
+                                <li>Excel l'aligne automatiquement à gauche</li>
+                                <li>Si vous voulez forcer un nombre en texte, mettez une apostrophe avant : '123</li>
+                            </ul>
+                        </li>
+                        <li><strong>Nombres</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Valeurs numériques pour faire des calculs</li>
+                                <li>Exemples : 100, 25.50, -15, 0</li>
+                                <li>Excel les aligne automatiquement à droite</li>
+                                <li>Vous pouvez utiliser la virgule ou le point comme séparateur décimal (selon votre région)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Dates</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Excel reconnaît automatiquement les dates</li>
+                                <li>Exemples : 15/07/2025, 15-07-2025, 15 juillet 2025</li>
+                                <li>Excel peut faire des calculs avec les dates (ex: calculer le nombre de jours entre deux dates)</li>
+                                <li>Le format d'affichage peut être changé selon vos préférences</li>
+                            </ul>
+                        </li>
+                        <li><strong>Formules</strong> : 
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li>Elles commencent TOUJOURS par le signe =</li>
+                                <li>Exemples : =5+3, =A1+B1, =SOMME(A1:A10)</li>
+                                <li>Excel calcule automatiquement le résultat</li>
+                                <li>Si vous oubliez le =, Excel traitera ça comme du texte, pas comme un calcul</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="visual-description">
+                        Quand vous tapez dans une cellule, regardez l'alignement : texte à gauche, nombres à droite. C'est un moyen visuel de voir comment Excel interprète vos données.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>✏️ Comment saisir des données - Étapes précises</h3>
+                    <ul>
+                        <li><strong>Étape 1</strong> : Cliquez sur la cellule où vous voulez saisir (ex: A1)</li>
+                        <li><strong>Étape 2</strong> : Tapez directement votre texte ou nombre (pas besoin de cliquer dans la barre de formule)</li>
+                        <li><strong>Étape 3</strong> : Validez avec une de ces méthodes :
+                            <ul style="margin-top: 10px; font-size: 0.85em;">
+                                <li><strong>Entrée</strong> : Valide et descend d'une ligne (A1 → A2)</li>
+                                <li><strong>Tab</strong> : Valide et va à droite (A1 → B1)</li>
+                                <li><strong>Flèches</strong> : Valide et va dans la direction de la flèche</li>
+                                <li><strong>Clic sur une autre cellule</strong> : Valide et sélectionne la nouvelle cellule</li>
+                            </ul>
+                        </li>
+                        <li><strong>Annuler</strong> : Si vous avez commencé à taper et voulez annuler, appuyez sur <strong>Échap</strong> avant de valider</li>
+                    </ul>
+                </div>
+				<div class="content-box">
+					<h3>🔠 Formats de cellules</h3>
+                    <ul>
+                        <li>Accès aux formats : Clic droit > Format de cellules</li>
+                        <li>Format numérique : décimales, séparateurs de milliers</li>
+                        <li>Format monétaire : symboles, position</li>
+						<li>Format date : variations régionales</li>
+                    </ul>
+				</div>
+                <div class="why-box">
+                    <h4>💡 Pourquoi Excel reconnaît-il automatiquement le type ?</h4>
+                    <p>Excel est intelligent : il analyse ce que vous tapez et détermine automatiquement si c'est du texte, un nombre, une date ou une formule. Cela vous permet de travailler rapidement sans avoir à spécifier le type à chaque fois. C'est l'un des avantages d'Excel par rapport à d'autres outils !</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2.2 : Théorie - Formats de base -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Formats de base</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Mise en forme essentielle</div>
+                <div class="content-box">
+                    <h3>🎨 Formats courants</h3>
+                    <ul>
+                        <li><strong>Gras</strong> : <code>Ctrl + G</code> ou bouton dans le ruban</li>
+                        <li><strong>Italique</strong> : <code>Ctrl + I</code></li>
+                        <li><strong>Souligné</strong> : <code>Ctrl + U</code></li>
+                        <li><strong>Couleur du texte</strong> : Bouton dans l'onglet Accueil</li>
+                        <li><strong>Couleur de fond</strong> : Bouton "Remplissage" dans Accueil</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>📐 Alignement</h3>
+                    <ul>
+                        <li><strong>Gauche</strong> : Par défaut pour le texte</li>
+                        <li><strong>Centre</strong> : Bouton centrer dans Accueil</li>
+                        <li><strong>Droite</strong> : Par défaut pour les nombres</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2.2b : Théorie - Mise en forme visuelle -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Mise en forme visuelle</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Rendre vos tableaux lisibles et professionnels</div>
+                <div class="cards-grid cards-grid-2">
+                    <div class="card-item">
+                        <div class="card-icon">📐</div>
+                        <div class="card-name">Bordures</div>
+                        <div class="card-desc">Contour du tableau + lignes intérieures fines<br>Accueil → Bordures</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">🎨</div>
+                        <div class="card-name">Alternance de lignes</div>
+                        <div class="card-desc">Une ligne sur deux en couleur claire<br>Facilite la lecture</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">💶</div>
+                        <div class="card-name">Formats nombres</div>
+                        <div class="card-desc">Monétaire, date, décimales<br>Clic droit → Format de cellules (Ctrl+1)</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">📊</div>
+                        <div class="card-name">Tableau Excel</div>
+                        <div class="card-desc">Insertion → Tableau<br>Styles prédéfinis + filtres automatiques</div>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Bonnes pratiques</h4>
+                    <p>En-têtes en <strong>gras</strong> avec fond coloré · Maximum 3 couleurs · Ajuster la largeur des colonnes (double-clic sur la bordure de l'en-tête)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2.3 : Exercice - Créer un tableau simple -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Créer un tableau de liste de courses</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 15 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Créez un nouveau classeur — en-têtes : <strong>Produit</strong>, <strong>Quantité</strong>, <strong>Prix unitaire</strong></li>
+                            <li>Remplissez <strong>5 lignes</strong> de données (ex. Pommes, 5, 1,50€)</li>
+                            <li>Mettez la ligne 1 en <strong>gras</strong>, <strong>centrée</strong>, avec un <strong>fond coloré</strong></li>
+                            <li>Ajoutez des <strong>bordures</strong> autour du tableau (Accueil → Bordures → Toutes les bordures)</li>
+                            <li>Formatez la colonne Prix en <strong>Monétaire</strong> (Ctrl+1 → Monétaire → €)</li>
+                            <li><strong>Bonus</strong> : alternance de couleurs sur les lignes, ou convertir en <strong>Tableau Excel</strong> (Insertion → Tableau)</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 2.4 : Solution - Tableau simple -->
+        <div class="slide solution" id="solution-2" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Nouveau classeur</strong> : Fichier → Nouveau → Classeur vide</li>
+                            <li><strong>En-têtes</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Cliquez sur A1, tapez "Produit", puis Tab</li>
+                                    <li>Dans B1, tapez "Quantité", puis Tab</li>
+                                    <li>Dans C1, tapez "Prix unitaire", puis Entrée</li>
+                                </ul>
+                            </li>
+                            <li><strong>Données</strong> : Remplissez les lignes 2 à 6 avec vos produits (ex: Pommes, 5, 1.50)</li>
+                            <li><strong>Mise en forme</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Sélectionnez la ligne 1 → Gras (Ctrl+G) → Centrer → Remplissage bleu clair</li>
+                                    <li>Sélectionnez A1:C6 → Accueil → Bordures → Toutes les bordures</li>
+                                    <li>Sélectionnez C2:C6 → Ctrl+1 → Monétaire → 2 décimales → €</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Résultat attendu</strong> : Tableau propre avec en-têtes formatés, bordures, prix en euros.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 3 : FORMULES DE BASE ET AUTOFILL -->
+        <!-- ============================================ -->
+
+        <!-- Slide 3.1 : Théorie - Formules de base -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Formules de base</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Les calculs dans Excel</div>
+                <div class="content-box">
+                    <h3>🔑 Règle d'or</h3>
+                    <div class="golden-rule">
+                        <p>Toute formule commence par</p>
+                        <div class="equals">=</div>
+                        <p><strong>Sans le =</strong> → Excel traite comme du <strong>texte</strong></p>
+                        <p><strong>Avec le =</strong> → Excel <strong>calcule</strong></p>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>📐 Syntaxe : plages et séparateurs</h3>
+                    <ul>
+                        <li><code>B3:B7</code> → plage de B3 à B7 (le <strong>:</strong> signifie « à »)</li>
+                        <li><code>B3;D3</code> → B3 <strong>et</strong> D3 (le <strong>;</strong> sépare les arguments)</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>➕ Opérateurs de base</h3>
+                    <ul>
+                        <li><strong>+</strong> : Addition (ex: <code>=A1+B1</code>)</li>
+                        <li><strong>-</strong> : Soustraction (ex: <code>=A1-B1</code>)</li>
+                        <li><strong>*</strong> : Multiplication (ex: <code>=A1*B1</code>)</li>
+                        <li><strong>/</strong> : Division (ex: <code>=A1/B1</code>)</li>
+                        <li><strong>^</strong> : Puissance (ex: <code>=A1^2</code>)</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>📊 Exemples</h3>
+                    <ul>
+                        <li><code>=5+3</code> → résultat : 8</li>
+                        <li><code>=A1+B1</code> → additionne les valeurs de A1 et B1</li>
+                        <li><code>=A1*B1</code> → multiplie A1 par B1</li>
+                    </ul>
+                </div>
+				<div class="content-box">
+                    <h3>🧮 Fonctions de base</h3>
+                    <ul>
+                        <li><code>=SOMME() </code> → =SOMME(plage de cellules) </li>
+                        <li><code>=MOYENNE() </code> → =MOYENNE(plage de cellules)</li>
+                        <li><code>=MIN() </code> → =MIN(plage de cellules)</li>
+						<li><code>=MAX() </code> → =MAX(plage de cellules)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.2 : Théorie - Autofill (Recopie incrémentale) -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Autofill</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">La poignée de recopie</div>
+                <div class="content-box">
+                    <h3>🎯 Qu'est-ce que l'Autofill ?</h3>
+                    <p>Permet de <span class="highlight">copier rapidement</span> une formule ou une série de données vers plusieurs cellules.</p>
+                </div>
+                <div class="content-box">
+                    <h3>📋 Comment utiliser</h3>
+                    <ul>
+                        <li>Sélectionnez la cellule contenant la formule</li>
+                        <li>Repérez le <strong>petit carré noir</strong> en bas à droite de la cellule (poignée de recopie)</li>
+                        <li>Cliquez et <strong>glissez vers le bas</strong> (ou la droite) sur les cellules à remplir</li>
+                        <li>Relâchez : la formule est copiée et adaptée automatiquement !</li>
+						<li>Recopie avec incrémentation</li>
+						<li>Options de recopie (affichage du menu)</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>💡 Exemple</h3>
+                    <p>Si vous avez <code>=A1+B1</code> en C1, et que vous glissez vers le bas, Excel crée automatiquement :</p>
+                    <ul>
+                        <li>C2 : <code>=A2+B2</code></li>
+                        <li>C3 : <code>=A3+B3</code></li>
+                        <li>Etc.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.2b : Théorie - Types d'Autofill -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Types d'Autofill</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">4 comportements de la poignée de recopie</div>
+                <div class="autofill-grid">
+                    <div class="autofill-demo">
+                        <h4>🔢 Incrémentation numérique</h4>
+                        <p style="font-size:0.95em;margin-bottom:10px;">Tapez 1, 2 puis tirez la poignée</p>
+                        <div class="cell-row">
+                            <span class="demo-cell active">1</span><span class="demo-cell active">2</span>
+                            <span class="demo-cell">3</span><span class="demo-cell">4</span>
+                        </div>
+                        <div class="autofill-ok">✅ +1 à chaque cellule</div>
+                    </div>
+                    <div class="autofill-demo">
+                        <h4>📅 Séries de texte</h4>
+                        <p style="font-size:0.95em;margin-bottom:10px;">Lundi, Mardi puis tirez</p>
+                        <div class="cell-row">
+                            <span class="demo-cell active">Lundi</span><span class="demo-cell active">Mardi</span>
+                            <span class="demo-cell">Mercr.</span><span class="demo-cell">Jeudi</span>
+                        </div>
+                        <div class="autofill-ok">✅ Jours, mois, trimestres…</div>
+                    </div>
+                    <div class="autofill-demo">
+                        <h4>📝 Recopie de formules</h4>
+                        <p style="font-size:0.95em;margin-bottom:10px;">Les références s'adaptent</p>
+                        <div class="cell-row">
+                            <span class="demo-cell active">=A1*B1</span><span class="demo-cell">=A2*B2</span>
+                            <span class="demo-cell">=A3*B3</span>
+                        </div>
+                        <div class="autofill-ok">✅ Références relatives</div>
+                    </div>
+                    <div class="autofill-demo">
+                        <h4>📋 Copie identique</h4>
+                        <p style="font-size:0.95em;margin-bottom:10px;">Même valeur partout</p>
+                        <div class="cell-row">
+                            <span class="demo-cell active">CHC</span><span class="demo-cell">CHC</span>
+                            <span class="demo-cell">CHC</span><span class="demo-cell">CHC</span>
+                        </div>
+                        <div class="autofill-ok">✅ Dupliquer une constante</div>
+                    </div>
+                </div>
+                <div class="visual-description">
+                    Après avoir glissé, cliquez sur l'icône <strong>Options de recopie</strong> (petit carré en bas à droite) pour choisir : recopier les valeurs, recopier les formules, ou remplir une série.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.2c : Théorie - Erreurs courantes -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Erreurs courantes</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Identifier et corriger les messages d'erreur</div>
+                <div class="error-grid">
+                    <div class="error-item">
+                        <div class="error-code">#DIV/0!</div>
+                        <div class="error-desc">Division par zéro — le diviseur est vide ou vaut 0</div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-code">#VALEUR!</div>
+                        <div class="error-desc">Texte dans un calcul numérique (ex. lettre dans une addition)</div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-code">#REF!</div>
+                        <div class="error-desc">Cellule ou feuille supprimée — référence invalide</div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-code">#NOM?</div>
+                        <div class="error-desc">Nom de fonction mal écrit (ex. SOM au lieu de SOMME)</div>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Comment corriger ?</h4>
+                    <p>Cliquez sur la cellule → lisez la formule dans la barre → vérifiez les types de données, les références et l'orthographe des fonctions. Appuyez sur <strong>F2</strong> pour éditer.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.2d : Théorie - Exemple CHC -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Exemple CHC</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Analyse de températures patients</div>
+                <table class="chc-table">
+                    <thead>
+                        <tr><th>Patient</th><th>Température</th><th>Statut</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Patient 1</td><td>37,2</td><td>Normal</td></tr>
+                        <tr><td>Patient 2</td><td>38,5</td><td>Fièvre</td></tr>
+                        <tr><td>Patient 3</td><td>36,8</td><td>Normal</td></tr>
+                        <tr><td><strong>Moyenne</strong></td><td class="formula">=MOYENNE(B2:B4)</td><td></td></tr>
+                        <tr><td><strong>Max</strong></td><td class="formula">=MAX(B2:B4)</td><td></td></tr>
+                    </tbody>
+                </table>
+                <div class="content-box">
+                    <h3>🎯 Formules utilisées</h3>
+                    <ul>
+                        <li><code>=MOYENNE(B2:B4)</code> → température moyenne des 3 patients</li>
+                        <li><code>=MAX(B2:B4)</code> → température la plus élevée</li>
+                        <li><code>=SI(B2&gt;37,5;"Fièvre";"Normal")</code> → statut automatique (bonus)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3.3 : Exercice - Calculs avec formules -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Calculer le total de votre liste de courses</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 15 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Reprenez votre tableau de liste de courses</li>
+                            <li>Colonne D « Total » : en D2, formule <code>=B2*C2</code> puis <strong>Autofill</strong> jusqu'à la dernière ligne</li>
+                            <li>Total général : <code>=SOMME(D2:D6)</code> en dessous du tableau</li>
+                            <li><strong>Partie CHC</strong> — créez un mini-tableau températures (3 patients) :
+                                <ul style="margin-top:8px;font-size:0.9em;">
+                                    <li>Calculez la <strong>moyenne</strong> : <code>=MOYENNE(...)</code></li>
+                                    <li>Calculez le <strong>maximum</strong> : <code>=MAX(...)</code></li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 3.4 : Solution - Calculs avec formules -->
+        <div class="slide solution" id="solution-3" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Colonne Total</strong> : Dans D1, tapez "Total"</li>
+                            <li><strong>Formule en D2</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Cliquez sur D2</li>
+                                    <li>Tapez <code>=B2*C2</code> puis Entrée</li>
+                                    <li>Le résultat apparaît (ex: si B2=5 et C2=1.50, résultat = 7.50)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Autofill</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Cliquez sur D2</li>
+                                    <li>Repérez le petit carré noir en bas à droite</li>
+                                    <li>Cliquez-glissez vers le bas jusqu'à D6 (ou votre dernière ligne)</li>
+                                    <li>Relâchez : les formules sont copiées automatiquement !</li>
+                                </ul>
+                            </li>
+                            <li><strong>Total général</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>En D7 : <code>=SOMME(D2:D6)</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>Exemple CHC — températures</strong> (à partir de la ligne 10) :
+                                <ul style="margin-top: 10px;">
+                                    <li>En-têtes : Patient | Température | Statut</li>
+                                    <li>3 lignes de données (ex. 37,2 / 38,5 / 36,8)</li>
+                                    <li>Moyenne : <code>=MOYENNE(B11:B13)</code></li>
+                                    <li>Maximum : <code>=MAX(B11:B13)</code></li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : L'Autofill adapte les références ; SOMME et MOYENNE résument des plages en une formule !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 4 : GESTION DES FEUILLES -->
+        <!-- ============================================ -->
+
+        <!-- Slide 4.1 : Théorie - Gestion des feuilles -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Gestion des feuilles</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Organiser votre travail</div>
+                <div class="content-box">
+                    <h3>📑 Qu'est-ce qu'une feuille ?</h3>
+                    <p>Un classeur Excel peut contenir <span class="highlight">plusieurs feuilles</span>. Chaque feuille est un onglet en bas de l'écran.</p>
+                </div>
+                <div class="content-box">
+                    <h3>➕ Créer une nouvelle feuille</h3>
+                    <ul>
+                        <li>Cliquez sur le <strong>+</strong> à côté des onglets en bas</li>
+                        <li>Ou clic droit sur un onglet → <strong>Insérer</strong></li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>✏️ Renommer une feuille</h3>
+                    <ul>
+                        <li>Double-cliquez sur le nom de l'onglet (ex: "Feuil1")</li>
+                        <li>Tapez le nouveau nom puis Entrée</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🎨 Changer la couleur d'un onglet</h3>
+                    <ul>
+                        <li>Clic droit sur l'onglet → <strong>Couleur d'onglet</strong> → Choisissez une couleur</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4.1b : Théorie - Références entre feuilles -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Références entre feuilles</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Lier des données d'une feuille à une autre</div>
+                <div class="formula-examples">
+                    <div class="formula-example">
+                        <div class="formula-code">=Données!A1</div>
+                        <div class="formula-desc">Cellule A1 de la feuille « Données »</div>
+                    </div>
+                    <div class="formula-example">
+                        <div class="formula-code">=SOMME(Ventes!B2:B10)</div>
+                        <div class="formula-desc">Somme d'une plage sur une autre feuille</div>
+                    </div>
+                    <div class="formula-example">
+                        <div class="formula-code">='Feuil 1'!C5</div>
+                        <div class="formula-desc">Apostrophes si le nom contient des espaces</div>
+                    </div>
+                    <div class="formula-example">
+                        <div class="formula-code">Méthode clic : = puis onglet → cellule</div>
+                        <div class="formula-desc">Tapez =, cliquez l'autre feuille, cliquez la cellule, Entrée</div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Exemple : tableau de bord</h3>
+                    <ul>
+                        <li>Feuille <strong>Données</strong> : ventes Jan=1000, Fév=1200, Mar=800 (A1:A3)</li>
+                        <li>Feuille <strong>Synthèse</strong> : <code>=SOMME(Données!A1:A3)</code> → total Q1 = 3000</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4.2 : Exercice - Gestion des feuilles -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Organiser votre classeur</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 10 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Créez 2 feuilles : renommez en <strong>Données</strong> et <strong>Synthèse</strong></li>
+                            <li>Colorez les onglets (couleurs différentes)</li>
+                            <li>Sur <strong>Données</strong> : copiez votre tableau de courses (ou ventes Jan/Fév/Mar en A1:A3)</li>
+                            <li>Sur <strong>Synthèse</strong> : créez un total avec <code>=SOMME(Données!D2:D6)</code> (ou <code>=SOMME(Données!A1:A3)</code>)</li>
+                            <li>Testez la méthode clic : tapez <code>=</code>, cliquez l'onglet Données, cliquez une cellule</li>
+                            <li>Modifiez une valeur sur Données → le total sur Synthèse se met à jour !</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(4)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 4.3 : Solution - Gestion des feuilles -->
+        <div class="slide solution" id="solution-4" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Créer et renommer</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Renommez Feuil1 en « Données » (double-clic sur l'onglet)</li>
+                                    <li>Cliquez <strong>+</strong> pour une nouvelle feuille → renommez « Synthèse »</li>
+                                </ul>
+                            </li>
+                            <li><strong>Couleurs</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Clic droit sur chaque onglet → Couleur d'onglet (ex. bleu / vert)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Copier le tableau</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Copiez votre tableau sur la feuille « Données » (Ctrl+C / Ctrl+V)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Référence entre feuilles</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Feuille « Synthèse », cellule A1 : <code>=SOMME(Données!D2:D6)</code></li>
+                                    <li>Ou : tapez <code>=</code>, cliquez Données, sélectionnez D2:D6, Entrée</li>
+                                    <li>Changez une quantité sur Données → le total sur Synthèse se recalcule</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : Les références entre feuilles permettent de créer des tableaux de bord !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 5 : CRÉATION DE GRAPHIQUES BASIQUES -->
+        <!-- ============================================ -->
+
+        <!-- Slide 5.1 : Théorie - Graphiques basiques -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Création de graphiques</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Visualiser vos données</div>
+                <div class="content-box">
+                    <h3>📊 Types de graphiques courants</h3>
+                    <ul>
+                        <li><strong>Graphique en colonnes</strong> : Comparer des valeurs</li>
+                        <li><strong>Graphique en secteurs (camembert)</strong> : Montrer des proportions</li>
+                        <li><strong>Graphique en lignes</strong> : Évolution dans le temps</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Comment créer un graphique</h3>
+                    <ul>
+                        <li>Sélectionnez vos données (avec les en-têtes)</li>
+                        <li>Onglet <strong>Insertion</strong> → Choisissez un type de graphique</li>
+                        <li>Le graphique apparaît sur votre feuille</li>
+                        <li>Vous pouvez le déplacer et le redimensionner</li>
+						<li>F11 permet de creer des graphiques en mode "création" dans une nouvelle feuille</li>
+						<li>Les outils de personnalisation sont disponnible en haut a droite du tableau</li>
+						<li>(➕ Eléments 🖌️ Styles 🎚️ Filtres)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5.1b : Théorie - Choisir le bon graphique -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Choisir le bon graphique</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Quel graphique selon vos données ?</div>
+                <div class="cards-grid">
+                    <div class="card-item">
+                        <div class="card-icon">📊</div>
+                        <div class="card-name">Histogramme</div>
+                        <div class="card-desc">Comparer des valeurs<br>Ex. ventes par produit</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">📈</div>
+                        <div class="card-name">Courbe</div>
+                        <div class="card-desc">Évolution dans le temps<br>Ex. CA mensuel</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">🥧</div>
+                        <div class="card-name">Secteurs</div>
+                        <div class="card-desc">Répartition en %<br>Ex. parts de budget (max 7 catégories)</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">📊</div>
+                        <div class="card-name">Barres</div>
+                        <div class="card-desc">Histogramme horizontal<br>Ex. noms longs, classements</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-name">Aires</div>
+                        <div class="card-desc">Évolution avec volume<br>Ex. cumuls dans le temps</div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-name">Anneaux</div>
+                        <div class="card-desc">Secteurs multiples<br>Ex. comparer 2 répartitions</div>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Règle d'or</h4>
+                    <p><strong>Comparer</strong> → Histogramme &nbsp;|&nbsp; <strong>Évolution</strong> → Courbe &nbsp;|&nbsp; <strong>Répartition</strong> → Secteurs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5.2 : Exercice - Créer un graphique -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Créer un graphique de votre liste de courses</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 10 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Reprenez votre tableau avec les colonnes Produit, Quantité, Prix unitaire, Total</li>
+                            <li>Sélectionnez les colonnes "Produit" et "Total" (avec les en-têtes)</li>
+                            <li>Créez un graphique en colonnes</li>
+                            <li>Déplacez le graphique sous votre tableau</li>
+                            <li>Essayez de créer un graphique en secteurs avec les mêmes données</li>
+							<li>Bonus : Personnalisez avec les outils ➕ Eléments 🖌️ Styles 🎚️ Filtres</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(5)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 5.3 : Solution - Créer un graphique -->
+        <div class="slide solution" id="solution-5" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Préparer les données</strong> : Assurez-vous d'avoir votre tableau complet</li>
+                            <li><strong>Sélectionner</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Sélectionnez la colonne A (Produit) en cliquant sur l'en-tête "A"</li>
+                                    <li>Maintenez Ctrl et cliquez sur l'en-tête "D" (Total)</li>
+                                    <li>Ou sélectionnez manuellement A1:A6 et D1:D6</li>
+                                </ul>
+                            </li>
+                            <li><strong>Créer le graphique</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Onglet <strong>Insertion</strong></li>
+                                    <li>Dans "Graphiques", cliquez sur <strong>Graphique en colonnes</strong> (première icône)</li>
+                                    <li>Le graphique apparaît automatiquement !</li>
+                                </ul>
+                            </li>
+                            <li><strong>Déplacer</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Cliquez sur le graphique pour le sélectionner</li>
+                                    <li>Cliquez-glissez pour le déplacer où vous voulez</li>
+                                    <li>Utilisez les poignées (petits carrés) pour redimensionner</li>
+                                </ul>
+                            </li>
+                            <li><strong>Graphique en secteurs</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Sélectionnez à nouveau Produit et Total</li>
+                                    <li>Insertion → <strong>Graphique en secteurs</strong></li>
+                                    <li>Comparez les deux types de graphiques !</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : Les graphiques se mettent à jour automatiquement si vous modifiez les données !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 6 : MISE EN PAGE ET IMPRESSION -->
+        <!-- ============================================ -->
+
+        <!-- Slide 6.1 : Théorie - Mise en page -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Mise en page</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Préparer l'impression</div>
+                <div class="content-box">
+                    <h3>📄 Aperçu avant impression</h3>
+                    <ul>
+                        <li><strong>Fichier</strong> → <strong>Imprimer</strong> (ou Ctrl+P)</li>
+                        <li>Visualisez comment votre feuille sera imprimée</li>
+                        <li>Vérifiez les sauts de page</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Ajustements courants</h3>
+                    <ul>
+                        <li><strong>Orientation</strong> : Portrait (vertical) ou Paysage (horizontal)</li>
+                        <li><strong>Marges</strong> : Espace autour de la page</li>
+                        <li><strong>Ajuster à la page</strong> : Réduire pour que tout tienne sur une page</li>
+                        <li><strong>Centrer</strong> : Centrer horizontalement et/ou verticalement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6.2 : Théorie - Impression -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Impression</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Imprimer votre travail</div>
+                <div class="content-box">
+                    <h3>🖨️ Options d'impression</h3>
+                    <ul>
+                        <li><strong>Imprimer les cellules actives</strong> : Seulement la sélection</li>
+                        <li><strong>Imprimer la feuille active</strong> : Toute la feuille</li>
+                        <li><strong>Imprimer tout le classeur</strong> : Toutes les feuilles</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>📋 En-têtes et pieds de page</h3>
+                    <ul>
+                        <li>Onglet <strong>Insertion</strong> → <strong>En-tête et pied de page</strong></li>
+                        <li>Ajoutez titre, date, numéro de page</li>
+                        <li>Utile pour identifier vos documents</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6.2b : Théorie - Zone d'impression -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Zone d'impression</div>
+            </div>
+            <div class="slide-content">
+                <div class="subtitle">Imprimer seulement ce qui compte</div>
+                <div class="content-box">
+                    <h3>📐 Définir une zone d'impression</h3>
+                    <ol style="list-style: decimal; padding-left: 40px; font-size: 1.2em;">
+                        <li>Sélectionnez les cellules à imprimer</li>
+                        <li>Mise en page → <strong>Zone d'impression</strong> → <strong>Définir</strong></li>
+                        <li>Ctrl+P pour vérifier l'aperçu</li>
+                        <li>Pour modifier : <strong>Ajouter</strong> ou <strong>Effacer</strong> la zone</li>
+                    </ol>
+                </div>
+                <div class="compare-grid">
+                    <div class="compare-box bad">
+                        <h4>❌ Sans zone définie</h4>
+                        <p>Imprime toute la feuille : cellules vides, brouillons, calculs temporaires…</p>
+                    </div>
+                    <div class="compare-box good">
+                        <h4>✅ Avec zone définie</h4>
+                        <p>Imprime uniquement le tableau et le graphique utiles — document propre et ciblé.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6.3 : Exercice - Mise en page et impression -->
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice</div>
+                <div class="slide-title">À vous de jouer !</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <h3>🎯 Préparer votre document pour l'impression</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 10 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Ouvrez l'aperçu avant impression (Fichier → Imprimer)</li>
+                            <li>Changez l'orientation en Paysage</li>
+                            <li>Ajustez les marges si nécessaire</li>
+                            <li>Ajoutez un en-tête avec votre nom et la date</li>
+                            <li><strong>Définissez une zone d'impression</strong> : sélectionnez tableau + graphique → Mise en page → Zone d'impression → Définir</li>
+                            <li>Vérifiez que tout tient sur une page (Ajuster à la page si besoin)</li>
+                            <li><strong>Bonus</strong> : exporter en PDF (Imprimante → Microsoft Print to PDF)</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(6)">🔍 Afficher la solution</button>
+            </div>
+        </div>
+
+        <!-- Slide 6.4 : Solution - Mise en page et impression -->
+        <div class="slide solution" id="solution-6" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution</div>
+                <div class="slide-title">Correction</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Aperçu</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Fichier → Imprimer (ou Ctrl+P)</li>
+                                    <li>Visualisez votre document</li>
+                                </ul>
+                            </li>
+                            <li><strong>Orientation</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Dans les paramètres d'impression, cliquez sur "Orientation"</li>
+                                    <li>Sélectionnez "Paysage"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Marges</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Cliquez sur "Marges"</li>
+                                    <li>Choisissez "Normal" ou "Étroit" selon vos besoins</li>
+                                </ul>
+                            </li>
+                            <li><strong>En-tête</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Retournez sur votre feuille</li>
+                                    <li>Insertion → En-tête et pied de page</li>
+                                    <li>Dans la zone d'en-tête, tapez votre nom et la date</li>
+                                    <li>Cliquez ailleurs pour valider</li>
+                                </ul>
+                            </li>
+                            <li><strong>Zone d'impression</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Sélectionnez votre tableau + graphique</li>
+                                    <li>Mise en page → Zone d'impression → Définir</li>
+                                    <li>Ctrl+P : seule la zone sélectionnée apparaît</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ajuster</strong> :
+                                <ul style="margin-top: 10px;">
+                                    <li>Dans l'aperçu, cherchez "Ajuster" ou "Mise à l'échelle"</li>
+                                    <li>Sélectionnez "Ajuster la feuille sur une page"</li>
+                                    <li>Votre contenu sera automatiquement réduit pour tenir sur une page</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 1.4em; text-align: center; color: #00ff88;">
+                        💡 <strong>Astuce</strong> : Toujours vérifier l'aperçu avant d'imprimer pour éviter le gaspillage de papier !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide Final : Récapitulatif -->
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">🎓 Récapitulatif</div>
+                <div class="slide-title">Module 1 terminé !</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">Félicitations ! 🎉</div>
+                <div class="content-box" style="text-align: center;">
+                    <h3>✅ Ce que vous avez appris</h3>
+                    <ul style="text-align: left; max-width: 1000px; margin: 0 auto;">
+                        <li>Naviguer dans l'interface Excel</li>
+                        <li>Saisir, formater et structurer des tableaux (bordures, monétaire, Tableau Excel)</li>
+                        <li>Créer des formules (=, SOMME, MOYENNE, MAX) et comprendre les erreurs (#DIV/0!, #VALEUR!…)</li>
+                        <li>Maîtriser l'Autofill (séries, formules, copie) et l'exemple CHC</li>
+                        <li>Gérer les feuilles et les références entre feuilles (=Données!A1)</li>
+                        <li>Choisir et créer le bon graphique (histogramme, courbe, secteurs…)</li>
+                        <li>Mettre en page, zone d'impression et imprimer</li>
+                    </ul>
+                </div>
+                <div style="margin-top: 50px; font-size: 2em; color: #217346;">
+                    Vous maîtrisez maintenant les bases d'Excel ! 🚀
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide:not(.solution)');
+        const solutionSlides = document.querySelectorAll('.slide.solution');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Update current slide
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function showSolution(solutionIndex) {
+            const solutionSlide = document.getElementById(`solution-${solutionIndex}`);
+            if (solutionSlide) {
+                // Hide current slide
+                slides[currentSlide].classList.remove('active');
+                // Show solution slide
+                solutionSlide.style.display = 'flex';
+                solutionSlide.classList.add('active');
+                
+                // Update counter temporarily
+                document.getElementById('slideCounter').textContent = `Solution ${solutionIndex + 1}`;
+                
+                // Add a back button functionality
+                const backBtn = document.createElement('button');
+                backBtn.className = 'show-solution-btn';
+                backBtn.textContent = '⬅ Retour à l\'exercice';
+                backBtn.onclick = function() {
+                    solutionSlide.style.display = 'none';
+                    solutionSlide.classList.remove('active');
+                    slides[currentSlide].classList.add('active');
+                    document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+                    backBtn.remove();
+                };
+                
+                // Remove existing back button if any
+                const existingBack = solutionSlide.querySelector('.show-solution-btn');
+                if (existingBack) existingBack.remove();
+                
+                solutionSlide.appendChild(backBtn);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const activeSolution = document.querySelector('.slide.solution.active');
+            if (activeSolution) {
+                // If solution is showing, only allow going back
+                if (e.key === 'Escape') {
+                    const backBtn = activeSolution.querySelector('.show-solution-btn');
+                    if (backBtn) backBtn.click();
+                }
+            } else {
+                // Normal navigation
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
+
