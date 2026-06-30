@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 10 Module 1 : Débutant - Formation Interactive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a; color: #fff; overflow: hidden; height: 100vh;
+        }
+        .presentation-container {
+            width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slide {
+            width: 96%; max-width: 1800px; height: 92vh;
+            background: #1a1a1a; border: 4px solid #0078D4; border-radius: 20px;
+            padding: 60px; display: none; flex-direction: column;
+            overflow-y: auto; box-shadow: 0 0 40px rgba(0, 120, 212, 0.35);
+        }
+        .slide.active { display: flex; }
+        .slide.theory { border-color: #0078D4; }
+        .slide.exercise { border-color: #ffd700; }
+        .slide.solution { border-color: #00b7ff; }
+        .slide.word-transition { border-color: #4caf50; box-shadow: 0 0 40px rgba(76, 175, 80, 0.25); }
+        .slide.demo { border-color: #9c27b0; }
+        .slide.pitfalls { border-color: #ff9800; }
+        .slide.section-opener {
+            background: linear-gradient(160deg, #1a1a1a 0%, rgba(0, 120, 212, 0.16) 100%);
+        }
+        .slide-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 32px; border-bottom: 3px solid #0078D4; padding-bottom: 20px;
+        }
+        .slide-type-badge {
+            padding: 10px 22px; border-radius: 30px; font-size: 24px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap;
+        }
+        .badge-theory { background: #0078D4; color: #fff; }
+        .badge-exercise { background: #ffd700; color: #000; }
+        .badge-solution { background: #00b7ff; color: #000; }
+        .badge-word { background: #4caf50; color: #fff; }
+        .badge-demo { background: #9c27b0; color: #fff; }
+        .badge-pitfalls { background: #ff9800; color: #000; }
+        .slide-title {
+            font-size: 2.8em; font-weight: 700; text-align: center; flex-grow: 1;
+            margin: 0 24px; line-height: 1.2;
+        }
+        .slide-content {
+            flex-grow: 1; display: flex; flex-direction: column;
+            justify-content: center; font-size: 1.4em; line-height: 1.6;
+        }
+        .subtitle {
+            font-size: 1.85em; color: #4cc2ff; margin-bottom: 28px;
+            text-align: center; font-weight: 600;
+        }
+        .center-content { text-align: center; }
+        .partie-label {
+            display: inline-block; background: rgba(0, 120, 212, 0.25);
+            border: 2px solid #0078D4; color: #9bdcff;
+            padding: 8px 20px; border-radius: 30px; font-weight: 700; margin-bottom: 18px;
+        }
+        .content-box {
+            background: rgba(0, 120, 212, 0.12); border-left: 8px solid #0078D4;
+            padding: 26px; border-radius: 15px; margin: 16px 0;
+        }
+        .content-box h3 { font-size: 1.55em; color: #4cc2ff; margin-bottom: 14px; }
+        .content-box p, .content-box li {
+            font-size: 1.12em; margin-bottom: 10px; line-height: 1.6;
+        }
+        .content-box ul { list-style: none; padding-left: 0; }
+        .content-box li::before {
+            content: "▶ "; color: #4cc2ff; font-weight: bold; margin-right: 8px;
+        }
+        .exercise-instructions {
+            background: rgba(255, 215, 0, 0.13); border-left: 8px solid #ffd700;
+            padding: 30px; border-radius: 15px; margin: 18px 0;
+        }
+        .exercise-instructions h3 {
+            color: #ffd700; font-size: 1.65em; margin-bottom: 16px; text-align: center;
+        }
+        .word-transition-box {
+            background: rgba(76, 175, 80, 0.12); border: 3px solid #4caf50;
+            padding: 36px; border-radius: 15px; text-align: center;
+        }
+        .word-transition-box h3 { color: #81c784; font-size: 2em; margin-bottom: 20px; }
+        .word-transition-box p { font-size: 1.25em; margin-bottom: 14px; }
+        .demo-box {
+            background: rgba(156, 39, 176, 0.12); border-left: 8px solid #9c27b0;
+            padding: 28px; border-radius: 15px; margin: 16px 0;
+        }
+        .demo-box h3 { color: #ce93d8; margin-bottom: 14px; font-size: 1.5em; }
+        .demo-box li { font-size: 1.1em; margin-bottom: 10px; line-height: 1.55; }
+        .demo-box ol { padding-left: 36px; }
+        .pitfalls-box {
+            background: rgba(255, 152, 0, 0.12); border-left: 8px solid #ff9800;
+            padding: 28px; border-radius: 15px; margin: 16px 0;
+        }
+        .pitfalls-box h3 { color: #ffb74d; margin-bottom: 14px; font-size: 1.5em; }
+        .pitfalls-box li { font-size: 1.1em; margin-bottom: 10px; line-height: 1.55; }
+        .pitfalls-box ul { list-style: none; padding-left: 0; }
+        .pitfalls-box li::before { content: "⚠ "; color: #ff9800; font-weight: bold; }
+        .exercise-steps ol, .solution-steps ol { padding-left: 36px; }
+        .exercise-steps li, .solution-steps li {
+            font-size: 1.08em; margin-bottom: 12px; line-height: 1.6;
+        }
+        .solution-box {
+            background: rgba(0, 183, 255, 0.12); border-left: 8px solid #00b7ff;
+            padding: 30px; border-radius: 15px; margin: 18px 0;
+        }
+        .solution-box h3 {
+            color: #00b7ff; margin-bottom: 16px; text-align: center; font-size: 1.65em;
+        }
+        .duration-badge {
+            display: inline-block; background: rgba(255, 215, 0, 0.18);
+            border: 2px solid #ffd700; padding: 6px 18px; border-radius: 25px;
+            color: #ffd700; margin-bottom: 12px; font-weight: 700;
+        }
+        .a-retenir-box {
+            background: rgba(76, 194, 255, 0.1); border: 2px solid #4cc2ff;
+            border-radius: 12px; padding: 18px 22px; margin: 16px 0;
+        }
+        .a-retenir-box h4 { color: #4cc2ff; margin-bottom: 8px; }
+        .warning-box {
+            background: rgba(255, 152, 0, 0.12); border-left: 6px solid #ff9800;
+            padding: 16px 20px; border-radius: 10px; margin: 14px 0;
+        }
+        .nav-hint {
+            background: rgba(255,255,255,0.06); border: 1px solid #555;
+            padding: 14px 20px; border-radius: 10px; margin-top: 16px; font-size: 0.95em; color: #bbb;
+        }
+        .workflow-row {
+            display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 20px 0;
+        }
+        .workflow-step {
+            background: rgba(0, 120, 212, 0.16); border: 2px solid #0078D4;
+            border-radius: 12px; padding: 14px 12px; text-align: center;
+            min-width: 150px; flex: 1; max-width: 220px;
+        }
+        .workflow-step .step-name { font-weight: 700; color: #9bdcff; margin-bottom: 6px; }
+        .workflow-step .step-desc { color: #ddd; font-size: 0.82em; line-height: 1.35; }
+        .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .kbd {
+            display: inline-block; background: #2a2a2a; border: 1px solid #666;
+            border-bottom-width: 3px; border-radius: 6px; padding: 2px 10px;
+            font-family: 'Segoe UI', sans-serif; font-size: 0.9em; color: #fff; margin: 0 2px;
+        }
+        code {
+            background: rgba(0,0,0,0.45); color: #d7eaff;
+            padding: 3px 9px; border-radius: 6px; font-size: 0.92em;
+        }
+        .highlight { color: #9bdcff; font-weight: 700; }
+        .navigation {
+            position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 16px; z-index: 1000;
+        }
+        .nav-btn, .show-solution-btn {
+            border: none; padding: 12px 26px; border-radius: 50px;
+            cursor: pointer; font-size: 20px; font-weight: 700;
+        }
+        .nav-btn { background: #0078D4; color: #fff; min-width: 170px; }
+        .nav-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .show-solution-btn {
+            background: #00b7ff; color: #000; margin: 20px auto 0; display: block;
+        }
+        .slide-indicator, .module-title {
+            position: fixed; top: 28px; z-index: 1000;
+            background: rgba(0,0,0,0.86); border: 2px solid #0078D4;
+            padding: 10px 22px; border-radius: 30px; font-weight: 700; color: #9bdcff;
+        }
+        .slide-indicator { right: 28px; font-size: 22px; }
+        .module-title { left: 28px; font-size: 18px; max-width: 520px; }
+        @media (max-width: 1400px) {
+            .slide { padding: 40px; }
+            .slide-title { font-size: 2.2em; }
+            .slide-content { font-size: 1.2em; }
+            .two-columns { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-title">🪟 Windows 10 — Module 1 (Débutant)</div>
+    <div class="slide-indicator"><span id="slideCounter">1 / …</span></div>
+
+    <div class="presentation-container">
+
+        <!-- INTRO -->
+        <div class="slide active theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Windows 10 — Module 1 : Débutant</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">Être à l'aise au quotidien : naviguer, personnaliser, organiser, rechercher</div>
+                <div class="workflow-row">
+                    <div class="workflow-step"><div class="step-name">1. Naviguer</div><div class="step-desc">Fenêtres, raccourcis</div></div>
+                    <div class="workflow-step"><div class="step-name">2. Personnaliser</div><div class="step-desc">Démarrer, barre des tâches</div></div>
+                    <div class="workflow-step"><div class="step-name">3. Organiser</div><div class="step-desc">Explorateur, fichiers</div></div>
+                    <div class="workflow-step"><div class="step-name">4. Rechercher</div><div class="step-desc">Tout retrouver</div></div>
+                    <div class="workflow-step"><div class="step-name">5. Utilitaires</div><div class="step-desc">Outils, PowerToys</div></div>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>Version</h4>
+                    <p>Ce module est la version <strong>Windows 10</strong>. Une version <strong>Windows 11</strong> existe en parallèle.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Organisation de la session</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Pour 6 à 8 participants</h3>
+                    <ul>
+                        <li>Le formateur lit la théorie, les participants manipulent sur leur poste.</li>
+                        <li>Dossier d'exercices prêt : <code>Module 1\EXERCICES\Fichiers_a_organiser</code>.</li>
+                        <li><span class="kbd">Alt</span>+<span class="kbd">Tab</span> pour basculer entre les fenêtres.</li>
+                        <li>Flèches <strong>← →</strong> pour naviguer dans le cours.</li>
+                    </ul>
+                </div>
+                <div class="nav-hint">Sur une slide d'exercice : touche <strong>S</strong> = afficher la solution · <strong>Échap</strong> = revenir à l'exercice</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Le bureau Windows 10</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Bureau</strong> : icônes et raccourcis, arrière-plan.</li>
+                        <li><strong>Barre des tâches</strong> (en bas) : bouton Démarrer à gauche, zone de recherche, programmes épinglés, zone de notification.</li>
+                        <li><strong>Menu Démarrer</strong> : liste des applications à gauche + <strong>vignettes</strong> (tuiles) à droite.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 1 : NAVIGUER -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 1 — Naviguer dans Windows</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 40 min · Exercice 1</span>
+                <div class="subtitle">Lancer/fermer un programme, gérer les fenêtres, raccourcis</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Exécuter et fermer un programme</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Ouvrir : menu <strong>Démarrer</strong> → cliquer l'application, ou icône épinglée.</li>
+                        <li>Fermer : croix <strong>✕</strong> en haut à droite, ou <span class="kbd">Alt</span>+<span class="kbd">F4</span>.</li>
+                        <li>Programme bloqué : clic droit barre des tâches → <strong>Gestionnaire des tâches</strong> (<span class="kbd">Ctrl</span>+<span class="kbd">Maj</span>+<span class="kbd">Échap</span>).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Manipuler les fenêtres</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Réduire / Agrandir / Restaurer</strong> avec les boutons en haut à droite.</li>
+                        <li><strong>Ancrage (Snap Assist)</strong> : <span class="kbd">⊞ Win</span>+<span class="kbd">←</span> ou <span class="kbd">→</span> pour coller à moitié d'écran.</li>
+                        <li><strong>Bureaux virtuels</strong> : <span class="kbd">⊞ Win</span>+<span class="kbd">Tab</span> (Affichage des tâches).</li>
+                        <li>Tout réduire : <span class="kbd">⊞ Win</span>+<span class="kbd">D</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Mode tablette &amp; raccourcis</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Mode tablette (écran tactile)</h3>
+                        <ul>
+                            <li><strong>Centre de notifications</strong> → <strong>Mode tablette</strong>.</li>
+                            <li>Plein écran, navigation au doigt.</li>
+                            <li>S'active souvent automatiquement sur 2-en-1.</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>Créer un raccourci</h3>
+                        <ul>
+                            <li>Clic droit sur un fichier/programme → <strong>Créer un raccourci</strong>.</li>
+                            <li>Glisser une icône sur le <strong>Bureau</strong>.</li>
+                            <li>Raccourcis clavier utiles : <span class="kbd">⊞ Win</span>+<span class="kbd">E</span> (Explorateur).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : ancrer deux fenêtres</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Ouvrir l'Explorateur et le navigateur.</li>
+                        <li><span class="kbd">⊞ Win</span>+<span class="kbd">←</span> sur l'un, <span class="kbd">⊞ Win</span>+<span class="kbd">→</span> sur l'autre.</li>
+                        <li>Snap Assist propose la seconde fenêtre : cliquer dessus.</li>
+                        <li>Montrer <span class="kbd">⊞ Win</span>+<span class="kbd">Tab</span> et un second bureau.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Windows</div>
+                <div class="slide-title">À votre poste — Exercice 1</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Naviguer et gérer les fenêtres</h3>
+                    <p><strong>Objectif :</strong> ouvrir, organiser et fermer des programmes avec aisance.</p>
+                    <p><span class="duration-badge">⏱️ 20 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 1</div>
+                <div class="slide-title">Naviguer — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Ouvrez l'Explorateur, le navigateur et la Calculatrice depuis Démarrer.</li>
+                            <li>Ancrez deux fenêtres côte à côte (<span class="kbd">⊞ Win</span>+<span class="kbd">←</span> / <span class="kbd">→</span>).</li>
+                            <li>Réduisez tout (<span class="kbd">⊞ Win</span>+<span class="kbd">D</span>) puis restaurez.</li>
+                            <li>Basculez entre les fenêtres avec <span class="kbd">Alt</span>+<span class="kbd">Tab</span>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="0">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 1</div>
+                <div class="slide-title">Naviguer — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Créez un <strong>second bureau</strong> (<span class="kbd">⊞ Win</span>+<span class="kbd">Ctrl</span>+<span class="kbd">D</span>).</li>
+                            <li>Créez un <strong>raccourci</strong> de la Calculatrice sur le Bureau.</li>
+                            <li>Fermez la Calculatrice avec <span class="kbd">Alt</span>+<span class="kbd">F4</span>.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(0)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-0" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 1</div>
+                <div class="slide-title">Correction : navigation</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Deux fenêtres occupent chacune une moitié d'écran.</li>
+                            <li>Un second bureau est visible dans <span class="kbd">⊞ Win</span>+<span class="kbd">Tab</span>.</li>
+                            <li>Le raccourci Calculatrice apparaît sur le Bureau (flèche sur l'icône).</li>
+                            <li>Réflexe : <span class="kbd">⊞ Win</span> ouvre Démarrer et lance une recherche immédiate.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — navigation</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Cliquer sur ✕ croit fermer alors que le programme réduit dans la barre.</li>
+                        <li>Accumuler des dizaines de fenêtres ouvertes au lieu d'ancrer.</li>
+                        <li>Forcer l'arrêt d'un PC au lieu de fermer le programme bloqué.</li>
+                        <li>Confondre <strong>raccourci</strong> (flèche) et fichier d'origine.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 2 : PERSONNALISER -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 2 — Personnaliser son espace</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 40 min · Exercice 2</span>
+                <div class="subtitle">Menu Démarrer, vignettes, barre des tâches, arrière-plan</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Le menu Démarrer et les vignettes</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Liste des applications à gauche, <strong>vignettes</strong> (tuiles) à droite.</li>
+                        <li><strong>Épingler</strong> : clic droit sur une app → <strong>Épingler à l'écran de démarrage</strong>.</li>
+                        <li><strong>Détacher</strong> : clic droit sur une vignette → <strong>Détacher</strong>.</li>
+                        <li><strong>Grouper</strong> : faire glisser les vignettes et nommer les groupes.</li>
+                        <li>Redimensionner : clic droit → <strong>Redimensionner</strong> (petit, moyen, grand).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Personnaliser la barre des tâches</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Épingler un programme</strong> : clic droit sur l'icône → <strong>Épingler à la barre des tâches</strong>.</li>
+                        <li>Réorganiser les icônes par glisser-déposer.</li>
+                        <li>Clic droit sur la barre → <strong>Paramètres de la barre des tâches</strong> (taille, position).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Bureau, raccourcis et arrière-plan</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Organiser le Bureau : regrouper les raccourcis, clic droit → <strong>Trier par</strong>.</li>
+                        <li>Repérer les raccourcis vers les principaux programmes (icône avec flèche).</li>
+                        <li><strong>Arrière-plan</strong> : clic droit Bureau → <strong>Personnaliser</strong> → Arrière-plan (image, couleur, diaporama).</li>
+                    </ul>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>À retenir</h4>
+                    <p>Épingler ≠ installer. On crée un accès rapide vers un programme déjà installé.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Windows</div>
+                <div class="slide-title">À votre poste — Exercice 2</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Adapter son espace de travail</h3>
+                    <p><strong>Objectif :</strong> un menu Démarrer, une barre des tâches et un bureau à votre main.</p>
+                    <p><span class="duration-badge">⏱️ 20 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">Personnaliser — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Épinglez Word et l'Explorateur au menu <strong>Démarrer</strong> (vignettes).</li>
+                            <li>Créez un <strong>groupe de vignettes</strong> nommé « CHC ».</li>
+                            <li>Redimensionnez une vignette et détachez-en une inutile.</li>
+                            <li>Épinglez le navigateur à la <strong>barre des tâches</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="1">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">Personnaliser — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Changez l'<strong>arrière-plan</strong> du Bureau.</li>
+                            <li>Triez les icônes du Bureau (clic droit → Trier par → Nom).</li>
+                            <li>Ouvrez les <strong>Paramètres de la barre des tâches</strong> et explorez les options.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-1" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 2</div>
+                <div class="slide-title">Correction : espace personnalisé</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Vignettes Word/Explorateur regroupées sous « CHC ».</li>
+                            <li>Navigateur épinglé à la barre des tâches (icône fixe).</li>
+                            <li>Nouvel arrière-plan appliqué, icônes du Bureau triées.</li>
+                            <li>Les réglages restent après redémarrage.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — personnalisation</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Désépingler une vignette en croyant désinstaller le programme.</li>
+                        <li>Surcharger le Bureau d'icônes au lieu d'épingler à Démarrer.</li>
+                        <li>Déplacer un raccourci dans la Corbeille et perdre l'accès rapide.</li>
+                        <li>Confondre arrière-plan (Bureau) et écran de verrouillage.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 3 : ORGANISER FICHIERS -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 3 — Dossiers et fichiers</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 45 min · Exercice 3</span>
+                <div class="subtitle">L'explorateur : copier, déplacer, renommer, supprimer, récupérer</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Maîtriser l'explorateur de fichiers</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Ouvrir : <span class="kbd">⊞ Win</span>+<span class="kbd">E</span> ou icône dossier de la barre des tâches.</li>
+                        <li><strong>Volet gauche</strong> : Accès rapide, Ce PC, lecteurs (C:), périphériques (USB), réseau.</li>
+                        <li>Affichage : grandes icônes, liste, détails (onglet <strong>Affichage</strong>).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Copier, déplacer, renommer, supprimer</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Copier</strong> <span class="kbd">Ctrl</span>+<span class="kbd">C</span> · <strong>Couper</strong> <span class="kbd">Ctrl</span>+<span class="kbd">X</span> · <strong>Coller</strong> <span class="kbd">Ctrl</span>+<span class="kbd">V</span>.</li>
+                        <li><strong>Renommer</strong> : <span class="kbd">F2</span> ou clic droit → Renommer.</li>
+                        <li><strong>Supprimer</strong> : <span class="kbd">Suppr</span> (va dans la Corbeille).</li>
+                        <li><strong>Récupérer</strong> : ouvrir la <strong>Corbeille</strong> → clic droit → Restaurer.</li>
+                        <li>Sélection multiple : <span class="kbd">Ctrl</span>+clic ou <span class="kbd">Maj</span>+clic.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : ranger un dossier</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Créer un dossier (<span class="kbd">Ctrl</span>+<span class="kbd">Maj</span>+<span class="kbd">N</span>).</li>
+                        <li>Déplacer des fichiers par glisser-déposer.</li>
+                        <li>Renommer un fichier mal nommé (<span class="kbd">F2</span>).</li>
+                        <li>Supprimer puis restaurer depuis la Corbeille.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Windows</div>
+                <div class="slide-title">À votre poste — Exercice 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Ouvrir le dossier d'exercice</h3>
+                    <p><code>Module 1\EXERCICES\Fichiers_a_organiser</code></p>
+                    <p><strong>Objectif :</strong> organiser un dossier en vrac proprement.</p>
+                    <p><span class="duration-badge">⏱️ 25 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">Organiser — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Dans le dossier, créez 4 sous-dossiers : <strong>Rapports, Factures, Réunions, Images</strong>.</li>
+                            <li>Déplacez chaque fichier dans le bon sous-dossier.</li>
+                            <li>Renommez <code>DOC sans nom.txt</code> et <code>photo equipe.txt</code> clairement.</li>
+                            <li>Affichez les <strong>détails</strong> (taille, date) et triez par nom.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="2">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">Organiser — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Supprimez le fichier en double <code>a_trier - copie (1).txt</code>.</li>
+                            <li>Restaurez-le depuis la <strong>Corbeille</strong>, puis supprimez-le définitivement.</li>
+                            <li>Copiez le dossier <strong>Factures</strong> sur une clé USB (ou un autre dossier).</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-2" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 3</div>
+                <div class="slide-title">Correction : dossier organisé</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Chaque fichier est rangé dans le bon sous-dossier.</li>
+                            <li>Fichiers renommés clairement (ex. <code>Photo_equipe_CHC.txt</code>).</li>
+                            <li>Doublon supprimé, restauration testée puis suppression définitive.</li>
+                            <li>Copie réalisée (Ctrl+C / Ctrl+V) — l'original reste en place.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — fichiers</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Confondre <strong>Couper</strong> (déplace) et <strong>Copier</strong> (duplique).</li>
+                        <li><span class="kbd">Maj</span>+<span class="kbd">Suppr</span> supprime définitivement (sans Corbeille).</li>
+                        <li>Renommer un fichier et effacer son extension (<code>.txt</code>, <code>.docx</code>).</li>
+                        <li>Retirer une clé USB sans « Éjecter » pendant une copie.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 4 : RECHERCHE -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 4 — L'outil de recherche</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 25 min · Exercice 4</span>
+                <div class="subtitle">Tout retrouver : documents, logiciels, e-mails, sites web</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Rechercher depuis Démarrer</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Cliquer la <strong>zone de recherche</strong> de la barre des tâches, ou appuyer sur <span class="kbd">⊞ Win</span> et taper.</li>
+                        <li>Résultats classés : Applications, Documents, Paramètres, Web.</li>
+                        <li>Lancer un programme en tapant son nom (ex. « Word ») puis <span class="kbd">Entrée</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Rechercher dans l'explorateur</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Champ <strong>Rechercher</strong> en haut à droite de l'explorateur.</li>
+                        <li>La recherche porte sur le dossier affiché (et ses sous-dossiers).</li>
+                        <li>Filtres : type, date de modification, taille (onglet <strong>Recherche</strong>).</li>
+                        <li>Astuce : taper <code>*.docx</code> pour tous les documents Word.</li>
+                    </ul>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>Le bon réflexe</h4>
+                    <p>Mieux vaut <strong>chercher</strong> que parcourir des dizaines de dossiers.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Windows</div>
+                <div class="slide-title">À votre poste — Exercice 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Retrouver vite</h3>
+                    <p><strong>Objectif :</strong> utiliser la recherche de Démarrer et de l'explorateur.</p>
+                    <p><span class="duration-badge">⏱️ 15 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Rechercher — étapes 1 à 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Depuis Démarrer, lancez la <strong>Calculatrice</strong> en tapant son nom.</li>
+                            <li>Recherchez le paramètre <strong>« Arrière-plan »</strong> et ouvrez-le.</li>
+                            <li>Recherchez un programme préinstallé (ex. « Paint »).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="3">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Rechercher — étapes 4 à 6</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="4">
+                            <li>Dans l'explorateur, placez-vous sur <code>Fichiers_a_organiser</code>.</li>
+                            <li>Recherchez <code>rapport</code> : combien de résultats ?</li>
+                            <li>Recherchez <code>*.txt</code> et triez par date.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-3" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 4</div>
+                <div class="slide-title">Correction : recherche</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Calculatrice et Paint lancés directement depuis la recherche.</li>
+                            <li>Le paramètre « Arrière-plan » s'ouvre dans Paramètres.</li>
+                            <li>La recherche <code>rapport</code> renvoie les fichiers de rapports.</li>
+                            <li><code>*.txt</code> liste tous les fichiers texte du dossier.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 5 : UTILITAIRES & POWERTOYS -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 5 — Utilitaires &amp; PowerToys</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 25 min · Exercice 5</span>
+                <div class="subtitle">Programmes préinstallés et outils qui font gagner du temps</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Les programmes préinstallés</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Outil Capture d'écran</strong> : <span class="kbd">⊞ Win</span>+<span class="kbd">Maj</span>+<span class="kbd">S</span>.</li>
+                        <li><strong>Paint</strong>, <strong>Bloc-notes</strong>, <strong>Calculatrice</strong>.</li>
+                        <li><strong>Paramètres</strong> (<span class="kbd">⊞ Win</span>+<span class="kbd">I</span>) et <strong>Panneau de configuration</strong>.</li>
+                        <li><strong>Sécurité Windows</strong> (antivirus Defender intégré).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Les PowerToys</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Outils gratuits de Microsoft (à installer)</h3>
+                    <ul>
+                        <li><strong>FancyZones</strong> : disposer les fenêtres dans des zones sur mesure.</li>
+                        <li><strong>PowerRename</strong> : renommer des fichiers en masse.</li>
+                        <li><strong>PowerToys Run</strong> (<span class="kbd">Alt</span>+<span class="kbd">Espace</span>) : lanceur rapide.</li>
+                        <li><strong>Color Picker</strong>, <strong>Image Resizer</strong>, <strong>Text Extractor</strong>.</li>
+                    </ul>
+                </div>
+                <div class="warning-box">
+                    <strong>À noter :</strong> les PowerToys s'installent (Microsoft Store / GitHub) ; demandez l'accord du service informatique.
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Windows</div>
+                <div class="slide-title">À votre poste — Exercice 5</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Tester les utilitaires</h3>
+                    <p><strong>Objectif :</strong> capture d'écran et découverte d'un PowerToy.</p>
+                    <p><span class="duration-badge">⏱️ 15 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
+                <div class="slide-title">Utilitaires — étapes 1 à 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Faites une <strong>capture d'écran</strong> partielle (<span class="kbd">⊞ Win</span>+<span class="kbd">Maj</span>+<span class="kbd">S</span>).</li>
+                            <li>Collez-la dans <strong>Paint</strong> et enregistrez-la.</li>
+                            <li>Ouvrez les <strong>Paramètres</strong> (<span class="kbd">⊞ Win</span>+<span class="kbd">I</span>) et repérez « Système ».</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="4">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
+                <div class="slide-title">Utilitaires — étapes 4 à 5</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="4">
+                            <li>Si les PowerToys sont installés : ouvrez <strong>PowerRename</strong> et renommez en masse les fichiers <code>notes reunion</code>.</li>
+                            <li>Sinon : notez l'intérêt de FancyZones et PowerToys Run pour votre quotidien.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(4)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-4" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 5</div>
+                <div class="slide-title">Correction : utilitaires</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Capture enregistrée en image (PNG/JPG) depuis Paint.</li>
+                            <li>Paramètres ouverts, catégorie Système repérée.</li>
+                            <li>PowerRename renomme plusieurs fichiers d'un coup (préfixe, numérotation).</li>
+                            <li>Réflexe : un bon outil bien choisi fait gagner un temps précieux.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 6 : ATELIER FINAL -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 6 — Atelier final</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">⏱️ 25 min + 10 min correction collective</span>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Windows</div>
+                <div class="slide-title">À votre poste — Exercice 6</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Mon poste de travail CHC</h3>
+                    <p><strong>Objectif :</strong> un poste rangé, personnalisé et efficace.</p>
+                    <p><span class="duration-badge">⏱️ 25 minutes</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
+                <div class="slide-title">Atelier final — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Créez une arborescence <strong>CHC</strong> (Documents, Projets, Modèles).</li>
+                            <li>Rangez-y les fichiers du dossier d'exercice.</li>
+                            <li>Épinglez vos 3 programmes clés (Démarrer + barre des tâches).</li>
+                            <li>Créez un raccourci vers le dossier <strong>CHC</strong> sur le Bureau.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="5">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
+                <div class="slide-title">Atelier final — étapes 5 à 8</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Ancrez l'explorateur et un programme côte à côte.</li>
+                            <li>Utilisez la recherche pour retrouver un fichier précis.</li>
+                            <li>Faites une capture d'écran de votre poste rangé.</li>
+                            <li>Personnalisez l'arrière-plan aux couleurs sobres.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(5)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-5" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 6</div>
+                <div class="slide-title">Grille de réussite — atelier final</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Arborescence claire, fichiers rangés et bien nommés.</li>
+                            <li>Programmes clés épinglés, raccourci Bureau fonctionnel.</li>
+                            <li>Fenêtres ancrées, recherche maîtrisée.</li>
+                            <li>Poste personnalisé, prêt pour un usage quotidien efficace.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Synthèse du module 1</div>
+            </div>
+            <div class="slide-content center-content">
+                <div class="subtitle">Les 5 réflexes Windows 10 à garder</div>
+                <div class="workflow-row">
+                    <div class="workflow-step"><div class="step-name">Ancrer</div><div class="step-desc">⊞ Win + flèches</div></div>
+                    <div class="workflow-step"><div class="step-name">Épingler</div><div class="step-desc">Démarrer &amp; barre</div></div>
+                    <div class="workflow-step"><div class="step-name">Ranger</div><div class="step-desc">Dossiers clairs</div></div>
+                    <div class="workflow-step"><div class="step-name">Chercher</div><div class="step-desc">⊞ Win puis taper</div></div>
+                    <div class="workflow-step"><div class="step-name">Outils</div><div class="step-desc">Captures, PowerToys</div></div>
+                </div>
+                <div class="a-retenir-box">
+                    <h4>Message clé</h4>
+                    <p>Un poste bien organisé et quelques raccourcis font gagner du temps chaque jour.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide:not(.solution)');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.querySelectorAll('.slide.solution').forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.display = 'none';
+            });
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            const target = currentSlide + direction;
+            if (target >= 0 && target < totalSlides) showSlide(target);
+        }
+
+        function showSolution(solutionIndex) {
+            const solutionSlide = document.getElementById(`solution-${solutionIndex}`);
+            if (!solutionSlide) return;
+            slides[currentSlide].classList.remove('active');
+            solutionSlide.style.display = 'flex';
+            solutionSlide.classList.add('active');
+            document.getElementById('slideCounter').textContent = `Solution ${solutionIndex + 1}`;
+            const existingBack = solutionSlide.querySelector('.show-solution-btn');
+            if (existingBack) existingBack.remove();
+            const backBtn = document.createElement('button');
+            backBtn.className = 'show-solution-btn';
+            backBtn.textContent = "⬅ Retour à l'exercice (Échap)";
+            backBtn.onclick = function() {
+                solutionSlide.style.display = 'none';
+                solutionSlide.classList.remove('active');
+                slides[currentSlide].classList.add('active');
+                document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+                backBtn.remove();
+            };
+            solutionSlide.querySelector('.slide-content').appendChild(backBtn);
+        }
+
+        function tryShowSolutionFromCurrentSlide() {
+            const active = slides[currentSlide];
+            if (!active || !active.dataset.solution) return;
+            showSolution(parseInt(active.dataset.solution, 10));
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const activeSolution = document.querySelector('.slide.solution.active');
+            if (activeSolution) {
+                if (e.key === 'Escape') {
+                    const backBtn = activeSolution.querySelector('.show-solution-btn');
+                    if (backBtn) backBtn.click();
+                }
+                return;
+            }
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 's' || e.key === 'S') tryShowSolutionFromCurrentSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
