@@ -1,0 +1,6 @@
+Bac a sable - Fichiers a organiser
+
+Ces fichiers servent aux exercices de gestion de fichiers du Module 1 Windows.
+Objectif : creer des sous-dossiers (Rapports, Factures, Reunions, Images),
+puis copier, deplacer, renommer, supprimer et restaurer des fichiers.
+Vous pouvez dupliquer ce dossier avant de commencer pour repartir d'une base propre.
