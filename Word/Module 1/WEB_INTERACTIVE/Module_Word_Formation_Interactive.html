@@ -113,11 +113,6 @@
         .solution-box h3 {
             color: #00b7ff; margin-bottom: 16px; text-align: center; font-size: 1.65em;
         }
-        .duration-badge {
-            display: inline-block; background: rgba(255, 215, 0, 0.18);
-            border: 2px solid #ffd700; padding: 6px 18px; border-radius: 25px;
-            color: #ffd700; margin-bottom: 12px; font-weight: 700;
-        }
         .a-retenir-box {
             background: rgba(91, 155, 213, 0.1); border: 2px solid #5b9bd5;
             border-radius: 12px; padding: 18px 22px; margin: 16px 0;
@@ -196,10 +191,10 @@
                 <div class="subtitle">Acquérir une méthode pour créer des documents propres et prêts à diffuser</div>
                 <div class="workflow-row">
                     <div class="workflow-step"><div class="step-name">1. Principes de base</div><div class="step-desc">Interface, saisie</div></div>
-                    <div class="workflow-step"><div class="step-name">2. Présenter</div><div class="step-desc">Polices, styles</div></div>
-                    <div class="workflow-step"><div class="step-name">3. Modifier</div><div class="step-desc">Corriger, déplacer</div></div>
-                    <div class="workflow-step"><div class="step-name">4. Courrier &amp; rapport</div><div class="step-desc">Mise en page</div></div>
-                    <div class="workflow-step"><div class="step-name">5. Enrichir</div><div class="step-desc">Images, tableaux</div></div>
+                    <div class="workflow-step"><div class="step-name">2. Présenter</div><div class="step-desc">Styles, table des matières</div></div>
+                    <div class="workflow-step"><div class="step-name">3. Rapport</div><div class="step-desc">Mise en page</div></div>
+                    <div class="workflow-step"><div class="step-name">4. Enrichir</div><div class="step-desc">Images, tableaux</div></div>
+                    <div class="workflow-step"><div class="step-name">5. Finaliser</div><div class="step-desc">Courrier, atelier</div></div>
                 </div>
                 <div class="a-retenir-box">
                     <h4>Fil rouge</h4>
@@ -232,11 +227,15 @@
                         </ul>
                     </div>
                 </div>
+                <div class="a-retenir-box">
+                    <h4>Repère</h4>
+                    <p>Le numéro d'exercice correspond au numéro du fichier : <strong>Exercice&nbsp;N</strong> → <code>0N_Exercice_….docx</code>.</p>
+                </div>
             </div>
         </div>
 
         <!-- ============================================================= -->
-        <!-- PARTIE 1 : ACQUERIR LES PRINCIPES DE BASE -->
+        <!-- PARTIE 1 : ACQUERIR LES PRINCIPES DE BASE (théorie) -->
         <!-- ============================================================= -->
         <div class="slide theory section-opener">
             <div class="slide-header">
@@ -345,7 +344,7 @@
         </div>
 
         <!-- ============================================================= -->
-        <!-- PARTIE 2 : BIEN PRESENTER UN DOCUMENT  (Exercice 1) -->
+        <!-- PARTIE 2 : BIEN PRESENTER UN DOCUMENT  (Exercice 1 -> 01) -->
         <!-- ============================================================= -->
         <div class="slide theory section-opener">
             <div class="slide-header">
@@ -417,14 +416,14 @@
             <div class="slide-content">
                 <div class="content-box">
                     <ul>
-                        <li><strong>Styles rapides</strong> : <strong>Normal</strong>, <strong>Titre 1</strong>, <strong>Titre 2</strong> appliquent un rôle au texte.</li>
+                        <li><strong>Styles rapides</strong> : <strong>Titre</strong>, <strong>Titre 1</strong>, <strong>Titre 2</strong>, <strong>Normal</strong> appliquent un rôle au texte.</li>
                         <li><strong>Jeu de styles</strong> : change l'aspect de tout le document d'un coup.</li>
                         <li><strong>Reproduire la mise en forme</strong> (le pinceau) : copier un format d'un texte à un autre.</li>
                     </ul>
                 </div>
                 <div class="a-retenir-box">
                     <h4>Le réflexe clé</h4>
-                    <p>On applique un <strong>rôle</strong> (Titre 1, Titre 2…). Word assure la cohérence et la table des matières.</p>
+                    <p>On applique un <strong>rôle</strong> (Titre, Titre 1, Titre 2…). Word assure la cohérence et la table des matières.</p>
                 </div>
             </div>
         </div>
@@ -537,15 +536,466 @@
         </div>
 
         <!-- ============================================================= -->
-        <!-- PARTIE 3 : MODIFIER UN DOCUMENT  (Exercice 2) -->
+        <!-- PARTIE 3 : TABLE DES MATIERES  (Exercice 2 -> 02) -->
         <!-- ============================================================= -->
         <div class="slide theory section-opener">
             <div class="slide-header">
                 <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Partie 3 — Modifier un document</div>
+                <div class="slide-title">Partie 3 — Table des matières</div>
             </div>
             <div class="slide-content center-content">
                 <span class="partie-label">Exercice 2</span>
+                <div class="subtitle">Automatique grâce aux styles Titre 1 et Titre 2</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Une table des matières automatique</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li>Se base sur les styles <strong>Titre 1</strong> et <strong>Titre 2</strong> posés à l'exercice 1.</li>
+                        <li><strong>Références</strong> → <strong>Table des matières</strong> → modèle automatique.</li>
+                        <li>Mise à jour : clic droit → <strong>Mettre à jour le champ</strong> ou <strong>F9</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : insérer et mettre à jour</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Placer le curseur après le titre principal.</li>
+                        <li><strong>Références</strong> → <strong>Table des matières</strong> (modèle automatique).</li>
+                        <li>Ajouter une sous-partie → mettre à jour toute la table (<code>F9</code>).</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 2</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Ouvrir le fichier</h3>
+                    <p><code>DOCX\Exercices\02_Exercice_Table_des_matieres.docx</code></p>
+                    <p><strong>Objectif :</strong> insérer et mettre à jour une table des matières.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">Table des matières — étapes 1 à 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Placez le curseur après le titre principal.</li>
+                            <li>Insérez une <strong>table des matières</strong> automatique.</li>
+                            <li>Ajoutez une nouvelle sous-partie dans une grande partie.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="1">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-title">Table des matières — étapes 4 à 6</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="4">
+                            <li>Clic droit sur la table → <strong>Mettre à jour le champ</strong> → <strong>toute la table</strong>.</li>
+                            <li>Modifiez un titre et vérifiez la mise à jour.</li>
+                            <li>Corrigez les titres au mauvais niveau si nécessaire.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-1" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 2</div>
+                <div class="slide-title">Correction : table des matières</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Titres niveau 1 et 2 visibles dans la table, numéros de page à droite.</li>
+                            <li>Nouvelle sous-partie visible après mise à jour.</li>
+                            <li>Table automatique (jamais recopiée à la main).</li>
+                            <li>Référence : <code>DOCX\Realises\02_Realise_Table_des_matieres.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — table des matières</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Table vide → titres sans style <strong>Titre 1/2</strong>.</li>
+                        <li>Oublier de mettre à jour après modification.</li>
+                        <li>Titre en gras qui n'apparaît pas dans la table.</li>
+                        <li>Table recopiée à la main au lieu d'une table automatique.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 4 : PRESENTER UN RAPPORT (mise en page)  (Exercice 3 -> 03) -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 4 — Présenter un rapport</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">Exercice 3</span>
+                <div class="subtitle">Sauts de page, numérotation, page de garde, thème</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Sauts de page et numérotation</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → <strong>Saut de page</strong> (<code>Ctrl+Entrée</code>).</li>
+                        <li><strong>Insertion</strong> → <strong>Numéro de page</strong> (en-tête ou pied de page).</li>
+                        <li>Ne jamais « pousser » le texte avec des <code>Entrée</code> répétés.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Page de garde</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → <strong>Page de garde</strong> : modèles prêts à l'emploi.</li>
+                        <li>Titre, sous-titre, auteur, date dans les zones prévues.</li>
+                        <li><strong>Première page différente</strong> : pas de numéro sur la garde.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Changer l'aspect : les thèmes</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Création</strong> → <strong>Thèmes</strong> : change polices, couleurs et effets d'un coup.</li>
+                        <li>Modifier séparément <strong>couleurs</strong>, <strong>polices</strong> et <strong>effets</strong> du thème.</li>
+                        <li>Un thème agit sur tout le document de façon cohérente.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide demo">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-demo">🎯 Démo</div>
+                <div class="slide-title">Démonstration : garde, en-tête, thème</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <ol>
+                        <li>Insérer une page de garde et un saut de page.</li>
+                        <li>En-tête <code>Procédure interne</code> + numéro en pied de page.</li>
+                        <li>Cocher <strong>Première page différente</strong>.</li>
+                        <li>Appliquer un <strong>thème</strong> et mettre la table des matières à jour.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 3</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Ouvrir le fichier</h3>
+                    <p><code>DOCX\Exercices\03_Exercice_Mise_en_page.docx</code></p>
+                    <p><strong>Objectif :</strong> transformer la procédure en rapport présentable.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">Rapport — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Ajoutez une page de garde (titre, auteur, date).</li>
+                            <li>Saut de page après la garde.</li>
+                            <li>Placez la table des matières sur la page suivante.</li>
+                            <li>En-tête : <code>Procédure interne</code>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="2">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-title">Rapport — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Numérotation en pied de page, <strong>Première page différente</strong>.</li>
+                            <li>Appliquez un <strong>thème</strong> puis ajustez ses couleurs/polices.</li>
+                            <li>Mettez la table des matières à jour (<code>F9</code>) et enregistrez.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-2" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 3</div>
+                <div class="slide-title">Correction : rapport présentable</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Page de garde sans en-tête ni numéro.</li>
+                            <li>Table des matières à jour, numérotation à partir du contenu.</li>
+                            <li>Thème appliqué, document cohérent.</li>
+                            <li>Référence : <code>DOCX\Realises\03_Realise_Mise_en_page.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — rapport</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Numéro de page affiché sur la page de garde.</li>
+                        <li>Table des matières qui se décale après ajout de contenu.</li>
+                        <li>En-tête identique partout sans <strong>Première page différente</strong>.</li>
+                        <li>Sauts de page simulés avec des <code>Entrée</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 5 : ILLUSTRATIONS & TABLEAU  (Exercice 4 -> 04) -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 5 — Illustrations &amp; tableau</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">Exercice 4</span>
+                <div class="subtitle">Images, WordArt, SmartArt et tableaux</div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Insérer une image, un clipart</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → <strong>Images</strong> (depuis l'appareil) ou images en ligne.</li>
+                        <li><strong>Habillage du texte</strong> : <strong>Aligné sur le texte</strong> = le plus stable.</li>
+                        <li>Redimensionner par les poignées d'angle pour garder les proportions.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">WordArt et SmartArt</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>WordArt</strong> : titre décoratif (Insertion → WordArt).</li>
+                        <li><strong>SmartArt</strong> : diagramme (processus, organigramme, liste).</li>
+                        <li>À utiliser avec parcimonie dans un document professionnel.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide theory">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Créer et styler un tableau</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <ul>
+                        <li><strong>Insertion</strong> → <strong>Tableau</strong> : choisir lignes et colonnes.</li>
+                        <li>Onglet <strong>Disposition</strong> : ajouter/supprimer des lignes ou colonnes (<code>Tab</code> crée une ligne).</li>
+                        <li>Onglet <strong>Création de tableau</strong> : styles, <strong>bordures</strong> et <strong>trames</strong>.</li>
+                        <li>Privilégier un style sobre, lisible aussi en noir et blanc.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide word-transition">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-word">💻 Word</div>
+                <div class="slide-title">Passez sur Word — Exercice 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="word-transition-box">
+                    <h3>Ouvrir le fichier</h3>
+                    <p><code>DOCX\Exercices\04_Exercice_Tableaux_listes_images.docx</code></p>
+                    <p><strong>Objectif :</strong> ajouter tableau, listes et illustration.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Tableau &amp; illustrations — étapes 1 à 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol>
+                            <li>Insérez un tableau 3 colonnes : Action / Responsable / Échéance.</li>
+                            <li>Ajoutez 4 lignes, puis une ligne supplémentaire avec <code>Tab</code>.</li>
+                            <li>Appliquez un style de tableau sobre, ajustez bordures/trames.</li>
+                            <li>Insérez une image ou un logo (habillage <strong>Aligné sur le texte</strong>).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide exercise" data-solution="3">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
+                <div class="slide-title">Tableau &amp; illustrations — étapes 5 à 7</div>
+            </div>
+            <div class="slide-content">
+                <div class="exercise-instructions">
+                    <div class="exercise-steps">
+                        <ol start="5">
+                            <li>Créez un <strong>WordArt</strong> ou un <strong>SmartArt</strong> de processus.</li>
+                            <li>Ajoutez une liste numérotée et une liste à puces.</li>
+                            <li>Vérifiez que tout reste lisible et enregistrez.</li>
+                        </ol>
+                    </div>
+                </div>
+                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Afficher la solution (S)</button>
+            </div>
+        </div>
+
+        <div class="slide solution" id="solution-3" style="display:none;">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-solution">✅ Solution 4</div>
+                <div class="slide-title">Correction : tableaux et illustrations</div>
+            </div>
+            <div class="slide-content">
+                <div class="solution-box">
+                    <div class="solution-steps">
+                        <ol>
+                            <li>Tableau lisible, style sobre, lignes ajoutées proprement.</li>
+                            <li>Image habillée « Aligné sur le texte », SmartArt clair.</li>
+                            <li>Listes créées avec Word.</li>
+                            <li>Référence : <code>DOCX\Realises\04_Realise_Tableaux_listes_images.docx</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide pitfalls">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
+                <div class="slide-title">Erreurs fréquentes — tableaux &amp; images</div>
+            </div>
+            <div class="slide-content">
+                <div class="pitfalls-box">
+                    <ul>
+                        <li>Image en habillage « devant le texte » qui se déplace seule.</li>
+                        <li>Tableau trop coloré, illisible à l'impression.</li>
+                        <li>Colonnes simulées avec des tabulations au lieu d'un tableau.</li>
+                        <li>WordArt/SmartArt qui surchargent un document sérieux.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- PARTIE 6 : MODIFIER UN DOCUMENT  (Exercice 5 -> 05) -->
+        <!-- ============================================================= -->
+        <div class="slide theory section-opener">
+            <div class="slide-header">
+                <div class="slide-type-badge badge-theory">📚 Théorie</div>
+                <div class="slide-title">Partie 6 — Modifier un document</div>
+            </div>
+            <div class="slide-content center-content">
+                <span class="partie-label">Exercice 5</span>
                 <div class="subtitle">Déplacer, recopier, corriger</div>
             </div>
         </div>
@@ -605,7 +1055,7 @@
         <div class="slide word-transition">
             <div class="slide-header">
                 <div class="slide-type-badge badge-word">💻 Word</div>
-                <div class="slide-title">Passez sur Word — Exercice 2</div>
+                <div class="slide-title">Passez sur Word — Exercice 5</div>
             </div>
             <div class="slide-content">
                 <div class="word-transition-box">
@@ -618,7 +1068,7 @@
 
         <div class="slide exercise">
             <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
                 <div class="slide-title">Modifier — étapes 1 à 3</div>
             </div>
             <div class="slide-content">
@@ -634,9 +1084,9 @@
             </div>
         </div>
 
-        <div class="slide exercise" data-solution="1">
+        <div class="slide exercise" data-solution="4">
             <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 2</div>
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
                 <div class="slide-title">Modifier — étapes 4 à 6</div>
             </div>
             <div class="slide-content">
@@ -649,13 +1099,13 @@
                         </ol>
                     </div>
                 </div>
-                <button class="show-solution-btn" onclick="showSolution(1)">🔍 Afficher la solution (S)</button>
+                <button class="show-solution-btn" onclick="showSolution(4)">🔍 Afficher la solution (S)</button>
             </div>
         </div>
 
-        <div class="slide solution" id="solution-1" style="display:none;">
+        <div class="slide solution" id="solution-4" style="display:none;">
             <div class="slide-header">
-                <div class="slide-type-badge badge-solution">✅ Solution 2</div>
+                <div class="slide-type-badge badge-solution">✅ Solution 5</div>
                 <div class="slide-title">Correction : texte propre</div>
             </div>
             <div class="slide-content">
@@ -690,15 +1140,15 @@
         </div>
 
         <!-- ============================================================= -->
-        <!-- PARTIE 4 : CONCEVOIR UN COURRIER  (Exercice 3) -->
+        <!-- PARTIE 7 : CONCEVOIR UN COURRIER  (Exercice 6 -> 06) -->
         <!-- ============================================================= -->
         <div class="slide theory section-opener">
             <div class="slide-header">
                 <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Partie 4 — Concevoir un courrier</div>
+                <div class="slide-title">Partie 7 — Concevoir un courrier</div>
             </div>
             <div class="slide-content center-content">
-                <span class="partie-label">Exercice 3</span>
+                <span class="partie-label">Exercice 6</span>
                 <div class="subtitle">Saisir, positionner, présenter, mettre en page, imprimer</div>
             </div>
         </div>
@@ -742,12 +1192,12 @@
         <div class="slide word-transition">
             <div class="slide-header">
                 <div class="slide-type-badge badge-word">💻 Word</div>
-                <div class="slide-title">Passez sur Word — Exercice 3</div>
+                <div class="slide-title">Passez sur Word — Exercice 6</div>
             </div>
             <div class="slide-content">
                 <div class="word-transition-box">
                     <h3>Ouvrir le fichier</h3>
-                    <p><code>DOCX\Exercices\07_Exercice_Courrier.docx</code></p>
+                    <p><code>DOCX\Exercices\06_Exercice_Courrier.docx</code></p>
                     <p><strong>Objectif :</strong> transformer un texte au kilomètre en courrier mis en page.</p>
                 </div>
             </div>
@@ -755,7 +1205,7 @@
 
         <div class="slide exercise">
             <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
                 <div class="slide-title">Courrier — étapes 1 à 3</div>
             </div>
             <div class="slide-content">
@@ -771,9 +1221,9 @@
             </div>
         </div>
 
-        <div class="slide exercise" data-solution="2">
+        <div class="slide exercise" data-solution="5">
             <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 3</div>
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
                 <div class="slide-title">Courrier — étapes 4 à 6</div>
             </div>
             <div class="slide-content">
@@ -786,13 +1236,13 @@
                         </ol>
                     </div>
                 </div>
-                <button class="show-solution-btn" onclick="showSolution(2)">🔍 Afficher la solution (S)</button>
+                <button class="show-solution-btn" onclick="showSolution(5)">🔍 Afficher la solution (S)</button>
             </div>
         </div>
 
-        <div class="slide solution" id="solution-2" style="display:none;">
+        <div class="slide solution" id="solution-5" style="display:none;">
             <div class="slide-header">
-                <div class="slide-type-badge badge-solution">✅ Solution 3</div>
+                <div class="slide-type-badge badge-solution">✅ Solution 6</div>
                 <div class="slide-title">Correction : courrier mis en page</div>
             </div>
             <div class="slide-content">
@@ -802,7 +1252,7 @@
                             <li>Expéditeur, date à droite, objet et formule d'appel en place.</li>
                             <li>Corps aéré et justifié, formule de politesse, signature.</li>
                             <li>Lettre sur une page, prête à imprimer.</li>
-                            <li>Référence : <code>DOCX\Realises\07_Realise_Courrier.docx</code></li>
+                            <li>Référence : <code>DOCX\Realises\06_Realise_Courrier.docx</code></li>
                         </ol>
                     </div>
                 </div>
@@ -810,359 +1260,7 @@
         </div>
 
         <!-- ============================================================= -->
-        <!-- PARTIE 5 : PRESENTER UN DOCUMENT DE TYPE RAPPORT  (Exercice 4) -->
-        <!-- ============================================================= -->
-        <div class="slide theory section-opener">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Partie 5 — Présenter un rapport</div>
-            </div>
-            <div class="slide-content center-content">
-                <span class="partie-label">Exercice 4</span>
-                <div class="subtitle">Sauts de page, numérotation, page de garde, thème</div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Sauts de page et numérotation</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li><strong>Insertion</strong> → <strong>Saut de page</strong> (<code>Ctrl+Entrée</code>).</li>
-                        <li><strong>Insertion</strong> → <strong>Numéro de page</strong> (en-tête ou pied de page).</li>
-                        <li>Ne jamais « pousser » le texte avec des <code>Entrée</code> répétés.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Page de garde</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li><strong>Insertion</strong> → <strong>Page de garde</strong> : modèles prêts à l'emploi.</li>
-                        <li>Titre, sous-titre, auteur, date dans les zones prévues.</li>
-                        <li><strong>Première page différente</strong> : pas de numéro sur la garde.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Changer l'aspect : les thèmes</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li><strong>Création</strong> → <strong>Thèmes</strong> : change polices, couleurs et effets d'un coup.</li>
-                        <li>Modifier séparément <strong>couleurs</strong>, <strong>polices</strong> et <strong>effets</strong> du thème.</li>
-                        <li>Un thème agit sur tout le document de façon cohérente.</li>
-                    </ul>
-                </div>
-                <div class="a-retenir-box">
-                    <h4>Bonus styles</h4>
-                    <p>Comme les titres ont un style, une <strong>table des matières automatique</strong> (Références) est immédiate.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide demo">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-demo">🎯 Démo</div>
-                <div class="slide-title">Démonstration : garde, en-tête, thème</div>
-            </div>
-            <div class="slide-content">
-                <div class="demo-box">
-                    <ol>
-                        <li>Insérer une page de garde et un saut de page.</li>
-                        <li>En-tête <code>Procédure interne</code> + numéro en pied de page.</li>
-                        <li>Cocher <strong>Première page différente</strong>.</li>
-                        <li>Appliquer un <strong>thème</strong> et insérer une table des matières.</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide word-transition">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-word">💻 Word</div>
-                <div class="slide-title">Passez sur Word — Exercice 4</div>
-            </div>
-            <div class="slide-content">
-                <div class="word-transition-box">
-                    <h3>Ouvrir le fichier</h3>
-                    <p><code>DOCX\Exercices\03_Exercice_Mise_en_page.docx</code></p>
-                    <p><strong>Objectif :</strong> transformer la procédure en rapport présentable.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide exercise">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
-                <div class="slide-title">Rapport — étapes 1 à 4</div>
-            </div>
-            <div class="slide-content">
-                <div class="exercise-instructions">
-                    <div class="exercise-steps">
-                        <ol>
-                            <li>Ajoutez une page de garde (titre, auteur, date).</li>
-                            <li>Saut de page après la garde.</li>
-                            <li>Insérez une <strong>table des matières</strong> automatique (cf. <code>02_Exercice</code>).</li>
-                            <li>En-tête : <code>Procédure interne</code>.</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide exercise" data-solution="3">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 4</div>
-                <div class="slide-title">Rapport — étapes 5 à 8</div>
-            </div>
-            <div class="slide-content">
-                <div class="exercise-instructions">
-                    <div class="exercise-steps">
-                        <ol start="5">
-                            <li>Numérotation en pied de page, <strong>Première page différente</strong>.</li>
-                            <li>Appliquez un <strong>thème</strong> puis ajustez ses couleurs/polices.</li>
-                            <li>Ajoutez une sous-partie et mettez la table à jour (<code>F9</code>).</li>
-                            <li>Enregistrez le document.</li>
-                        </ol>
-                    </div>
-                </div>
-                <button class="show-solution-btn" onclick="showSolution(3)">🔍 Afficher la solution (S)</button>
-            </div>
-        </div>
-
-        <div class="slide solution" id="solution-3" style="display:none;">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-solution">✅ Solution 4</div>
-                <div class="slide-title">Correction : rapport présentable</div>
-            </div>
-            <div class="slide-content">
-                <div class="solution-box">
-                    <div class="solution-steps">
-                        <ol>
-                            <li>Page de garde sans en-tête ni numéro.</li>
-                            <li>Table des matières à jour, numérotation à partir du contenu.</li>
-                            <li>Thème appliqué, document cohérent.</li>
-                            <li>Références : <code>DOCX\Realises\03_Realise_Mise_en_page.docx</code> et <code>02_Realise_Table_des_matieres.docx</code></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide pitfalls">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
-                <div class="slide-title">Erreurs fréquentes — rapport</div>
-            </div>
-            <div class="slide-content">
-                <div class="pitfalls-box">
-                    <ul>
-                        <li>Numéro de page affiché sur la page de garde.</li>
-                        <li>Table des matières vide (titres sans style Titre 1/2).</li>
-                        <li>Table non mise à jour après ajout de contenu.</li>
-                        <li>Sauts de page simulés avec des <code>Entrée</code>.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- PARTIE 6 : INSERER DES ILLUSTRATIONS (théorie) -->
-        <!-- ============================================================= -->
-        <div class="slide theory section-opener">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Partie 6 — Insérer des illustrations</div>
-            </div>
-            <div class="slide-content center-content">
-                <span class="partie-label">Théorie (appliquée à l'exercice 5)</span>
-                <div class="subtitle">Images, WordArt, SmartArt</div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Insérer une image, un clipart</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li><strong>Insertion</strong> → <strong>Images</strong> (depuis l'appareil) ou images en ligne.</li>
-                        <li><strong>Habillage du texte</strong> : <strong>Aligné sur le texte</strong> = le plus stable.</li>
-                        <li>Redimensionner par les poignées d'angle pour garder les proportions.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">WordArt et SmartArt</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li><strong>WordArt</strong> : titre décoratif (Insertion → WordArt).</li>
-                        <li><strong>SmartArt</strong> : diagramme (processus, organigramme, liste).</li>
-                        <li>À utiliser avec parcimonie dans un document professionnel.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- PARTIE 7 : INSERER UN TABLEAU  (Exercice 5) -->
-        <!-- ============================================================= -->
-        <div class="slide theory section-opener">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Partie 7 — Insérer un tableau</div>
-            </div>
-            <div class="slide-content center-content">
-                <span class="partie-label">Exercice 5</span>
-                <div class="subtitle">Créer, ajuster, styler un tableau</div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Créer et ajuster un tableau</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li><strong>Insertion</strong> → <strong>Tableau</strong> : choisir lignes et colonnes.</li>
-                        <li>Onglet <strong>Disposition</strong> : ajouter/supprimer des lignes ou colonnes.</li>
-                        <li><code>Tab</code> passe à la cellule suivante (et crée une ligne en fin de tableau).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide theory">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-theory">📚 Théorie</div>
-                <div class="slide-title">Style, bordures et trames</div>
-            </div>
-            <div class="slide-content">
-                <div class="content-box">
-                    <ul>
-                        <li>Onglet <strong>Création de tableau</strong> → <strong>Styles de tableau</strong>.</li>
-                        <li>Modifier les <strong>bordures</strong> et les <strong>trames</strong> (ombrage des cellules).</li>
-                        <li>Privilégier un style sobre, lisible aussi en noir et blanc.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide word-transition">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-word">💻 Word</div>
-                <div class="slide-title">Passez sur Word — Exercice 5</div>
-            </div>
-            <div class="slide-content">
-                <div class="word-transition-box">
-                    <h3>Ouvrir le fichier</h3>
-                    <p><code>DOCX\Exercices\04_Exercice_Tableaux_listes_images.docx</code></p>
-                    <p><strong>Objectif :</strong> ajouter tableau, listes et illustration.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide exercise">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
-                <div class="slide-title">Tableau &amp; illustrations — étapes 1 à 4</div>
-            </div>
-            <div class="slide-content">
-                <div class="exercise-instructions">
-                    <div class="exercise-steps">
-                        <ol>
-                            <li>Insérez un tableau 3 colonnes : Action / Responsable / Échéance.</li>
-                            <li>Ajoutez 4 lignes, puis une ligne supplémentaire avec <code>Tab</code>.</li>
-                            <li>Appliquez un style de tableau sobre, ajustez bordures/trames.</li>
-                            <li>Insérez une image ou un logo (habillage <strong>Aligné sur le texte</strong>).</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide exercise" data-solution="4">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 5</div>
-                <div class="slide-title">Tableau &amp; illustrations — étapes 5 à 7</div>
-            </div>
-            <div class="slide-content">
-                <div class="exercise-instructions">
-                    <div class="exercise-steps">
-                        <ol start="5">
-                            <li>Créez un <strong>WordArt</strong> ou un <strong>SmartArt</strong> de processus.</li>
-                            <li>Ajoutez une liste numérotée et une liste à puces.</li>
-                            <li>Vérifiez que tout reste lisible et enregistrez.</li>
-                        </ol>
-                    </div>
-                </div>
-                <button class="show-solution-btn" onclick="showSolution(4)">🔍 Afficher la solution (S)</button>
-            </div>
-        </div>
-
-        <div class="slide solution" id="solution-4" style="display:none;">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-solution">✅ Solution 5</div>
-                <div class="slide-title">Correction : tableaux et illustrations</div>
-            </div>
-            <div class="slide-content">
-                <div class="solution-box">
-                    <div class="solution-steps">
-                        <ol>
-                            <li>Tableau lisible, style sobre, lignes ajoutées proprement.</li>
-                            <li>Image habillée « Aligné sur le texte », SmartArt clair.</li>
-                            <li>Listes créées avec Word.</li>
-                            <li>Référence : <code>DOCX\Realises\04_Realise_Tableaux_listes_images.docx</code></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide pitfalls">
-            <div class="slide-header">
-                <div class="slide-type-badge badge-pitfalls">⚠️ Pièges</div>
-                <div class="slide-title">Erreurs fréquentes — tableaux &amp; images</div>
-            </div>
-            <div class="slide-content">
-                <div class="pitfalls-box">
-                    <ul>
-                        <li>Image en habillage « devant le texte » qui se déplace seule.</li>
-                        <li>Tableau trop coloré, illisible à l'impression.</li>
-                        <li>Colonnes simulées avec des tabulations au lieu d'un tableau.</li>
-                        <li>WordArt/SmartArt qui surchargent un document sérieux.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- PARTIE 8 : ATELIER FINAL  (Exercice 6) -->
+        <!-- PARTIE 8 : ATELIER FINAL  (Exercice 7 -> 07) -->
         <!-- ============================================================= -->
         <div class="slide theory section-opener">
             <div class="slide-header">
@@ -1170,19 +1268,19 @@
                 <div class="slide-title">Partie 8 — Atelier final CHC</div>
             </div>
             <div class="slide-content center-content">
-                <span class="partie-label">Atelier + correction collective</span>
+                <span class="partie-label">Exercice 7 · Atelier + correction collective</span>
             </div>
         </div>
 
         <div class="slide word-transition">
             <div class="slide-header">
                 <div class="slide-type-badge badge-word">💻 Word</div>
-                <div class="slide-title">Passez sur Word — Exercice 6</div>
+                <div class="slide-title">Passez sur Word — Exercice 7</div>
             </div>
             <div class="slide-content">
                 <div class="word-transition-box">
                     <h3>Fichier de départ</h3>
-                    <p><code>DOCX\Exercices\06_Exercice_Atelier_final_CHC.docx</code></p>
+                    <p><code>DOCX\Exercices\07_Exercice_Atelier_final_CHC.docx</code></p>
                     <p><strong>Choisissez un cas :</strong> procédure · compte rendu · note interne · courrier</p>
                 </div>
             </div>
@@ -1190,7 +1288,7 @@
 
         <div class="slide exercise">
             <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 7</div>
                 <div class="slide-title">Atelier final — étapes 1 à 4</div>
             </div>
             <div class="slide-content">
@@ -1207,9 +1305,9 @@
             </div>
         </div>
 
-        <div class="slide exercise" data-solution="5">
+        <div class="slide exercise" data-solution="6">
             <div class="slide-header">
-                <div class="slide-type-badge badge-exercise">✏️ Exercice 6</div>
+                <div class="slide-type-badge badge-exercise">✏️ Exercice 7</div>
                 <div class="slide-title">Atelier final — étapes 5 à 8</div>
             </div>
             <div class="slide-content">
@@ -1223,13 +1321,13 @@
                         </ol>
                     </div>
                 </div>
-                <button class="show-solution-btn" onclick="showSolution(5)">🔍 Afficher la solution (S)</button>
+                <button class="show-solution-btn" onclick="showSolution(6)">🔍 Afficher la solution (S)</button>
             </div>
         </div>
 
-        <div class="slide solution" id="solution-5" style="display:none;">
+        <div class="slide solution" id="solution-6" style="display:none;">
             <div class="slide-header">
-                <div class="slide-type-badge badge-solution">✅ Solution 6</div>
+                <div class="slide-type-badge badge-solution">✅ Solution 7</div>
                 <div class="slide-title">Grille de réussite — atelier final</div>
             </div>
             <div class="slide-content">
@@ -1239,7 +1337,7 @@
                             <li>Document lisible sans explication orale.</li>
                             <li>Styles utilisés, pas seulement du gras.</li>
                             <li>Table des matières à jour, mise en page propre.</li>
-                            <li>Référence compte rendu : <code>DOCX\Realises\06_Realise_Atelier_final_Compte_rendu.docx</code></li>
+                            <li>Référence compte rendu : <code>DOCX\Realises\07_Realise_Atelier_final_Compte_rendu.docx</code></li>
                         </ol>
                     </div>
                 </div>
@@ -1277,8 +1375,8 @@
                 <div class="workflow-row">
                     <div class="workflow-step"><div class="step-name">Méthode</div><div class="step-desc">Saisir, enregistrer, présenter</div></div>
                     <div class="workflow-step"><div class="step-name">Styles</div><div class="step-desc">Structurer d'abord</div></div>
+                    <div class="workflow-step"><div class="step-name">Table auto</div><div class="step-desc">Toujours mettre à jour</div></div>
                     <div class="workflow-step"><div class="step-name">Mise en page</div><div class="step-desc">Première page différente</div></div>
-                    <div class="workflow-step"><div class="step-name">Enrichir</div><div class="step-desc">Tableaux, illustrations</div></div>
                     <div class="workflow-step"><div class="step-name">Relire</div><div class="step-desc">Aperçu avant diffusion</div></div>
                 </div>
                 <div class="a-retenir-box">
