@@ -16,29 +16,29 @@
         }
         .slide {
             width: 96%; max-width: 1800px; height: 92vh;
-            background: #1a1a1a; border: 4px solid #0078D4; border-radius: 20px;
+            background: #1a1a1a; border: 4px solid #0091F8; border-radius: 20px;
             padding: 60px; display: none; flex-direction: column;
-            overflow-y: auto; box-shadow: 0 0 40px rgba(0, 120, 212, 0.35);
+            overflow-y: auto; box-shadow: 0 0 40px rgba(0, 145, 248, 0.35);
         }
         .slide.active { display: flex; }
-        .slide.theory { border-color: #0078D4; }
+        .slide.theory { border-color: #0091F8; }
         .slide.exercise { border-color: #ffd700; }
         .slide.solution { border-color: #00b7ff; }
         .slide.word-transition { border-color: #4caf50; box-shadow: 0 0 40px rgba(76, 175, 80, 0.25); }
         .slide.demo { border-color: #9c27b0; }
         .slide.pitfalls { border-color: #ff9800; }
         .slide.section-opener {
-            background: linear-gradient(160deg, #1a1a1a 0%, rgba(0, 120, 212, 0.16) 100%);
+            background: linear-gradient(160deg, #1a1a1a 0%, rgba(0, 145, 248, 0.16) 100%);
         }
         .slide-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 32px; border-bottom: 3px solid #0078D4; padding-bottom: 20px;
+            margin-bottom: 32px; border-bottom: 3px solid #0091F8; padding-bottom: 20px;
         }
         .slide-type-badge {
             padding: 10px 22px; border-radius: 30px; font-size: 24px;
             font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap;
         }
-        .badge-theory { background: #0078D4; color: #fff; }
+        .badge-theory { background: #0091F8; color: #fff; }
         .badge-exercise { background: #ffd700; color: #000; }
         .badge-solution { background: #00b7ff; color: #000; }
         .badge-word { background: #4caf50; color: #fff; }
@@ -53,26 +53,26 @@
             justify-content: center; font-size: 1.4em; line-height: 1.6;
         }
         .subtitle {
-            font-size: 1.85em; color: #4cc2ff; margin-bottom: 28px;
+            font-size: 1.85em; color: #5cc8ff; margin-bottom: 28px;
             text-align: center; font-weight: 600;
         }
         .center-content { text-align: center; }
         .partie-label {
-            display: inline-block; background: rgba(0, 120, 212, 0.25);
-            border: 2px solid #0078D4; color: #9bdcff;
+            display: inline-block; background: rgba(0, 145, 248, 0.25);
+            border: 2px solid #0091F8; color: #b3e3ff;
             padding: 8px 20px; border-radius: 30px; font-weight: 700; margin-bottom: 18px;
         }
         .content-box {
-            background: rgba(0, 120, 212, 0.12); border-left: 8px solid #0078D4;
+            background: rgba(0, 145, 248, 0.12); border-left: 8px solid #0091F8;
             padding: 26px; border-radius: 15px; margin: 16px 0;
         }
-        .content-box h3 { font-size: 1.55em; color: #4cc2ff; margin-bottom: 14px; }
+        .content-box h3 { font-size: 1.55em; color: #5cc8ff; margin-bottom: 14px; }
         .content-box p, .content-box li {
             font-size: 1.12em; margin-bottom: 10px; line-height: 1.6;
         }
         .content-box ul { list-style: none; padding-left: 0; }
         .content-box li::before {
-            content: "▶ "; color: #4cc2ff; font-weight: bold; margin-right: 8px;
+            content: "▶ "; color: #5cc8ff; font-weight: bold; margin-right: 8px;
         }
         .exercise-instructions {
             background: rgba(255, 215, 0, 0.13); border-left: 8px solid #ffd700;
@@ -119,10 +119,10 @@
             color: #ffd700; margin-bottom: 12px; font-weight: 700;
         }
         .a-retenir-box {
-            background: rgba(76, 194, 255, 0.1); border: 2px solid #4cc2ff;
+            background: rgba(92, 200, 255, 0.1); border: 2px solid #5cc8ff;
             border-radius: 12px; padding: 18px 22px; margin: 16px 0;
         }
-        .a-retenir-box h4 { color: #4cc2ff; margin-bottom: 8px; }
+        .a-retenir-box h4 { color: #5cc8ff; margin-bottom: 8px; }
         .warning-box {
             background: rgba(255, 152, 0, 0.12); border-left: 6px solid #ff9800;
             padding: 16px 20px; border-radius: 10px; margin: 14px 0;
@@ -135,11 +135,11 @@
             display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 20px 0;
         }
         .workflow-step {
-            background: rgba(0, 120, 212, 0.16); border: 2px solid #0078D4;
+            background: rgba(0, 145, 248, 0.16); border: 2px solid #0091F8;
             border-radius: 12px; padding: 14px 12px; text-align: center;
             min-width: 150px; flex: 1; max-width: 220px;
         }
-        .workflow-step .step-name { font-weight: 700; color: #9bdcff; margin-bottom: 6px; }
+        .workflow-step .step-name { font-weight: 700; color: #b3e3ff; margin-bottom: 6px; }
         .workflow-step .step-desc { color: #ddd; font-size: 0.82em; line-height: 1.35; }
         .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .kbd {
@@ -148,10 +148,10 @@
             font-family: 'Segoe UI', sans-serif; font-size: 0.9em; color: #fff; margin: 0 2px;
         }
         code {
-            background: rgba(0,0,0,0.45); color: #d7eaff;
+            background: rgba(0,0,0,0.45); color: #dff1ff;
             padding: 3px 9px; border-radius: 6px; font-size: 0.92em;
         }
-        .highlight { color: #9bdcff; font-weight: 700; }
+        .highlight { color: #b3e3ff; font-weight: 700; }
         .navigation {
             position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 16px; z-index: 1000;
@@ -160,15 +160,15 @@
             border: none; padding: 12px 26px; border-radius: 50px;
             cursor: pointer; font-size: 20px; font-weight: 700;
         }
-        .nav-btn { background: #0078D4; color: #fff; min-width: 170px; }
+        .nav-btn { background: #0091F8; color: #fff; min-width: 170px; }
         .nav-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
         .show-solution-btn {
             background: #00b7ff; color: #000; margin: 20px auto 0; display: block;
         }
         .slide-indicator, .module-title {
             position: fixed; top: 28px; z-index: 1000;
-            background: rgba(0,0,0,0.86); border: 2px solid #0078D4;
-            padding: 10px 22px; border-radius: 30px; font-weight: 700; color: #9bdcff;
+            background: rgba(0,0,0,0.86); border: 2px solid #0091F8;
+            padding: 10px 22px; border-radius: 30px; font-weight: 700; color: #b3e3ff;
         }
         .slide-indicator { right: 28px; font-size: 22px; }
         .module-title { left: 28px; font-size: 18px; max-width: 520px; }
