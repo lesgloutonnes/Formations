@@ -1,21 +1,20 @@
 '==============================================================================
-' CORRECTIF CreationPDFMassif — Win11 / chemin Bureau Isilon
-' Remplace le bloc UserName + chemins UNC en dur par une boîte Parcourir.
+' CORRECTIF CreationPDFMassif — Win11
 '
-' Dans votre module existant, SUPPRIMER ces lignes :
+' IMPORTANT: outputFolder / excelFilePath sont DÉJÀ déclarés en tête de Sub.
+' Ne PAS remettre "Dim outputFolder As String" ici
+' (erreur: Déclaration existante dans la portée en cours).
 '
-'   Dim UserName As String
-'   UserName = Environ("USERNAME")
-'   excelFilePath = "\\FS.ISILON.CHC.BE\Datas\usersdata\" & UserName & "\Desktop\MACCS\Modèle tableau Maccs.xlsx"
-'   outputFolder = "\\FS.ISILON.CHC.BE\Datas\usersdata\" & UserName & "\Desktop\MACCS\"
+' 1) En tête de Sub, garder UNE SEULE fois :
+'      Dim outputFolder As String
+'      Dim excelFilePath As String
+'      Dim fd As FileDialog
 '
-' et les REMPLACER par le bloc ci-dessous (avant l'ouverture d'Excel).
+' 2) SUPPRIMER le bloc UserName + chemins UNC Isilon.
+'
+' 3) Coller le code ci-dessous À LA PLACE (sans nouveaux Dim en double).
 '==============================================================================
 
-    Dim fd As FileDialog
-    Dim excelFilePath As String
-    Dim outputFolder As String
-    
     Set fd = Application.FileDialog(msoFileDialogFilePicker)
     With fd
         .Title = "Sélectionnez le fichier Excel MACCS (Modèle tableau Maccs.xlsx)"
@@ -34,7 +33,6 @@
     End With
     Set fd = Nothing
     
-    ' PDF générés dans le même dossier que l'Excel choisi
     outputFolder = Left$(excelFilePath, InStrRev(excelFilePath, "\"))
     
     If Dir(excelFilePath) = "" Then
@@ -42,4 +40,4 @@
         Exit Sub
     End If
     
-    ' Ensuite : Set xlBook = xlApp.Workbooks.Open(excelFilePath)  (inchangé)
+    ' Ensuite: MsgBox + Workbooks.Open(excelFilePath) comme avant
