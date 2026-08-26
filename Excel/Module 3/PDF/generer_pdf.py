@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Régénère le PDF imprimable du Module 1 (délègue au générateur commun)."""
+"""Régénère le PDF imprimable du Module 3 (délègue au générateur commun)."""
 
 from __future__ import annotations
 
@@ -10,4 +10,4 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from generer_pdfs import main
 
 if __name__ == "__main__":
-    raise SystemExit(main(["1"]))
+    raise SystemExit(main(["3"]))
