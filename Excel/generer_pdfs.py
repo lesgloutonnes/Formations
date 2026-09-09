@@ -461,7 +461,7 @@ html, body {
 .why-box, .visual-description, .golden-rule, .compare-box,
 .autofill-demo, .formula-example, .error-item, .card-item,
 .function-card, .ref-type-card, .dollar-syntax-item, .field-zone,
-.workflow-step, .roadmap-item {
+.workflow-step, .roadmap-item, .dropdown-cell-demo {
     page-break-inside: avoid;
     break-inside: avoid;
 }
@@ -554,6 +554,25 @@ pre {
     border-radius: 3px;
     font-weight: 600;
     color: var(--excel-dark);
+}
+
+.dropdown-cell-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--ink);
+    border: 1.5px solid var(--excel);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-weight: 600;
+}
+.dropdown-cell-demo .dd-arrow {
+    background: var(--excel);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9pt;
 }
 
 .duration-badge, .exercise-meta span {
