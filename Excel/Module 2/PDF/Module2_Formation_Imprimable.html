@@ -216,7 +216,7 @@ html, body {
 .why-box, .visual-description, .golden-rule, .compare-box,
 .autofill-demo, .formula-example, .error-item, .card-item,
 .function-card, .ref-type-card, .dollar-syntax-item, .field-zone,
-.workflow-step, .roadmap-item {
+.workflow-step, .roadmap-item, .dropdown-cell-demo {
     page-break-inside: avoid;
     break-inside: avoid;
 }
@@ -309,6 +309,25 @@ pre {
     border-radius: 3px;
     font-weight: 600;
     color: var(--excel-dark);
+}
+
+.dropdown-cell-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--ink);
+    border: 1.5px solid var(--excel);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-weight: 600;
+}
+.dropdown-cell-demo .dd-arrow {
+    background: var(--excel);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9pt;
 }
 
 .duration-badge, .exercise-meta span {
@@ -1334,6 +1353,249 @@ pre {
                 </div>
         </div>
     </article>
+    <article class="slide theory">
+        <header class="slide-header">
+            <span class="badge">📚 Théorie</span>
+            <h2 class="slide-title">Listes déroulantes</h2>
+        </header>
+        <div class="slide-body">
+            <div class="subtitle">Contrôler ce que l'on peut saisir</div>
+            <div class="content-box">
+                    <h3>📋 Qu'est-ce qu'une liste déroulante ?</h3>
+                    <p>Une liste déroulante propose un <span class="highlight">choix parmi des valeurs autorisées</span>. Plus besoin de tout taper : on clique, on choisit, et les fautes de frappe disparaissent.</p>
+                    <div class="visual-description">
+                        Une petite flèche apparaît à droite de la cellule. Un clic ouvre le menu des valeurs possibles.
+                    </div>
+                    <p style="text-align: center; margin-top: 20px">
+                        <span class="dropdown-cell-demo">Cardiologie <span class="dd-arrow">▼</span></span>
+                    </p>
+                </div>
+                <div class="content-box">
+                    <h3>🎯 Pourquoi s'en servir ?</h3>
+                    <ul>
+                        <li><strong>Qualité des données</strong> : plus de « Urgence », « Urgences » et « urgences » dans la même colonne</li>
+                        <li><strong>Saisie plus rapide</strong> : un clic au lieu de retaper le même mot</li>
+                        <li><strong>Filtres et TCD fiables</strong> : Excel regroupe correctement les mêmes valeurs (utile dès la section suivante)</li>
+                        <li><strong>Cas CHC</strong> : service, statut (Actif / Inactif), type de document, unité de soins</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>🔧 Où ça se trouve ?</h3>
+                    <ul>
+                        <li>Sélectionnez la ou les cellules concernées</li>
+                        <li>Onglet <strong>Données</strong> → <strong>Validation des données</strong></li>
+                        <li>Onglet <strong>Options</strong> → dans « Autoriser », choisissez <strong>Liste</strong></li>
+                        <li>Cochez <strong>Liste déroulante dans la cellule</strong> (sinon les choix existent, mais sans flèche)</li>
+                    </ul>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <h4>Sans source</h4>
+                        <p>Les choix sont tapés directement dans la case Source, séparés par des points-virgules.</p>
+                    </div>
+                    <div class="comparison-item positive">
+                        <h4>Avec source</h4>
+                        <p>Les choix viennent d'une plage de cellules (même feuille ou feuille <strong>Listes</strong> dédiée).</p>
+                    </div>
+                </div>
+        </div>
+    </article>
+    <article class="slide theory">
+        <header class="slide-header">
+            <span class="badge">📚 Théorie</span>
+            <h2 class="slide-title">Liste sans source</h2>
+        </header>
+        <div class="slide-body">
+            <div class="subtitle">Des choix tapés dans la case Source</div>
+            <div class="content-box">
+                    <h3>✏️ Créer la liste en 4 étapes</h3>
+                    <ul>
+                        <li><strong>1.</strong> Sélectionnez les cellules (ex. : C2:C20 pour une colonne Statut)</li>
+                        <li><strong>2.</strong> Données → <strong>Validation des données</strong> → Autoriser = <strong>Liste</strong></li>
+                        <li><strong>3.</strong> Dans <strong>Source</strong>, tapez les valeurs séparées par un point-virgule, <em>sans espace inutile</em></li>
+                        <li><strong>4.</strong> OK — la flèche apparaît. Testez en choisissant une valeur.</li>
+                    </ul>
+                    <div class="dollar-syntax-item">
+                        <code>Actif;Inactif</code>
+                        <span>Exemple CHC — deux statuts, saisis une seule fois dans la case Source</span>
+                    </div>
+                    <div class="dollar-syntax-item">
+                        <code>Oui;Non;En attente</code>
+                        <span>Autre exemple — Excel français utilise le <strong>;</strong> (pas la virgule)</span>
+                    </div>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-item positive">
+                        <h4>✅ Idéal quand</h4>
+                        <p>La liste est courte (2 à 6 valeurs) et ne changera presque jamais. Un statut Actif / Inactif, un Oui / Non.</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>⚠️ Limites</h4>
+                        <p>Pour modifier un choix, il faut rouvrir la validation partout où elle est utilisée. On ne réutilise pas la liste ailleurs. Peu pratique pour 10 services ou plus.</p>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Alerte d'erreur</h4>
+                    <p>Par défaut, si quelqu'un tape une valeur absente de la liste, Excel refuse. Onglet <strong>Alerte d'erreur</strong> dans la même fenêtre : vous pouvez personnaliser le message, ou passer en style « Avertissement » si une exception doit rester possible.</p>
+                </div>
+        </div>
+    </article>
+    <article class="slide theory">
+        <header class="slide-header">
+            <span class="badge">📚 Théorie</span>
+            <h2 class="slide-title">Liste avec source</h2>
+        </header>
+        <div class="slide-body">
+            <div class="subtitle">Une plage de cellules comme catalogue</div>
+            <div class="content-box">
+                    <h3>📌 Principe</h3>
+                    <p>Au lieu de taper les valeurs dans Source, on <span class="highlight">pointe vers des cellules</span>. Modifier le catalogue met à jour toutes les listes qui s'en servent.</p>
+                    <ul>
+                        <li>Créez d'abord la liste des choix (une colonne, un item par cellule, <strong>sans l'en-tête</strong> dans la plage)</li>
+                        <li>Sélectionnez les cellules du tableau où la liste doit apparaître</li>
+                        <li>Données → Validation des données → Autoriser = Liste</li>
+                        <li>Cliquez dans <strong>Source</strong>, puis sélectionnez la plage — Excel écrit la référence pour vous</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>💲 Deux emplacements possibles</h3>
+                    <div class="dollar-syntax-grid">
+                        <div class="dollar-syntax-item">
+                            <code>=$H$2:$H$6</code>
+                            <span>Même feuille — les <strong>$</strong> figent la plage (vu en début de module). Sinon, l'Autofill ferait glisser la source.</span>
+                        </div>
+                        <div class="dollar-syntax-item">
+                            <code>=Listes!$A$2:$A$6</code>
+                            <span><strong>Recommandé</strong> — feuille dédiée « Listes ». Le catalogue reste propre, loin du tableau de saisie.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>🏥 Bonne pratique CHC</h3>
+                    <ul>
+                        <li>Créez une feuille <strong>Listes</strong> : colonne A = Services, colonne B = Statuts, etc.</li>
+                        <li>Ligne 1 = en-tête (Service, Statut) — la source commence en ligne 2</li>
+                        <li>Si vous ajoutez un service en A7, élargissez la source à <code>=Listes!$A$2:$A$7</code></li>
+                        <li>Pour copier la liste ailleurs : copiez une cellule déjà validée, ou Autofill vers le bas</li>
+                        <li>Pour enlever une liste : Données → Validation des données → <strong>Effacer tout</strong></li>
+                    </ul>
+                </div>
+                <div class="why-box">
+                    <h4>💡 Aller plus loin</h4>
+                    <p>Un <strong>Tableau Excel</strong> (Insertion → Tableau) comme source s'agrandit tout seul quand on ajoute une ligne. On peut aussi nommer la plage (Formules → Définir un nom) et écrire <code>=Services</code> dans Source. Pratique, mais hors programme de cet exercice.</p>
+                </div>
+        </div>
+    </article>
+    <article class="slide exercise">
+        <header class="slide-header">
+            <span class="badge">✏️ Exercice</span>
+            <h2 class="slide-title">🎯 Créer des listes déroulantes</h2>
+        </header>
+        <div class="slide-body">
+            
+            <div class="exercise-instructions">
+                    <h3>🎯 Créer des listes déroulantes</h3>
+                    <p><span class="duration-badge">⏱️ Durée : 15 minutes</span></p>
+                    <div class="exercise-steps">
+                        <ol>
+                            <li><strong>Tableau de saisie</strong> (feuille Feuil1, renommée <em>Personnel</em>) :
+                                <ul style="margin-top: 10px">
+                                    <li>En-têtes : A1 = Nom, B1 = Service, C1 = Statut</li>
+                                    <li>Saisissez 8 noms en colonne A (lignes 2 à 9)</li>
+                                    <li>Laissez B et C vides pour l'instant</li>
+                                </ul>
+                            </li>
+                            <li><strong>Liste sans source — Statut</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Sélectionnez C2:C9</li>
+                                    <li>Données → Validation des données → Liste</li>
+                                    <li>Source : <code>Actif;Inactif</code> (sans espaces autour du ; )</li>
+                                    <li>Remplissez la colonne en choisissant dans la liste (mélangez Actif et Inactif)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Feuille catalogue</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Créez une feuille nommée <strong>Listes</strong></li>
+                                    <li>A1 = Service — puis A2 à A6 : Urgences, Cardiologie, Pédiatrie, Laboratoire, Administration</li>
+                                </ul>
+                            </li>
+                            <li><strong>Liste avec source — Service</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Revenez sur Personnel, sélectionnez B2:B9</li>
+                                    <li>Validation des données → Liste → Source : la plage <code>Listes!$A$2:$A$6</code></li>
+                                    <li>Attribuez un service à chaque personne</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tests</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Dans une cellule Statut, tapez « Actiff » (faute) : Excel doit refuser</li>
+                                    <li>Ajoutez « Imagerie » en A7 de Listes, élargissez la source à A7, vérifiez qu'Imagerie apparaît dans le menu</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+        </div>
+    </article>
+    <article class="slide solution">
+        <header class="slide-header">
+            <span class="badge">✅ Solution</span>
+            <h2 class="slide-title">📋 Étapes détaillées</h2>
+        </header>
+        <div class="slide-body">
+            
+            <div class="solution-box">
+                    <h3>📋 Étapes détaillées</h3>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Tableau Personnel</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Double-clic sur l'onglet Feuil1 → tapez <code>Personnel</code> → Entrée</li>
+                                    <li>A1 = Nom, B1 = Service, C1 = Statut (en-têtes en gras)</li>
+                                    <li>A2:A9 : 8 noms (ex. : Dupont, Martin, Bernard, Petit, Robert, Richard, Durand, Leroy)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Statut sans source</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Sélectionnez C2:C9</li>
+                                    <li>Onglet Données → Validation des données</li>
+                                    <li>Autoriser = Liste · Source = <code>Actif;Inactif</code></li>
+                                    <li>Vérifiez que « Liste déroulante dans la cellule » est coché → OK</li>
+                                    <li>Cliquez C2 : la flèche apparaît. Choisissez Actif ou Inactif pour chaque ligne</li>
+                                </ul>
+                            </li>
+                            <li><strong>Feuille Listes</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Clic droit sur un onglet → Insérer → Feuille → renommez-la <code>Listes</code></li>
+                                    <li>A1 = Service</li>
+                                    <li>A2 = Urgences, A3 = Cardiologie, A4 = Pédiatrie, A5 = Laboratoire, A6 = Administration</li>
+                                </ul>
+                            </li>
+                            <li><strong>Service avec source</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Personnel → sélectionnez B2:B9</li>
+                                    <li>Données → Validation des données → Autoriser = Liste</li>
+                                    <li>Cliquez dans Source, puis l'onglet Listes, puis A2:A6 (ne pas prendre A1)</li>
+                                    <li>La case doit afficher <code>=Listes!$A$2:$A$6</code> → OK</li>
+                                    <li>Choisissez un service pour chaque personne</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tests</strong> :
+                                <ul style="margin-top: 10px">
+                                    <li>Tapez « Actiff » en C2 puis Entrée : Excel affiche un message d'erreur. Échap pour annuler</li>
+                                    <li>Listes ! A7 = Imagerie</li>
+                                    <li>Personnel → B2:B9 encore sélectionné → Validation des données → Source = <code>=Listes!$A$2:$A$7</code></li>
+                                    <li>La flèche de B2 propose maintenant Imagerie</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p style="margin-top: 30px; text-align: center">
+                        💡 <strong>Astuce</strong> : liste courte et figée → tapez dans Source. Liste longue ou destinée à évoluer → plage sur une feuille Listes, avec des <code>$</code> pour ne pas la perdre à l'Autofill.
+                    </p>
+                </div>
+        </div>
+    </article>
 </section>
 <section class="section" id="section-3">
     <h1 class="section-title">4. Tableaux croisés dynamiques</h1>
@@ -1850,7 +2112,7 @@ pre {
                     <ul style="text-align: left">
                         <li>Maîtriser les références relatives et absolues ($A$1, $A1, A$1)</li>
                         <li>Utiliser des fonctions avancées (SI, ET, OU, SIERREUR, RECHERCHEV, CONCATENER, GAUCHE, DATEDIF…)</li>
-                        <li>Trier et filtrer efficacement vos données</li>
+                        <li>Trier, filtrer, et créer des listes déroulantes (avec ou sans source)</li>
                         <li>Créer et lire des Tableaux Croisés Dynamiques (4 zones, exemples concrets)</li>
                         <li>Appliquer la mise en forme conditionnelle pour mettre en évidence automatiquement</li>
                     </ul>
